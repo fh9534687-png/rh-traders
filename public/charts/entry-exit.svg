@@ -1,0 +1,43 @@
+<svg width="1200" height="520" viewBox="0 0 1200 520" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1200" y2="520">
+      <stop stop-color="#0A0A0A"/>
+      <stop offset="1" stop-color="#111111"/>
+    </linearGradient>
+    <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="10" result="b"/>
+      <feMerge>
+        <feMergeNode in="b"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+  <rect width="1200" height="520" rx="28" fill="url(#bg)"/>
+  <g opacity="0.75">
+    <path d="M90 120H1110" stroke="#FFFFFF" stroke-opacity="0.06"/>
+    <path d="M90 200H1110" stroke="#FFFFFF" stroke-opacity="0.06"/>
+    <path d="M90 280H1110" stroke="#FFFFFF" stroke-opacity="0.06"/>
+    <path d="M90 360H1110" stroke="#FFFFFF" stroke-opacity="0.06"/>
+    <path d="M90 440H1110" stroke="#FFFFFF" stroke-opacity="0.06"/>
+  </g>
+
+  <g filter="url(#glow)">
+    <path d="M130 380 C 240 330, 300 350, 400 300 C 500 245, 570 270, 660 220 C 760 170, 830 200, 920 150 C 1010 105, 1050 118, 1080 98" stroke="#FF1A1A" stroke-opacity="0.8" stroke-width="7" stroke-linecap="round"/>
+  </g>
+
+  <!-- entry and exit markers -->
+  <circle cx="400" cy="300" r="10" fill="#34D399"/>
+  <text x="420" y="305" fill="#34D399" font-family="Inter, Arial" font-size="16" font-weight="800">ENTRY</text>
+
+  <circle cx="920" cy="150" r="10" fill="#FF1A1A"/>
+  <text x="940" y="155" fill="#FF1A1A" font-family="Inter, Arial" font-size="16" font-weight="800">EXIT</text>
+
+  <!-- stop loss -->
+  <path d="M330 370H520" stroke="#FF1A1A" stroke-opacity="0.55" stroke-width="4" stroke-dasharray="10 10"/>
+  <text x="330" y="392" fill="white" fill-opacity="0.75" font-family="Inter, Arial" font-size="14" font-weight="700">STOP LOSS</text>
+
+  <text x="90" y="70" fill="white" fill-opacity="0.90" font-family="Inter, Arial" font-size="22" font-weight="700">
+    Entry & Exit: Plan Before You Trade
+  </text>
+</svg>
+

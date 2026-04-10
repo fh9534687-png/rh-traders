@@ -1,0 +1,40 @@
+<svg width="1200" height="520" viewBox="0 0 1200 520" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1200" y2="520">
+      <stop stop-color="#0A0A0A"/>
+      <stop offset="1" stop-color="#120000"/>
+    </linearGradient>
+    <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="10" result="b"/>
+      <feMerge>
+        <feMergeNode in="b"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+  <rect width="1200" height="520" rx="28" fill="url(#bg)"/>
+
+  <g opacity="0.7">
+    <path d="M90 120H1110" stroke="#FFFFFF" stroke-opacity="0.06"/>
+    <path d="M90 200H1110" stroke="#FFFFFF" stroke-opacity="0.06"/>
+    <path d="M90 280H1110" stroke="#FFFFFF" stroke-opacity="0.06"/>
+    <path d="M90 360H1110" stroke="#FFFFFF" stroke-opacity="0.06"/>
+    <path d="M90 440H1110" stroke="#FFFFFF" stroke-opacity="0.06"/>
+  </g>
+
+  <g filter="url(#glow)">
+    <path d="M130 320 C 230 270, 300 290, 390 245 C 470 205, 540 230, 620 190 C 700 155, 770 178, 860 138 C 960 95, 1020 112, 1080 90" stroke="#34D399" stroke-opacity="0.85" stroke-width="7" stroke-linecap="round"/>
+  </g>
+
+  <!-- risk box -->
+  <rect x="210" y="300" width="320" height="140" rx="18" fill="#000000" fill-opacity="0.25" stroke="#FF1A1A" stroke-opacity="0.25"/>
+  <text x="240" y="342" fill="white" fill-opacity="0.95" font-family="Inter, Arial" font-size="18" font-weight="800">Risk Rule</text>
+  <text x="240" y="372" fill="white" fill-opacity="0.80" font-family="Inter, Arial" font-size="14" font-weight="700">Risk small per trade</text>
+  <text x="240" y="398" fill="white" fill-opacity="0.80" font-family="Inter, Arial" font-size="14" font-weight="700">Stop loss always set</text>
+  <text x="240" y="424" fill="white" fill-opacity="0.80" font-family="Inter, Arial" font-size="14" font-weight="700">Position size matters</text>
+
+  <text x="90" y="70" fill="white" fill-opacity="0.90" font-family="Inter, Arial" font-size="22" font-weight="700">
+    Risk Management: Protect Your Account
+  </text>
+</svg>
+

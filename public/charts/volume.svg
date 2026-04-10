@@ -1,0 +1,46 @@
+<svg width="1200" height="520" viewBox="0 0 1200 520" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1200" y2="520">
+      <stop stop-color="#0A0A0A"/>
+      <stop offset="1" stop-color="#111111"/>
+    </linearGradient>
+    <linearGradient id="line" x1="140" y1="280" x2="1080" y2="120">
+      <stop stop-color="#FF1A1A" stop-opacity="0.25"/>
+      <stop offset="1" stop-color="#FF1A1A" stop-opacity="0.85"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="520" rx="28" fill="url(#bg)"/>
+
+  <g opacity="0.7">
+    <path d="M110 120H1090" stroke="#FFFFFF" stroke-opacity="0.06"/>
+    <path d="M110 200H1090" stroke="#FFFFFF" stroke-opacity="0.06"/>
+    <path d="M110 280H1090" stroke="#FFFFFF" stroke-opacity="0.06"/>
+    <path d="M110 360H1090" stroke="#FFFFFF" stroke-opacity="0.06"/>
+    <path d="M110 440H1090" stroke="#FFFFFF" stroke-opacity="0.06"/>
+  </g>
+
+  <path d="M140 290 C 260 250, 320 270, 420 220 C 520 170, 620 210, 700 170 C 780 130, 860 150, 940 120 C 1020 95, 1060 100, 1080 92" stroke="url(#line)" stroke-width="7" stroke-linecap="round" fill="none"/>
+
+  <!-- volume bars -->
+  <g opacity="0.9">
+    <rect x="160" y="430" width="22" height="70" rx="4" fill="#34D399" fill-opacity="0.55"/>
+    <rect x="200" y="455" width="22" height="45" rx="4" fill="#FF1A1A" fill-opacity="0.55"/>
+    <rect x="240" y="420" width="22" height="80" rx="4" fill="#34D399" fill-opacity="0.55"/>
+    <rect x="280" y="465" width="22" height="35" rx="4" fill="#FF1A1A" fill-opacity="0.55"/>
+    <rect x="320" y="410" width="22" height="90" rx="4" fill="#34D399" fill-opacity="0.55"/>
+    <rect x="360" y="440" width="22" height="60" rx="4" fill="#FF1A1A" fill-opacity="0.55"/>
+    <rect x="400" y="395" width="22" height="105" rx="4" fill="#34D399" fill-opacity="0.55"/>
+    <rect x="440" y="430" width="22" height="70" rx="4" fill="#FF1A1A" fill-opacity="0.55"/>
+    <rect x="480" y="380" width="22" height="120" rx="4" fill="#34D399" fill-opacity="0.55"/>
+    <rect x="520" y="410" width="22" height="90" rx="4" fill="#FF1A1A" fill-opacity="0.55"/>
+    <rect x="560" y="365" width="22" height="135" rx="4" fill="#34D399" fill-opacity="0.55"/>
+    <rect x="600" y="400" width="22" height="100" rx="4" fill="#FF1A1A" fill-opacity="0.55"/>
+    <rect x="640" y="350" width="22" height="150" rx="4" fill="#34D399" fill-opacity="0.55"/>
+    <rect x="680" y="390" width="22" height="110" rx="4" fill="#FF1A1A" fill-opacity="0.55"/>
+  </g>
+
+  <text x="90" y="70" fill="white" fill-opacity="0.90" font-family="Inter, Arial" font-size="22" font-weight="700">
+    Volume: Strength Behind a Move
+  </text>
+</svg>
+

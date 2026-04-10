@@ -1,0 +1,54 @@
+<svg width="1200" height="520" viewBox="0 0 1200 520" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1200" y2="520" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#0A0A0A"/>
+      <stop offset="1" stop-color="#120000"/>
+    </linearGradient>
+    <linearGradient id="grid" x1="0" y1="0" x2="0" y2="520" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FFFFFF" stop-opacity="0.08"/>
+      <stop offset="1" stop-color="#FFFFFF" stop-opacity="0.04"/>
+    </linearGradient>
+    <linearGradient id="line" x1="130" y1="410" x2="1060" y2="130" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FF1A1A" stop-opacity="0.35"/>
+      <stop offset="1" stop-color="#FF1A1A" stop-opacity="0.95"/>
+    </linearGradient>
+    <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="10" result="b"/>
+      <feMerge>
+        <feMergeNode in="b"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+
+  <rect x="0" y="0" width="1200" height="520" rx="28" fill="url(#bg)"/>
+
+  <g opacity="0.9">
+    <path d="M80 90H1120" stroke="url(#grid)"/>
+    <path d="M80 160H1120" stroke="url(#grid)"/>
+    <path d="M80 230H1120" stroke="url(#grid)"/>
+    <path d="M80 300H1120" stroke="url(#grid)"/>
+    <path d="M80 370H1120" stroke="url(#grid)"/>
+    <path d="M80 440H1120" stroke="url(#grid)"/>
+
+    <path d="M150 60V470" stroke="url(#grid)"/>
+    <path d="M310 60V470" stroke="url(#grid)"/>
+    <path d="M470 60V470" stroke="url(#grid)"/>
+    <path d="M630 60V470" stroke="url(#grid)"/>
+    <path d="M790 60V470" stroke="url(#grid)"/>
+    <path d="M950 60V470" stroke="url(#grid)"/>
+    <path d="M1110 60V470" stroke="url(#grid)"/>
+  </g>
+
+  <g filter="url(#glow)">
+    <path d="M130 410 C 210 350, 250 375, 330 318 C 410 260, 470 285, 560 232 C 660 170, 720 210, 820 156 C 910 108, 990 135, 1060 92" stroke="url(#line)" stroke-width="8" stroke-linecap="round"/>
+  </g>
+
+  <g opacity="0.95">
+    <circle cx="330" cy="318" r="6" fill="#FF1A1A"/>
+    <circle cx="560" cy="232" r="6" fill="#FF1A1A"/>
+    <circle cx="820" cy="156" r="6" fill="#FF1A1A"/>
+    <circle cx="1060" cy="92" r="6" fill="#FF1A1A"/>
+  </g>
+</svg>
+

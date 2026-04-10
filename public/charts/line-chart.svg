@@ -1,0 +1,50 @@
+<svg width="1200" height="520" viewBox="0 0 1200 520" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1200" y2="520" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#0A0A0A"/>
+      <stop offset="1" stop-color="#111111"/>
+    </linearGradient>
+    <linearGradient id="grid" x1="0" y1="0" x2="0" y2="520">
+      <stop stop-color="#FFFFFF" stop-opacity="0.10"/>
+      <stop offset="1" stop-color="#FFFFFF" stop-opacity="0.05"/>
+    </linearGradient>
+    <linearGradient id="line" x1="120" y1="410" x2="1080" y2="120">
+      <stop stop-color="#FF1A1A" stop-opacity="0.35"/>
+      <stop offset="1" stop-color="#FF1A1A" stop-opacity="0.95"/>
+    </linearGradient>
+    <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="10" result="b"/>
+      <feMerge>
+        <feMergeNode in="b"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+  <rect width="1200" height="520" rx="28" fill="url(#bg)"/>
+  <g opacity="0.9">
+    <path d="M90 110H1110" stroke="url(#grid)"/>
+    <path d="M90 180H1110" stroke="url(#grid)"/>
+    <path d="M90 250H1110" stroke="url(#grid)"/>
+    <path d="M90 320H1110" stroke="url(#grid)"/>
+    <path d="M90 390H1110" stroke="url(#grid)"/>
+    <path d="M200 80V450" stroke="url(#grid)"/>
+    <path d="M360 80V450" stroke="url(#grid)"/>
+    <path d="M520 80V450" stroke="url(#grid)"/>
+    <path d="M680 80V450" stroke="url(#grid)"/>
+    <path d="M840 80V450" stroke="url(#grid)"/>
+    <path d="M1000 80V450" stroke="url(#grid)"/>
+  </g>
+  <g filter="url(#glow)">
+    <path d="M120 392 C 210 340, 250 360, 330 318 C 410 272, 470 292, 560 240 C 660 182, 720 212, 820 160 C 910 112, 990 140, 1080 96" stroke="url(#line)" stroke-width="8" stroke-linecap="round"/>
+  </g>
+  <g opacity="0.95">
+    <circle cx="330" cy="318" r="6" fill="#FF1A1A"/>
+    <circle cx="560" cy="240" r="6" fill="#FF1A1A"/>
+    <circle cx="820" cy="160" r="6" fill="#FF1A1A"/>
+    <circle cx="1080" cy="96" r="6" fill="#FF1A1A"/>
+  </g>
+  <text x="90" y="70" fill="white" fill-opacity="0.90" font-family="Inter, Arial" font-size="22" font-weight="700">
+    Line Chart (Close Price)
+  </text>
+</svg>
+

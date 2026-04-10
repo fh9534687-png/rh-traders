@@ -1,0 +1,29 @@
+<svg width="1200" height="520" viewBox="0 0 1200 520" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1200" y2="520">
+      <stop stop-color="#0A0A0A"/>
+      <stop offset="1" stop-color="#111111"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="520" rx="28" fill="url(#bg)"/>
+  <g opacity="0.75">
+    <path d="M90 120H1110" stroke="#FFFFFF" stroke-opacity="0.06"/>
+    <path d="M90 200H1110" stroke="#FFFFFF" stroke-opacity="0.06"/>
+    <path d="M90 280H1110" stroke="#FFFFFF" stroke-opacity="0.06"/>
+    <path d="M90 360H1110" stroke="#FFFFFF" stroke-opacity="0.06"/>
+    <path d="M90 440H1110" stroke="#FFFFFF" stroke-opacity="0.06"/>
+  </g>
+
+  <!-- messy lines -->
+  <path d="M140 420 C 260 260, 360 460, 460 280 C 560 120, 660 420, 760 200 C 860 460, 960 240, 1080 360" stroke="#FF1A1A" stroke-opacity="0.45" stroke-width="6" stroke-linecap="round"/>
+  <path d="M140 140 C 260 300, 340 180, 460 340 C 560 480, 660 180, 760 360 C 860 120, 960 320, 1080 160" stroke="#34D399" stroke-opacity="0.35" stroke-width="6" stroke-linecap="round"/>
+
+  <!-- X mark -->
+  <path d="M910 110 L1040 240" stroke="#FF1A1A" stroke-opacity="0.9" stroke-width="10" stroke-linecap="round"/>
+  <path d="M1040 110 L910 240" stroke="#FF1A1A" stroke-opacity="0.9" stroke-width="10" stroke-linecap="round"/>
+
+  <text x="90" y="70" fill="white" fill-opacity="0.90" font-family="Inter, Arial" font-size="22" font-weight="700">
+    Common Mistakes: Too Many Lines + No Plan
+  </text>
+</svg>
+

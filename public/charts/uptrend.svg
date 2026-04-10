@@ -1,0 +1,29 @@
+<svg width="1200" height="520" viewBox="0 0 1200 520" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1200" y2="520">
+      <stop stop-color="#0A0A0A"/>
+      <stop offset="1" stop-color="#111111"/>
+    </linearGradient>
+    <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="10" result="b"/>
+      <feMerge>
+        <feMergeNode in="b"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+  <rect width="1200" height="520" rx="28" fill="url(#bg)"/>
+  <g opacity="0.7">
+    <path d="M110 430H1090" stroke="#FFFFFF" stroke-opacity="0.06"/>
+    <path d="M110 330H1090" stroke="#FFFFFF" stroke-opacity="0.06"/>
+    <path d="M110 230H1090" stroke="#FFFFFF" stroke-opacity="0.06"/>
+    <path d="M110 130H1090" stroke="#FFFFFF" stroke-opacity="0.06"/>
+  </g>
+  <g filter="url(#glow)">
+    <path d="M140 420 C 260 360, 310 380, 410 320 C 520 255, 590 280, 680 220 C 780 155, 840 190, 920 140 C 990 100, 1040 110, 1080 92" stroke="#34D399" stroke-opacity="0.9" stroke-width="8" stroke-linecap="round"/>
+  </g>
+  <text x="90" y="70" fill="white" fill-opacity="0.90" font-family="Inter, Arial" font-size="22" font-weight="700">
+    Uptrend (Higher Highs + Higher Lows)
+  </text>
+</svg>
+

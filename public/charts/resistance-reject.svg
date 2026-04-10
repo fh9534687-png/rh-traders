@@ -1,0 +1,38 @@
+<svg width="1200" height="520" viewBox="0 0 1200 520" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1200" y2="520">
+      <stop stop-color="#0A0A0A"/>
+      <stop offset="1" stop-color="#120000"/>
+    </linearGradient>
+    <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="10" result="b"/>
+      <feMerge>
+        <feMergeNode in="b"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+  <rect width="1200" height="520" rx="28" fill="url(#bg)"/>
+  <g opacity="0.9">
+    <path d="M90 130H1110" stroke="#FF1A1A" stroke-opacity="0.35" stroke-width="4" stroke-linecap="round"/>
+    <text x="90" y="110" fill="#FF1A1A" fill-opacity="0.9" font-family="Inter, Arial" font-size="16" font-weight="700">RESISTANCE ZONE</text>
+  </g>
+  <g opacity="0.7">
+    <path d="M90 210H1110" stroke="#FFFFFF" stroke-opacity="0.06"/>
+    <path d="M90 290H1110" stroke="#FFFFFF" stroke-opacity="0.06"/>
+    <path d="M90 370H1110" stroke="#FFFFFF" stroke-opacity="0.06"/>
+    <path d="M90 450H1110" stroke="#FFFFFF" stroke-opacity="0.06"/>
+  </g>
+
+  <g filter="url(#glow)">
+    <path d="M140 430 C 220 380, 300 320, 380 260 C 460 200, 520 160, 590 140 C 630 128, 670 126, 710 132 C 770 140, 820 170, 860 220 C 920 300, 980 350, 1080 410" stroke="#34D399" stroke-opacity="0.85" stroke-width="7" stroke-linecap="round"/>
+  </g>
+  <g opacity="0.95">
+    <circle cx="590" cy="140" r="8" fill="#FF1A1A"/>
+    <circle cx="860" cy="220" r="6" fill="#34D399"/>
+  </g>
+  <text x="90" y="70" fill="white" fill-opacity="0.90" font-family="Inter, Arial" font-size="22" font-weight="700">
+    Resistance: Price Rejects Down
+  </text>
+</svg>
+
