@@ -1,0 +1,76 @@
+<svg width="1400" height="720" viewBox="0 0 1400 720" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1400" y2="720">
+      <stop stop-color="#020617" />
+      <stop offset="1" stop-color="#0B1224" />
+    </linearGradient>
+    <linearGradient id="price" x1="0" y1="0" x2="1" y2="1">
+      <stop stop-color="#38BDF8" stop-opacity="0.85" />
+      <stop offset="1" stop-color="#2563EB" stop-opacity="0.95" />
+    </linearGradient>
+    <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="10" result="b" />
+      <feMerge>
+        <feMergeNode in="b" />
+        <feMergeNode in="SourceGraphic" />
+      </feMerge>
+    </filter>
+  </defs>
+
+  <rect width="1400" height="720" rx="36" fill="url(#bg)" />
+
+  <g opacity="0.75">
+    <path d="M140 120H1260" stroke="#FFFFFF" stroke-opacity="0.06" />
+    <path d="M140 240H1260" stroke="#FFFFFF" stroke-opacity="0.06" />
+    <path d="M140 360H1260" stroke="#FFFFFF" stroke-opacity="0.06" />
+    <path d="M140 480H1260" stroke="#FFFFFF" stroke-opacity="0.06" />
+    <path d="M140 600H1260" stroke="#FFFFFF" stroke-opacity="0.06" />
+  </g>
+
+  <!-- Support zone -->
+  <g>
+    <rect x="180" y="455" width="1110" height="64" rx="20" fill="#38BDF8" fill-opacity="0.10" stroke="#38BDF8" stroke-opacity="0.30" stroke-width="2" />
+    <text x="205" y="495" fill="white" fill-opacity="0.9" font-family="Inter, Arial" font-size="18" font-weight="900">
+      SUPPORT ZONE
+    </text>
+  </g>
+
+  <!-- Price path -->
+  <g filter="url(#glow)">
+    <path
+      d="M210 540 C 320 490, 380 515, 500 465 C 640 410, 700 435, 820 385 C 950 330, 1010 360, 1120 300 C 1210 255, 1250 270, 1290 240"
+      stroke="url(#price)"
+      stroke-opacity="0.95"
+      stroke-width="9"
+      stroke-linecap="round"
+    />
+  </g>
+
+  <!-- Entry/Stop/Target -->
+  <g>
+    <circle cx="520" cy="460" r="10" fill="#7DD3FC" />
+    <text x="540" y="466" fill="white" fill-opacity="0.92" font-family="Inter, Arial" font-size="16" font-weight="900">
+      Entry
+    </text>
+
+    <path d="M520 460V565" stroke="#7DD3FC" stroke-opacity="0.35" stroke-width="3" stroke-dasharray="8 10" />
+    <path d="M470 585H820" stroke="#38BDF8" stroke-opacity="0.55" stroke-width="6" stroke-linecap="round" />
+    <text x="470" y="625" fill="white" fill-opacity="0.9" font-family="Inter, Arial" font-size="18" font-weight="900">
+      STOP LOSS (below support)
+    </text>
+
+    <path d="M520 460V250" stroke="#38BDF8" stroke-opacity="0.25" stroke-width="3" stroke-dasharray="8 10" />
+    <path d="M860 250H1290" stroke="#2563EB" stroke-opacity="0.55" stroke-width="6" stroke-linecap="round" />
+    <text x="860" y="230" fill="white" fill-opacity="0.9" font-family="Inter, Arial" font-size="18" font-weight="900">
+      TARGET
+    </text>
+  </g>
+
+  <g>
+    <rect x="74" y="62" width="760" height="56" rx="18" fill="#0B1224" stroke="#38BDF8" stroke-opacity="0.35" />
+    <text x="104" y="100" fill="white" fill-opacity="0.95" font-family="Inter, Arial" font-size="22" font-weight="800">
+      Stop loss: define risk before you enter
+    </text>
+  </g>
+</svg>
+

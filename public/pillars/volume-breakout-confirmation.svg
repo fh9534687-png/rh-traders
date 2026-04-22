@@ -1,0 +1,94 @@
+<svg width="1400" height="720" viewBox="0 0 1400 720" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1400" y2="720">
+      <stop stop-color="#020617" />
+      <stop offset="1" stop-color="#0B1224" />
+    </linearGradient>
+    <linearGradient id="accent" x1="0" y1="0" x2="1" y2="1">
+      <stop stop-color="#38BDF8" stop-opacity="0.85" />
+      <stop offset="1" stop-color="#2563EB" stop-opacity="0.95" />
+    </linearGradient>
+    <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="10" result="b" />
+      <feMerge>
+        <feMergeNode in="b" />
+        <feMergeNode in="SourceGraphic" />
+      </feMerge>
+    </filter>
+  </defs>
+
+  <rect width="1400" height="720" rx="36" fill="url(#bg)" />
+
+  <g opacity="0.75">
+    <path d="M140 120H1260" stroke="#FFFFFF" stroke-opacity="0.06" />
+    <path d="M140 240H1260" stroke="#FFFFFF" stroke-opacity="0.06" />
+    <path d="M140 360H1260" stroke="#FFFFFF" stroke-opacity="0.06" />
+    <path d="M140 480H1260" stroke="#FFFFFF" stroke-opacity="0.06" />
+    <path d="M140 600H1260" stroke="#FFFFFF" stroke-opacity="0.06" />
+  </g>
+
+  <!-- Resistance line -->
+  <g>
+    <path d="M180 290H1290" stroke="#38BDF8" stroke-opacity="0.45" stroke-width="6" stroke-linecap="round" />
+    <text x="205" y="265" fill="white" fill-opacity="0.9" font-family="Inter, Arial" font-size="18" font-weight="900">
+      RESISTANCE
+    </text>
+  </g>
+
+  <!-- Price path with breakout -->
+  <g filter="url(#glow)">
+    <path
+      d="M200 470 C 320 430, 400 455, 520 410 C 630 370, 710 395, 820 350 C 910 315, 980 330, 1040 300"
+      stroke="#60A5FA"
+      stroke-opacity="0.85"
+      stroke-width="9"
+      stroke-linecap="round"
+    />
+    <path
+      d="M1040 300 C 1080 270, 1120 250, 1160 230 C 1210 205, 1250 215, 1290 190"
+      stroke="url(#accent)"
+      stroke-opacity="0.95"
+      stroke-width="10"
+      stroke-linecap="round"
+    />
+  </g>
+
+  <!-- Volume bars: low then spike -->
+  <g>
+    <rect x="210" y="620" width="30" height="50" rx="8" fill="#38BDF8" fill-opacity="0.22" />
+    <rect x="255" y="628" width="30" height="42" rx="8" fill="#38BDF8" fill-opacity="0.2" />
+    <rect x="300" y="615" width="30" height="55" rx="8" fill="#38BDF8" fill-opacity="0.24" />
+    <rect x="345" y="635" width="30" height="35" rx="8" fill="#38BDF8" fill-opacity="0.18" />
+    <rect x="390" y="620" width="30" height="50" rx="8" fill="#38BDF8" fill-opacity="0.2" />
+    <rect x="435" y="612" width="30" height="58" rx="8" fill="#38BDF8" fill-opacity="0.24" />
+    <rect x="480" y="630" width="30" height="40" rx="8" fill="#38BDF8" fill-opacity="0.18" />
+    <rect x="525" y="618" width="30" height="52" rx="8" fill="#38BDF8" fill-opacity="0.22" />
+    <rect x="570" y="608" width="30" height="62" rx="8" fill="#38BDF8" fill-opacity="0.26" />
+    <rect x="615" y="632" width="30" height="38" rx="8" fill="#38BDF8" fill-opacity="0.18" />
+    <rect x="660" y="620" width="30" height="50" rx="8" fill="#38BDF8" fill-opacity="0.22" />
+    <rect x="705" y="610" width="30" height="60" rx="8" fill="#38BDF8" fill-opacity="0.26" />
+    <rect x="750" y="592" width="30" height="78" rx="8" fill="#38BDF8" fill-opacity="0.32" />
+    <rect x="795" y="570" width="30" height="100" rx="8" fill="#38BDF8" fill-opacity="0.42" />
+    <rect x="840" y="520" width="30" height="150" rx="8" fill="#38BDF8" fill-opacity="0.62" />
+    <rect x="885" y="470" width="30" height="200" rx="8" fill="#38BDF8" fill-opacity="0.72" />
+    <rect x="930" y="420" width="30" height="250" rx="8" fill="#38BDF8" fill-opacity="0.8" />
+    <rect x="975" y="390" width="30" height="280" rx="8" fill="#38BDF8" fill-opacity="0.85" />
+    <rect x="1020" y="350" width="30" height="320" rx="8" fill="#38BDF8" fill-opacity="0.9" />
+  </g>
+
+  <!-- Labels -->
+  <g>
+    <rect x="74" y="62" width="860" height="56" rx="18" fill="#0B1224" stroke="#38BDF8" stroke-opacity="0.35" />
+    <text x="104" y="100" fill="white" fill-opacity="0.95" font-family="Inter, Arial" font-size="22" font-weight="800">
+      Breakout confirmation: price breaks + volume spike
+    </text>
+    <rect x="980" y="330" width="310" height="86" rx="20" fill="#0B1224" stroke="#38BDF8" stroke-opacity="0.35" />
+    <text x="1005" y="368" fill="white" fill-opacity="0.95" font-family="Inter, Arial" font-size="18" font-weight="900">
+      Volume spike
+    </text>
+    <text x="1005" y="395" fill="white" fill-opacity="0.72" font-family="Inter, Arial" font-size="15" font-weight="700">
+      Strong participation
+    </text>
+  </g>
+</svg>
+

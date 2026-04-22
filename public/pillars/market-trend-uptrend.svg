@@ -1,0 +1,47 @@
+<svg width="1400" height="720" viewBox="0 0 1400 720" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1400" y2="720">
+      <stop stop-color="#020617" />
+      <stop offset="1" stop-color="#0B1224" />
+    </linearGradient>
+    <linearGradient id="line" x1="170" y1="540" x2="1240" y2="160">
+      <stop stop-color="#38BDF8" stop-opacity="0.85" />
+      <stop offset="1" stop-color="#2563EB" stop-opacity="0.95" />
+    </linearGradient>
+    <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="10" result="b" />
+      <feMerge>
+        <feMergeNode in="b" />
+        <feMergeNode in="SourceGraphic" />
+      </feMerge>
+    </filter>
+  </defs>
+
+  <rect width="1400" height="720" rx="36" fill="url(#bg)" />
+
+  <g opacity="0.75">
+    <path d="M140 600H1260" stroke="#FFFFFF" stroke-opacity="0.06" />
+    <path d="M140 480H1260" stroke="#FFFFFF" stroke-opacity="0.06" />
+    <path d="M140 360H1260" stroke="#FFFFFF" stroke-opacity="0.06" />
+    <path d="M140 240H1260" stroke="#FFFFFF" stroke-opacity="0.06" />
+    <path d="M140 120H1260" stroke="#FFFFFF" stroke-opacity="0.06" />
+  </g>
+
+  <g filter="url(#glow)">
+    <path
+      d="M180 560 C 320 500, 380 520, 500 450 C 640 370, 710 410, 820 330 C 950 245, 1020 290, 1120 215 C 1210 160, 1260 175, 1290 150"
+      stroke="url(#line)"
+      stroke-opacity="0.95"
+      stroke-width="10"
+      stroke-linecap="round"
+    />
+  </g>
+
+  <g>
+    <rect x="74" y="62" width="560" height="56" rx="18" fill="#0B1224" stroke="#38BDF8" stroke-opacity="0.35" />
+    <text x="104" y="100" fill="white" fill-opacity="0.95" font-family="Inter, Arial" font-size="22" font-weight="800">
+      Uptrend: Higher highs + higher lows
+    </text>
+  </g>
+</svg>
+

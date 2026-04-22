@@ -1,0 +1,76 @@
+<svg width="1400" height="720" viewBox="0 0 1400 720" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1400" y2="720">
+      <stop stop-color="#020617" />
+      <stop offset="1" stop-color="#0B1224" />
+    </linearGradient>
+    <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="10" result="b" />
+      <feMerge>
+        <feMergeNode in="b" />
+        <feMergeNode in="SourceGraphic" />
+      </feMerge>
+    </filter>
+  </defs>
+
+  <rect width="1400" height="720" rx="36" fill="url(#bg)" />
+
+  <g opacity="0.75">
+    <path d="M140 600H1260" stroke="#FFFFFF" stroke-opacity="0.06" />
+    <path d="M140 480H1260" stroke="#FFFFFF" stroke-opacity="0.06" />
+    <path d="M140 360H1260" stroke="#FFFFFF" stroke-opacity="0.06" />
+    <path d="M140 240H1260" stroke="#FFFFFF" stroke-opacity="0.06" />
+    <path d="M140 120H1260" stroke="#FFFFFF" stroke-opacity="0.06" />
+  </g>
+
+  <!-- Resistance line -->
+  <g>
+    <path d="M180 260H1290" stroke="#38BDF8" stroke-opacity="0.45" stroke-width="6" stroke-linecap="round" />
+    <text x="205" y="235" fill="white" fill-opacity="0.9" font-family="Inter, Arial" font-size="18" font-weight="900">
+      RESISTANCE
+    </text>
+  </g>
+
+  <!-- Fake breakout then dump -->
+  <g filter="url(#glow)">
+    <path
+      d="M210 520 C 340 440, 420 480, 540 390 C 660 300, 750 330, 860 270 C 950 220, 1010 235, 1070 205"
+      stroke="#60A5FA"
+      stroke-opacity="0.85"
+      stroke-width="9"
+      stroke-linecap="round"
+    />
+    <path
+      d="M1070 205 C 1105 180, 1135 175, 1165 165 C 1200 150, 1230 165, 1260 155"
+      stroke="#7DD3FC"
+      stroke-opacity="0.95"
+      stroke-width="9"
+      stroke-linecap="round"
+    />
+    <path
+      d="M1260 155 C 1225 205, 1180 260, 1120 310 C 1040 380, 980 360, 900 420 C 800 495, 720 470, 640 520"
+      stroke="#38BDF8"
+      stroke-opacity="0.9"
+      stroke-width="9"
+      stroke-linecap="round"
+    />
+  </g>
+
+  <g>
+    <rect x="980" y="285" width="310" height="92" rx="22" fill="#0B1224" stroke="#38BDF8" stroke-opacity="0.35" stroke-width="2" />
+    <text x="1005" y="325" fill="white" fill-opacity="0.95" font-family="Inter, Arial" font-size="18" font-weight="900">
+      False breakout
+    </text>
+    <text x="1005" y="353" fill="white" fill-opacity="0.75" font-family="Inter, Arial" font-size="15" font-weight="700">
+      Breaks above, then fails
+    </text>
+  </g>
+
+  <g>
+    <rect x="74" y="62" width="690" height="56" rx="18" fill="#0B1224" stroke="#38BDF8" stroke-opacity="0.35" />
+    <text x="104" y="100" fill="white" fill-opacity="0.95" font-family="Inter, Arial" font-size="22" font-weight="800">
+      Fakeouts: why confirmation matters
+    </text>
+  </g>
+</svg>
+

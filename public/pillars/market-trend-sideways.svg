@@ -1,0 +1,53 @@
+<svg width="1400" height="720" viewBox="0 0 1400 720" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1400" y2="720">
+      <stop stop-color="#020617" />
+      <stop offset="1" stop-color="#0B1224" />
+    </linearGradient>
+    <linearGradient id="range" x1="0" y1="0" x2="0" y2="1">
+      <stop stop-color="#38BDF8" stop-opacity="0.14" />
+      <stop offset="1" stop-color="#2563EB" stop-opacity="0.08" />
+    </linearGradient>
+    <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="10" result="b" />
+      <feMerge>
+        <feMergeNode in="b" />
+        <feMergeNode in="SourceGraphic" />
+      </feMerge>
+    </filter>
+  </defs>
+
+  <rect width="1400" height="720" rx="36" fill="url(#bg)" />
+
+  <g opacity="0.75">
+    <path d="M140 600H1260" stroke="#FFFFFF" stroke-opacity="0.06" />
+    <path d="M140 480H1260" stroke="#FFFFFF" stroke-opacity="0.06" />
+    <path d="M140 360H1260" stroke="#FFFFFF" stroke-opacity="0.06" />
+    <path d="M140 240H1260" stroke="#FFFFFF" stroke-opacity="0.06" />
+    <path d="M140 120H1260" stroke="#FFFFFF" stroke-opacity="0.06" />
+  </g>
+
+  <g>
+    <rect x="180" y="250" width="1110" height="220" rx="26" fill="url(#range)" stroke="#38BDF8" stroke-opacity="0.22" />
+    <path d="M210 290H1260" stroke="#38BDF8" stroke-opacity="0.25" stroke-width="3" stroke-dasharray="10 12" />
+    <path d="M210 430H1260" stroke="#38BDF8" stroke-opacity="0.25" stroke-width="3" stroke-dasharray="10 12" />
+  </g>
+
+  <g filter="url(#glow)">
+    <path
+      d="M200 360 C 270 315, 330 405, 400 355 C 470 305, 540 420, 610 360 C 680 300, 760 420, 830 365 C 900 310, 990 410, 1060 360 C 1130 310, 1210 395, 1280 360"
+      stroke="#38BDF8"
+      stroke-opacity="0.9"
+      stroke-width="10"
+      stroke-linecap="round"
+    />
+  </g>
+
+  <g>
+    <rect x="74" y="62" width="560" height="56" rx="18" fill="#0B1224" stroke="#38BDF8" stroke-opacity="0.35" />
+    <text x="104" y="100" fill="white" fill-opacity="0.95" font-family="Inter, Arial" font-size="22" font-weight="800">
+      Sideways: Range / consolidation
+    </text>
+  </g>
+</svg>
+

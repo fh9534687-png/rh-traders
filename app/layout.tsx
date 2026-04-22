@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import { Geist_Mono, Inter } from "next/font/google";
 import "./globals.css";
 import { Header } from "./components/Header";
+import { SiteFooter } from "./components/SiteFooter";
+import { PwaRegistrar } from "./components/PwaRegistrar";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -17,6 +19,8 @@ export const metadata: Metadata = {
   title: "RH Traders | Premium Crypto Trading",
   description:
     "Premium crypto trading signals, courses, and market analysis from RH Traders.",
+  manifest: "/manifest.json",
+  themeColor: "#0ea5e9",
 };
 
 export default function RootLayout({
@@ -29,9 +33,11 @@ export default function RootLayout({
       lang="en"
       className={`${inter.variable} ${geistMono.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col bg-black text-white">
+      <body className="min-h-full flex flex-col bg-[#020617] text-slate-100 antialiased transition-colors duration-300">
+        <PwaRegistrar />
         <Header />
         {children}
+        <SiteFooter />
       </body>
     </html>
   );

@@ -1,4 +1,9 @@
-export function Logo() {
+export function Logo({ variant = "dark" }: { variant?: "dark" | "light" }) {
+  const tradersClass =
+    variant === "light"
+      ? "font-['Georgia'] text-base font-black tracking-[0.28em] text-slate-900"
+      : "font-['Georgia'] text-base font-black tracking-[0.28em] text-zinc-200/90";
+
   return (
     <div className="flex items-baseline gap-3 select-none">
       <span
@@ -7,9 +12,7 @@ export function Logo() {
       >
         RH
       </span>
-      <span className="font-['Georgia'] text-base font-black tracking-[0.28em] text-zinc-200/90">
-        TRADERS
-      </span>
+      <span className={tradersClass}>TRADERS</span>
     </div>
   );
 }

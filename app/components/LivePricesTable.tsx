@@ -71,7 +71,7 @@ export function LivePricesTable() {
   }
 
   return (
-    <div className="rh-card overflow-hidden rounded-2xl">
+    <div className="rh-dark-data overflow-hidden rounded-2xl">
       <div className="overflow-x-auto">
         <table className="rh-table rh-table-premium min-w-full text-left text-base">
           <thead>
@@ -88,7 +88,7 @@ export function LivePricesTable() {
               const change = r.change24h;
               const changeClass =
                 change == null
-                  ? "text-zinc-300"
+                  ? "text-slate-400"
                   : change >= 0
                     ? "text-emerald-400"
                     : "text-rose-400";
@@ -100,9 +100,9 @@ export function LivePricesTable() {
                 >
                   <td className="px-5 py-4 font-bold text-white">
                     <span className="inline-flex items-center gap-2">
-                      <span className="h-2.5 w-2.5 rounded-full bg-[color:var(--rh-red)] shadow-[0_0_18px_rgba(255,26,26,0.35)]" />
+                      <span className="h-2.5 w-2.5 rounded-full bg-[color:var(--rh-accent-bright)] shadow-[0_0_10px_rgba(59,130,246,0.55)]" />
                       {r.symbol}
-                      <span className="hidden font-medium text-zinc-400 sm:inline">
+                      <span className="hidden font-medium text-slate-400 sm:inline">
                         · {r.name}
                       </span>
                     </span>
@@ -118,7 +118,7 @@ export function LivePricesTable() {
                   <td className={["px-5 py-4 font-semibold tabular-nums", changeClass].join(" ")}>
                     {change == null ? "—" : `${change.toFixed(2)}%`}
                   </td>
-                  <td className="px-5 py-4 text-white/90 tabular-nums">
+                  <td className="px-5 py-4 text-slate-200/90 tabular-nums">
                     {r.marketCapUsd == null ? "—" : formatCompactUsd(r.marketCapUsd)}
                   </td>
                 </tr>
@@ -128,13 +128,12 @@ export function LivePricesTable() {
         </table>
       </div>
 
-      <div className="flex items-center justify-between gap-4 border-t border-white/10 bg-white/5 px-5 py-4 text-sm text-zinc-300">
+      <div className="flex items-center justify-between gap-4 border-t border-sky-500/15 bg-slate-950/50 px-5 py-4 text-sm text-slate-400">
         <span>
           {loading ? "Loading live prices…" : "Auto-updates every 30 seconds"}
         </span>
-        <span className="text-zinc-500">Data: CoinGecko</span>
+        <span className="text-slate-500">Data: CoinGecko</span>
       </div>
     </div>
   );
 }
-

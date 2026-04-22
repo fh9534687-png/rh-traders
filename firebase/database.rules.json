@@ -1,0 +1,49 @@
+{
+  "rules": {
+    "users": {
+      ".read": "auth != null",
+      ".write": "auth != null",
+      ".indexOn": ["email", "authUid", "paymentStatus", "signalsRequestStatus"]
+    },
+    "payments": {
+      ".read": "auth != null",
+      ".write": "auth != null",
+      ".indexOn": ["email", "status", "trxId"]
+    },
+    "lectures": {
+      ".read": "auth != null",
+      ".write": "auth != null"
+    },
+    "signals": {
+      ".read": "auth != null",
+      ".write": "auth != null"
+    },
+    "liveSessions": {
+      ".read": "auth != null",
+      ".write": "auth != null"
+    },
+    "signalsRequests": {
+      ".read": "auth != null",
+      ".write": "auth != null",
+      ".indexOn": ["email", "status", "plan"]
+    },
+    "signalCalls": {
+      ".read": "auth != null",
+      ".write": "auth != null",
+      ".indexOn": ["email", "status"]
+    },
+    "selectedUsers": {
+      ".read": "auth != null",
+      ".write": "auth != null"
+    },
+    "selectiveAccessRequests": {
+      ".read": "auth != null",
+      ".write": "auth != null",
+      ".indexOn": ["email", "status", "dashboard"]
+    },
+    "selectiveAccessGrants": {
+      ".read": "auth != null",
+      ".write": "auth != null"
+    }
+  }
+}

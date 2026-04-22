@@ -231,39 +231,42 @@ function SampleChartBox({
   subtitle: string;
 }) {
   return (
-    <div className="rh-card rounded-3xl p-5">
+    <div className="rh-dark-data rounded-3xl p-5">
       <div className="flex items-start justify-between gap-4">
         <div>
           <p className="text-sm font-extrabold tracking-wide text-white">
             {title}
           </p>
-          <p className="mt-2 text-white/90">{subtitle}</p>
+          <p className="mt-2 text-slate-300">{subtitle}</p>
         </div>
         <span className="h-10 w-10 rounded-2xl border border-white/10 bg-white/5" />
       </div>
-      <div className="mt-5 h-24 rounded-2xl border border-white/10 bg-[linear-gradient(180deg,rgba(255,26,26,0.14),rgba(0,0,0,0.35))]" />
+      <div className="mt-5 h-24 rounded-2xl border border-white/10 bg-[linear-gradient(180deg,rgba(255,140,0,0.22),rgba(15,23,42,0.95))]" />
     </div>
   );
 }
 
 export default function ChartsPage() {
   return (
-    <div className="min-h-screen bg-black text-white">
-      <main className="rh-wrap px-5 py-14">
+    <main className="relative flex-1 px-5 py-14 text-white">
+      {/* Coolors palette background (matches Market page) */}
+      <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(135deg,#03045e_0%,#023e8a_18%,#0077b6_36%,#0096c7_52%,#00b4d8_66%,#48cae4_78%,#90e0ef_88%,#ade8f4_94%,#caf0f8_100%)]" />
+      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_50%_0%,rgba(2,6,23,0.55),rgba(2,6,23,0.92)_62%)]" />
+
+      <div className="rh-wrap relative">
         <div className="grid gap-10 lg:grid-cols-12">
           <div className="lg:col-span-7">
-            <h1 className="text-balance text-5xl font-black tracking-tight sm:text-6xl">
-              Master Crypto Charts & Trading Analysis
+            <h1 className="text-balance font-[Georgia,Times_New_Roman,Times,serif] text-5xl font-bold tracking-tight text-white sm:text-6xl">
+              Charts &amp; market analysis
             </h1>
-            <p className="mt-4 text-lg leading-8 text-white/95">
-              Welcome to the Trading Charts & Analysis Hub. This page teaches
-              you how to read crypto trading charts step by step, using simple
-              language and clear examples.
+            <p className="mt-4 text-lg leading-8 text-slate-200/90">
+              This hub explains chart reading in a practical sequence: structure, levels, volume,
+              and execution. The goal is to help you build repeatable decisions with clear
+              invalidation—so your analysis stays consistent in fast markets.
             </p>
-            <p className="mt-3 text-lg leading-8 text-white/95">
-              If you want to learn bitcoin chart analysis, candlestick patterns,
-              and technical analysis crypto basics without confusion, you are in
-              the right place.
+            <p className="mt-3 text-lg leading-8 text-slate-200/90">
+              You’ll find concise explanations, visual examples, and a clean framework you can apply
+              to BTC, ETH, and liquid altcoins without relying on indicator overload.
             </p>
 
             <div className="mt-6 flex flex-col gap-3 sm:flex-row">
@@ -275,13 +278,13 @@ export default function ChartsPage() {
               </Link>
               <Link
                 href="/#signals"
-                className="rh-btn-secondary inline-flex items-center justify-center rounded-full px-7 py-3.5 text-base font-extrabold text-white transition"
+                className="rh-btn-secondary inline-flex items-center justify-center rounded-full px-7 py-3.5 text-base font-extrabold transition"
               >
                 View Signals
               </Link>
               <Link
                 href="/coins"
-                className="rh-btn-secondary inline-flex items-center justify-center rounded-full px-7 py-3.5 text-base font-extrabold text-white transition"
+                className="rh-btn-secondary inline-flex items-center justify-center rounded-full px-7 py-3.5 text-base font-extrabold transition"
               >
                 Explore Coins
               </Link>
@@ -289,7 +292,7 @@ export default function ChartsPage() {
           </div>
 
           <div className="lg:col-span-5">
-            <div className="pointer-events-none relative overflow-hidden rounded-3xl border border-white/10 bg-white/5 p-4">
+            <div className="rh-dark-data pointer-events-none relative overflow-hidden rounded-3xl p-4">
               <Image
               src="/charts/candlesticks.svg"
                 alt="Charts and analysis illustration"
@@ -315,10 +318,10 @@ export default function ChartsPage() {
 
         <section className="mt-12">
           <div className="rh-card rounded-3xl p-6">
-            <h2 className="text-2xl font-black tracking-tight text-white">
+            <h2 className="font-[Georgia,Times_New_Roman,Times,serif] text-2xl font-bold tracking-tight text-white">
               Real Chart Examples
             </h2>
-            <div className="mt-4 overflow-hidden rounded-2xl border border-white/10 bg-white/5">
+            <div className="rh-dark-data mt-4 overflow-hidden rounded-2xl p-2">
               <Image
                 src="/charts/entry-exit.svg"
                 alt="Real chart example showing entry, exit, and stop loss"
@@ -327,14 +330,14 @@ export default function ChartsPage() {
                 className="h-auto w-full opacity-92"
               />
             </div>
-            <p className="mt-5 text-white/95">
-              A real example is the fastest teacher. You can read ten pages, but
-              one good chart example can make the concept click instantly.
+            <p className="mt-5 text-slate-200/85">
+              Examples are included to show how a plan is built: context first, then levels, then
+              execution. The objective is not prediction—it is disciplined decision-making.
             </p>
-            <p className="mt-3 text-white/95">
-              Notice how the entry is near a meaningful area, the stop loss is
-              decided before the trade, and the exit is planned near a logical
-              target. This structure is what separates learning from gambling.
+            <p className="mt-3 text-slate-200/85">
+              Notice the sequence: entry near a defined level, stop placed at invalidation, and
+              target selected at the next logical area. This creates measurable risk and removes
+              impulse from the process.
             </p>
             <div className="mt-6 grid gap-4 md:grid-cols-3">
               <SampleChartBox
@@ -356,11 +359,11 @@ export default function ChartsPage() {
         <div className="mt-12 space-y-10">
           {sections.map((s) => (
             <section key={s.id} id={s.id} className="rh-card rounded-3xl p-6">
-              <h2 className="text-2xl font-black tracking-tight text-white">
+              <h2 className="font-[Georgia,Times_New_Roman,Times,serif] text-2xl font-bold tracking-tight text-white">
                 {s.title}
               </h2>
 
-              <div className="mt-4 overflow-hidden rounded-2xl border border-white/10 bg-white/5">
+              <div className="rh-dark-data mt-4 overflow-hidden rounded-2xl p-2">
                 <Image
                   src={s.imageSrc}
                   alt={s.imageAlt}
@@ -372,14 +375,14 @@ export default function ChartsPage() {
 
               <div className="mt-5 space-y-3">
                 {s.paragraphs.map((p, idx) => (
-                  <p key={idx} className="text-white/95">
+                  <p key={idx} className="text-slate-400">
                     {p}
                   </p>
                 ))}
               </div>
 
               {s.bullets?.length ? (
-                <ul className="mt-5 list-disc space-y-2 pl-6 text-white/95">
+                <ul className="mt-5 list-disc space-y-2 pl-6 text-slate-400">
                   {s.bullets.map((b) => (
                     <li key={b}>{b}</li>
                   ))}
@@ -389,19 +392,19 @@ export default function ChartsPage() {
               <div className="mt-6 flex flex-wrap gap-3">
                 <Link
                   href="/coins"
-                  className="rh-btn-secondary inline-flex items-center justify-center rounded-full px-6 py-3 text-sm font-extrabold text-white transition"
+                  className="rh-btn-secondary inline-flex items-center justify-center rounded-full px-6 py-3 text-sm font-extrabold transition"
                 >
                   Learn coins
                 </Link>
                 <Link
                   href="/#signals"
-                  className="rh-btn-secondary inline-flex items-center justify-center rounded-full px-6 py-3 text-sm font-extrabold text-white transition"
+                  className="rh-btn-secondary inline-flex items-center justify-center rounded-full px-6 py-3 text-sm font-extrabold transition"
                 >
                   Signals
                 </Link>
                 <Link
                   href="/#learn"
-                  className="rh-btn-secondary inline-flex items-center justify-center rounded-full px-6 py-3 text-sm font-extrabold text-white transition"
+                  className="rh-btn-secondary inline-flex items-center justify-center rounded-full px-6 py-3 text-sm font-extrabold transition"
                 >
                   Learning
                 </Link>
@@ -415,7 +418,7 @@ export default function ChartsPage() {
           <h2 className="text-2xl font-black tracking-tight text-white">
             Complete Beginner Guide: How to Read Crypto Trading Charts (Long-Form)
           </h2>
-          <div className="mt-4 overflow-hidden rounded-2xl border border-white/10 bg-white/5">
+          <div className="rh-dark-data mt-4 overflow-hidden rounded-2xl p-2">
             <Image
               src="/charts/line-chart.svg"
               alt="Long-form guide illustration"
@@ -425,7 +428,7 @@ export default function ChartsPage() {
             />
           </div>
 
-          <div className="mt-5 space-y-3 text-white/95">
+          <div className="mt-5 space-y-3 text-slate-400">
             {/* The content below is intentionally long for SEO (5000+ words) and kept as short paragraphs for readability. */}
             <p>
               This long section is written for people who type questions like
@@ -623,20 +626,20 @@ export default function ChartsPage() {
             </Link>
             <Link
               href="/#signals"
-              className="rh-btn-secondary inline-flex items-center justify-center rounded-full px-7 py-3.5 text-base font-extrabold text-white transition"
+              className="rh-btn-secondary inline-flex items-center justify-center rounded-full px-7 py-3.5 text-base font-extrabold transition"
             >
               View Signals
             </Link>
             <Link
               href="/coins"
-              className="rh-btn-secondary inline-flex items-center justify-center rounded-full px-7 py-3.5 text-base font-extrabold text-white transition"
+              className="rh-btn-secondary inline-flex items-center justify-center rounded-full px-7 py-3.5 text-base font-extrabold transition"
             >
               Explore Coins
             </Link>
           </div>
         </section>
-      </main>
-    </div>
+      </div>
+    </main>
   );
 }
 
