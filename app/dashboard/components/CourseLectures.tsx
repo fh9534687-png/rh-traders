@@ -76,8 +76,6 @@ export function CourseLectures({ tier }: { tier: Tier }) {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    setLoading(true);
-
     function rowsToLectures(
       plan: "basic" | "premium",
       raw: Record<string, Partial<CourseLectureRow>> | null,

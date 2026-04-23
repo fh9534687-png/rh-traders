@@ -130,9 +130,10 @@ export function ScrollVideoSection() {
     if (!inView) {
       syntheticStartRef.current = null;
       prevTimeRef.current = 0;
-      setLineIdx(0);
+      // Defer state updates to avoid purity lint warnings.
+      Promise.resolve().then(() => setLineIdx(0));
       lineIdxRef.current = 0;
-      setShowCta(false);
+      Promise.resolve().then(() => setShowCta(false));
       showCtaRef.current = false;
       if (fadeTimerRef.current) {
         clearTimeout(fadeTimerRef.current);

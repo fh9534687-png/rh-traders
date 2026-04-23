@@ -1400,7 +1400,7 @@ export default async function PillarPage({
                   Emotional control is part of risk management
                 </h2>
                 <p className="mt-4">
-                  Trading is not just charts—it's psychology. Risk rules reduce
+                  Trading is not just charts—it&apos;s psychology. Risk rules reduce
                   emotional pressure because you already know your maximum loss.
                 </p>
                 <ul className="mt-5 list-disc pl-6 text-slate-300">

@@ -1,6 +1,5 @@
 import Link from "next/link";
 import { LogoutButton } from "../../components/LogoutButton";
-import { CourseLectures } from "./CourseLectures";
 
 type Tier = "basic" | "premium";
 
@@ -56,7 +55,7 @@ export function CourseDashboard({
 
             <nav className="border-t border-sky-400/15 p-3">
               {[
-                { label: "My Courses", href: `/dashboard/${tier}` },
+                { label: "My Courses", href: `/dashboard/${tier}/lectures` },
                 { label: "My Plan", href: `/dashboard/${tier}/plan` },
                 { label: "Profile", href: "/profile" },
               ].map((i) => (
@@ -116,8 +115,40 @@ export function CourseDashboard({
               </div>
             </header>
 
-            <div className="mt-6">
-              <CourseLectures tier={tier} />
+            <div className="mt-6 grid gap-4 sm:grid-cols-2">
+              <Link
+                href={`/dashboard/${tier}/lectures`}
+                className="rh-card rounded-3xl border border-sky-400/20 bg-slate-950/40 p-6 shadow-[0_0_40px_rgba(56,189,248,0.10)] transition hover:brightness-110"
+              >
+                <p className="text-xs font-extrabold uppercase tracking-[0.22em] text-slate-500">
+                  Lectures
+                </p>
+                <p className="mt-2 text-lg font-extrabold text-white">Open video library</p>
+                <p className="mt-2 text-sm text-slate-300">
+                  {tier === "premium"
+                    ? "Access all Basic + Premium lectures."
+                    : "Access Basic lectures only."}
+                </p>
+                <p className="mt-4 inline-flex items-center text-sm font-extrabold text-sky-300">
+                  Go to lectures →
+                </p>
+              </Link>
+
+              <Link
+                href={`/dashboard/${tier}/plan`}
+                className="rounded-3xl border border-sky-400/15 bg-slate-950/30 p-6 transition hover:bg-slate-900/30"
+              >
+                <p className="text-xs font-extrabold uppercase tracking-[0.22em] text-slate-500">
+                  Plan
+                </p>
+                <p className="mt-2 text-lg font-extrabold text-white">Manage subscription</p>
+                <p className="mt-2 text-sm text-slate-300">
+                  View your plan and upgrade options.
+                </p>
+                <p className="mt-4 inline-flex items-center text-sm font-extrabold text-sky-300">
+                  View plan →
+                </p>
+              </Link>
             </div>
           </section>
         </div>

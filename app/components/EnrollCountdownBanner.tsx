@@ -45,20 +45,21 @@ export function EnrollCountdownBanner({
 }: {
   deadlineIso?: string;
 }) {
-  const targetMs = useMemo(() => {
+  const parsedTargetMs = useMemo(() => {
     const t = Date.parse(deadlineIso);
-    return Number.isFinite(t) ? t : Date.now();
+    return Number.isFinite(t) ? t : null;
   }, [deadlineIso]);
 
   // Avoid hydration mismatch: `Date.now()` differs between SSR and the browser at first paint.
   const [c, setC] = useState<Countdown | null>(null);
 
   useEffect(() => {
+    const targetMs = parsedTargetMs ?? Date.now();
     const tick = () => setC(getCountdown(targetMs));
     tick();
     const id = window.setInterval(tick, 1000);
     return () => window.clearInterval(id);
-  }, [targetMs]);
+  }, [parsedTargetMs]);
 
   return (
     <section className="rh-wrap w-full px-5 pb-6 pt-2">
