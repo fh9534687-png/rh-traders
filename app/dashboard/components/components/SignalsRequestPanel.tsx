@@ -1,7 +1,11 @@
 "use client";
 
 import { useEffect, useMemo, useState } from "react";
-import { createSignalsRequest, getLatestSignalsRequestForEmail, type SignalsRequestStatus } from "../../../lib/firebase/db";
+import {
+  createSignalsRequest,
+  getLatestSignalsRequestForEmail,
+  type SignalsRequestStatus,
+} from "../../../lib/firebase/firestore";
 import { setRhSignalsRequestStatus } from "../../../lib/rhSignals";
 
 function getCookie(name: string) {

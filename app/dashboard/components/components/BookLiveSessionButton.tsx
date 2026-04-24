@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { requestLiveSession } from "../../../lib/firebase/db";
+import { requestLiveSession } from "../../../lib/firebase/firestore";
 
 function getCookie(name: string) {
   const key = `${encodeURIComponent(name)}=`;

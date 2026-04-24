@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useMemo, useState } from "react";
-import { getLectures, type LectureData, type Plan } from "../lib/firebase/db";
+import { getLectures, type LectureData, type Plan } from "../lib/firebase/firestore";
 
 type CoursePlan = Exclude<Plan, "signals">;
 

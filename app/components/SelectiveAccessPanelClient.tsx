@@ -6,7 +6,7 @@ import {
   getLatestSelectiveAccessRequestForEmail,
   rejectSelectiveAccessRequest,
   type SelectiveAccessRequest,
-} from "../lib/firebase/db";
+} from "../lib/firebase/firestore";
 import type { Auth } from "firebase/auth";
 import { getFirebaseAuth } from "../lib/firebase/auth";
 

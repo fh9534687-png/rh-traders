@@ -1,8 +1,7 @@
 "use client";
 
 import { useEffect, useMemo, useState } from "react";
-import { onValue, ref } from "firebase/database";
-import { getDb, type CourseLectureRow, type LectureData } from "../../lib/firebase/db";
+import { getLectures, type LectureData } from "../../lib/firebase/firestore";
 
 type Tier = "basic" | "premium";
 
@@ -76,95 +75,23 @@ export function CourseLectures({ tier }: { tier: Tier }) {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const db = getDb();
-    if (!db) {
-      setItems([]);
-      setLoading(false);
-      return;
-    }
-
-    function rowsToLectures(
-      plan: "basic" | "premium",
-      raw: Record<string, Partial<CourseLectureRow>> | null,
-    ): LectureData[] {
-      if (!raw) return [];
-      return Object.entries(raw)
-        .map(([id, r]) => {
-          const title = String(r.title ?? "").trim();
-          const videoUrl = String(r.videoUrl ?? "").trim();
-          const category = String(r.category ?? "General").trim() || "General";
-          const createdAt = typeof r.createdAt === "number" ? r.createdAt : 0;
-          const zoom = typeof r.zoom === "string" ? r.zoom : undefined;
-          return {
-            id,
-            plan,
-            title,
-            module: category,
-            url: videoUrl,
-            zoom,
-            createdAt,
-          } satisfies LectureData;
-        })
-        .filter((l) => Boolean(l.title) && Boolean(l.url))
-        .sort((a, b) => b.createdAt - a.createdAt);
-    }
-
-    let stopped = false;
-    let basicRows: LectureData[] = [];
-    let premiumRows: LectureData[] = [];
-
-    const unsubscribers: Array<() => void> = [];
-
-    const basicRef = ref(db, "courses/basic");
-    unsubscribers.push(
-      onValue(
-        basicRef,
-        (snap) => {
-          basicRows = rowsToLectures(
-            "basic",
-            (snap.exists() ? (snap.val() as Record<string, Partial<CourseLectureRow>>) : null) ??
-              null,
-          );
-          if (stopped) return;
-          if (tier === "basic") {
-            setItems(basicRows);
-          } else {
-            setItems([...premiumRows, ...basicRows].sort((a, b) => b.createdAt - a.createdAt));
-          }
-          setLoading(false);
-        },
-        () => {
-          if (!stopped) setLoading(false);
-        },
-      ),
-    );
-
-    if (tier === "premium") {
-      const premiumRef = ref(db, "courses/premium");
-      unsubscribers.push(
-        onValue(
-          premiumRef,
-          (snap) => {
-            premiumRows = rowsToLectures(
-              "premium",
-              (snap.exists()
-                ? (snap.val() as Record<string, Partial<CourseLectureRow>>)
-                : null) ?? null,
-            );
-            if (stopped) return;
-            setItems([...premiumRows, ...basicRows].sort((a, b) => b.createdAt - a.createdAt));
-            setLoading(false);
-          },
-          () => {
-            if (!stopped) setLoading(false);
-          },
-        ),
-      );
-    }
-
+    let alive = true;
+    setLoading(true);
+    void (async () => {
+      try {
+        if (tier === "basic") {
+          const basic = await getLectures("basic");
+          if (alive) setItems(basic);
+        } else {
+          const [premium, basic] = await Promise.all([getLectures("premium"), getLectures("basic")]);
+          if (alive) setItems([...premium, ...basic].sort((a, b) => b.createdAt - a.createdAt));
+        }
+      } finally {
+        if (alive) setLoading(false);
+      }
+    })();
     return () => {
-      stopped = true;
-      unsubscribers.forEach((u) => u());
+      alive = false;
     };
   }, [tier]);
 

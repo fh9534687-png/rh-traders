@@ -20,6 +20,16 @@ You can start editing the page by modifying `app/page.tsx`. The page auto-update
 
 This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
 
+## Firebase (Firestore)
+
+App data (users, lectures, payments, signals, etc.) uses **Cloud Firestore** (not Realtime Database).
+
+1. Enable **Firestore** in the Firebase console.
+2. Deploy security rules from `firebase/firestore.rules` (Firebase console → Firestore → Rules), or use the Firebase CLI.
+3. Deploy indexes from `firebase/firestore.indexes.json` if prompted (Firestore will also show a “create index” link the first time a query runs).
+
+User profile documents are stored at `users/{email}` where `{email}` is the **lowercased** account email (must match `request.auth.token.email` in rules).
+
 ## Learn More
 
 To learn more about Next.js, take a look at the following resources:

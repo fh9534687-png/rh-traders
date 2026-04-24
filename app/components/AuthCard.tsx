@@ -14,7 +14,13 @@ import { isAdminEmail, setRhProfileName, setRhSession } from "../lib/rhSession";
 import { getFirebaseAuth } from "../lib/firebase/auth";
 import { markRhPaid, setRhPaymentStatus, setRhPlan, type RhPaymentStatus } from "../lib/rhEntitlements";
 import { setRhSignalsRequestStatus } from "../lib/rhSignals";
-import { getLatestSignalsRequestForEmail, getUserData, saveUserData, type Plan, type Role } from "../lib/firebase/db";
+import {
+  getLatestSignalsRequestForEmail,
+  getUserData,
+  saveUserData,
+  type Plan,
+  type Role,
+} from "../lib/firebase/firestore";
 
 type Mode = "login" | "signup";
 

@@ -1,0 +1,78 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+    function signedIn() {
+      return request.auth != null;
+    }
+
+    function email() {
+      return signedIn() ? request.auth.token.email : null;
+    }
+
+    function isAdmin() {
+      return signedIn() &&
+        get(/databases/$(database)/documents/users/$(email())).data.role == "admin";
+    }
+
+    // Users are keyed by email (lowercased) so rules can reference request.auth.token.email directly.
+    match /users/{userEmail} {
+      allow read, write: if signedIn() && userEmail == email();
+      allow read, write: if isAdmin();
+    }
+
+    match /plans/{planId} {
+      allow read: if true;
+      allow write: if isAdmin();
+    }
+
+    match /lectures/{lectureId} {
+      allow read: if signedIn();
+      allow write: if isAdmin();
+    }
+
+    match /payments/{paymentId} {
+      allow create: if signedIn() && request.resource.data.email == email();
+      allow read: if isAdmin() || (signedIn() && resource.data.email == email());
+      allow update, delete: if isAdmin();
+    }
+
+    match /signals/{signalId} {
+      allow read: if signedIn();
+      allow write: if isAdmin();
+    }
+
+    match /signalsRequests/{requestId} {
+      allow create: if signedIn() && request.resource.data.email == email();
+      allow read, update, delete: if isAdmin();
+    }
+
+    match /signalCalls/{requestId} {
+      allow create: if signedIn() && request.resource.data.email == email();
+      allow read, update, delete: if isAdmin();
+    }
+
+    match /liveSessions/{requestId} {
+      allow create: if signedIn() && request.resource.data.email == email();
+      allow read, update, delete: if isAdmin();
+    }
+
+    match /selectiveAccessRequests/{requestId} {
+      allow create: if isAdmin();
+      allow read: if isAdmin() || (signedIn() && resource.data.email == email());
+      // Users may update their own request (e.g. accept/reject flow from dashboard).
+      allow update: if isAdmin() || (signedIn() && resource.data.email == email());
+      allow delete: if isAdmin() || (signedIn() && resource.data.email == email());
+    }
+
+    match /selectiveAccessGrants/{grantId} {
+      allow read: if signedIn() && grantId == email();
+      allow write: if isAdmin() || (signedIn() && grantId == email());
+    }
+
+    match /selectedUsers/{id} {
+      allow read, write: if isAdmin() || (signedIn() && id == email());
+    }
+  }
+}
+

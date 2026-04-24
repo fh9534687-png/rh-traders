@@ -3,7 +3,7 @@
 import { useEffect, useMemo, useState } from "react";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
-import { getAllUsers, type UserData } from "../lib/firebase/db";
+import { getAllUsers, type UserData } from "../lib/firebase/firestore";
 
 const VIEWS = ["total", "paid", "basic", "premium", "signals"] as const;
 type AdminUsersView = (typeof VIEWS)[number];

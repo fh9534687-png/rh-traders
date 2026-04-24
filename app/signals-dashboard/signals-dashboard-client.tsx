@@ -2,8 +2,7 @@
 
 import { useEffect, useMemo, useState } from "react";
 import Link from "next/link";
-import { onValue, ref } from "firebase/database";
-import { addSignal, getDb, requestSignalCall, type SignalData } from "../lib/firebase/db";
+import { addSignal, getSignals, requestSignalCall, type SignalData } from "../lib/firebase/firestore";
 import { LogoutButton } from "../components/LogoutButton";
 
 const inputClass =
@@ -49,32 +48,20 @@ export function SignalsDashboardClient({ email, role }: { email: string; role: s
   useEffect(() => {
     setLoading(true);
     setError(null);
-
-    const db = getDb();
-    if (!db) {
-      setSignals([]);
-      setLoading(false);
-      setError("Signals are unavailable until Firebase is configured.");
-      return;
-    }
-
-    const r = ref(db, "signals");
-    const unsub = onValue(
-      r,
-      (snap) => {
-        const raw = (snap.exists() ? (snap.val() as Record<string, SignalData>) : null) ?? null;
-        const list = raw ? Object.values(raw) : [];
-        list.sort((a, b) => b.createdAt - a.createdAt);
-        setSignals(list);
-        setLoading(false);
-      },
-      (err) => {
-        setError(err?.message ?? "Failed to load signals.");
-        setLoading(false);
-      },
-    );
-
-    return () => unsub();
+    let alive = true;
+    void (async () => {
+      try {
+        const list = await getSignals();
+        if (alive) setSignals(list);
+      } catch (err) {
+        if (alive) setError(err instanceof Error ? err.message : "Failed to load signals.");
+      } finally {
+        if (alive) setLoading(false);
+      }
+    })();
+    return () => {
+      alive = false;
+    };
   }, []);
 
   const activeSignals = useMemo(() => signals.filter((s) => s.status === "active"), [signals]);

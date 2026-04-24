@@ -4,7 +4,7 @@ import Link from "next/link";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { onAuthStateChanged, type Auth } from "firebase/auth";
 import { getFirebaseAuth } from "../lib/firebase/auth";
-import { getUserData } from "../lib/firebase/db";
+import { getUserData } from "../lib/firebase/firestore";
 import { isAdminEmail, setRhSession } from "../lib/rhSession";
 import {
   clearRhPaid,

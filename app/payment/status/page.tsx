@@ -4,9 +4,8 @@ import Link from "next/link";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import { onAuthStateChanged, type Auth } from "firebase/auth";
-import { onValue, ref } from "firebase/database";
 import { getFirebaseAuth } from "../../lib/firebase/auth";
-import { getDb, keyFromEmail, type UserData } from "../../lib/firebase/db";
+import { subscribeUserData, type UserData } from "../../lib/firebase/firestore";
 import { markRhPaid, setRhPaymentStatus, setRhPlan, type RhPlanId } from "../../lib/rhEntitlements";
 
 function getCookie(name: string) {
@@ -69,19 +68,11 @@ export default function PaymentStatusPage() {
 
   useEffect(() => {
     if (!authReady || !email) return;
-    const db = getDb();
-    if (!db) {
-      setUserSnap(null);
-      return;
-    }
-    const r = ref(db, `users/${keyFromEmail(email)}`);
-    const unsub = onValue(r, (snap) => {
-      if (!snap.exists()) {
-        setUserSnap(null);
-        return;
-      }
-      setUserSnap(snap.val() as UserData);
-    });
+    const unsub = subscribeUserData(
+      email,
+      (u) => setUserSnap(u),
+      () => setUserSnap(null),
+    );
     return () => unsub();
   }, [authReady, email]);
 

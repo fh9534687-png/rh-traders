@@ -35,7 +35,7 @@ import {
   type SignalCallRequest,
   type SignalsRequest,
   type UserData,
-} from "../lib/firebase/db";
+} from "../lib/firebase/firestore";
 
 function mustAuth(): Auth {
   const auth = getFirebaseAuth();

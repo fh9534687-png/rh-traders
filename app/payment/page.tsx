@@ -6,7 +6,7 @@ import { useRouter } from "next/navigation";
 import { onAuthStateChanged, type Auth } from "firebase/auth";
 import { setRhPaymentStatus, setRhPlan } from "../lib/rhEntitlements";
 import { getFirebaseAuth } from "../lib/firebase/auth";
-import { savePayment, type Plan } from "../lib/firebase/db";
+import { savePayment, type Plan } from "../lib/firebase/firestore";
 
 function getCookie(name: string) {
   const key = `${encodeURIComponent(name)}=`;
