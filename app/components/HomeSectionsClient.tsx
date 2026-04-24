@@ -98,24 +98,24 @@ export function HomeSectionsClient() {
                   Welcome to RH Traders
                 </h2>
                 <p className="mt-5 max-w-2xl text-[15px] leading-7 text-slate-300 sm:text-base">
-                  RH Traders is built to help learners develop a clean, repeatable trading process.
-                  We focus on market structure, liquidity behavior, and execution frameworks that
-                  support disciplined decision-making.
+                  RH Traders is a trading platform focused on education and execution. You get a structured
+                  crypto trading course, a learning dashboard that keeps your progress organized, and optional
+                  trading signals that are designed to be reviewed on your own chart before you act.
                 </p>
 
                 <div className="mt-7 grid gap-5 sm:grid-cols-2">
                   <div className="rh-card rounded-3xl p-5 transition hover:-translate-y-0.5 hover:shadow-[0_0_50px_rgba(56,189,248,0.08)]">
                     <p className="text-sm font-extrabold text-white">Our Mission</p>
                     <p className="mt-2 text-sm leading-7 text-slate-400">
-                      Deliver structured trading education and practical execution rules that help
-                      traders plan, execute, and manage risk with consistency.
+                      Deliver clear trading education with practical rules so learners can plan trades,
+                      manage risk, and build repeatable habits that translate to real market conditions.
                     </p>
                   </div>
                   <div className="rh-card rounded-3xl p-5 transition hover:-translate-y-0.5 hover:shadow-[0_0_50px_rgba(56,189,248,0.08)]">
-                    <p className="text-sm font-extrabold text-white">24/7 Support System</p>
+                    <p className="text-sm font-extrabold text-white">Structured learning</p>
                     <p className="mt-2 text-sm leading-7 text-slate-400">
-                      Our support system is available 24/7 to answer questions, clarify concepts,
-                      and help you stay aligned with the process.
+                      Lessons are organized by topic and skill level, so you always know what to learn next
+                      and how each concept connects to execution on a live chart.
                     </p>
                   </div>
                 </div>
@@ -125,13 +125,13 @@ export function HomeSectionsClient() {
                     href="/plans"
                     className="rh-btn-primary inline-flex items-center justify-center rounded-full px-6 py-3 text-base font-extrabold text-white transition hover:brightness-110 hover:shadow-[0_0_45px_rgba(56,189,248,0.18)]"
                   >
-                    Explore Plans
+                    Choose a Plan
                   </Link>
                   <Link
                     href="/contact"
                     className="rh-btn-secondary inline-flex items-center justify-center rounded-full px-6 py-3 text-base font-extrabold"
                   >
-                    Contact Support
+                    Talk to Support
                   </Link>
                 </div>
               </div>
@@ -144,12 +144,12 @@ export function HomeSectionsClient() {
         <Reveal>
           <div>
             <h2 className="text-xl font-black tracking-tight text-white sm:text-2xl">
-              The stuff that actually matters in crypto trading
+              What matters most when you learn trading online
             </h2>
             <p className="mt-3 max-w-3xl text-slate-400">
-              Everyone wants the “secret indicator.” In real life, most people who stick around get
-              good at a handful of boring basics first. Here’s the short list we wish someone had
-              handed us on day one.
+              A reliable process is built on a few fundamentals: market structure, context, and risk control.
+              These short guides explain the concepts you will use inside the RH Traders dashboard and course
+              modules.
             </p>
           </div>
         </Reveal>

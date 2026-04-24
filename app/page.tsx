@@ -6,6 +6,12 @@ import { EnrollCountdownBanner } from "./components/EnrollCountdownBanner";
 import { HomeTradingBackground } from "./components/HomeTradingBackground";
 import { HomeSectionsClient } from "./components/HomeSectionsClient";
 
+export const metadata = {
+  title: "Crypto Trading Course and Signals",
+  description:
+    "RH Traders is a structured trading platform where you can learn trading online through a guided crypto trading course, practical dashboards, and trading signals built around risk-first execution.",
+};
+
 /** Small accent checkmark for table cells (no emoji). */
 function RhBlueTick({ className = "" }: { className?: string }) {
   return (
@@ -62,7 +68,7 @@ export default function Home() {
         <section className="rh-wrap w-full px-5 py-14">
           <div>
             <h2 className="font-[Georgia,Times_New_Roman,Times,serif] text-xl font-bold tracking-tight text-white sm:text-2xl">
-              Crypto trading overview
+              A practical overview of crypto trading
             </h2>
             <p className="mt-4 max-w-3xl text-[15px] leading-relaxed text-slate-400 sm:text-base">
               Cryptocurrency trading is the buying and selling of digital assets
@@ -70,6 +76,8 @@ export default function Home() {
               continuously; prices reflect supply, demand, liquidity, and news.
               Sustainable results depend on understanding charts, managing risk,
               and following a defined process rather than short-term speculation.
+              RH Traders is designed to make that process clear, measurable, and
+              repeatable for learners.
             </p>
 
             <h3 className="mt-10 font-[Georgia,Times_New_Roman,Times,serif] text-lg font-bold text-white sm:text-xl">

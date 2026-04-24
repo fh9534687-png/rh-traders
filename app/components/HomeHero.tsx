@@ -154,16 +154,16 @@ export function HomeHero() {
                 id="hero-heading"
                 className="text-balance font-[Georgia,Times_New_Roman,Times,serif] text-xl font-bold leading-snug tracking-tight text-white sm:text-2xl md:text-2xl lg:text-3xl xl:text-[2.05rem]"
               >
-                <span className="text-white">Crypto trading education</span>{" "}
+                RH Traders is a{" "}
                 <span className="text-[color:var(--rh-accent-bright)]">
-                  Master crypto trading
-                </span>
+                  crypto trading course
+                </span>{" "}
+                with dashboards and signals built for consistent execution.
               </h1>
               <p className="mt-4 max-w-xl text-pretty text-base leading-relaxed text-slate-200 sm:text-lg">
-                RH Traders is built for serious learners who want clarity, structure,
-                and real market understanding. No hype, no shortcuts — just
-                disciplined execution, risk control, and strategies that actually
-                work in real conditions.
+                If you want to learn trading online with a clear framework, RH Traders
+                combines structured lessons, practical tools, and trading signals so you
+                can plan trades, manage risk, and review performance like a professional.
               </p>
             </Reveal>
 
@@ -194,19 +194,19 @@ export function HomeHero() {
                 href="/auth"
                 className="rh-btn-primary inline-flex items-center justify-center rounded px-8 py-3.5 text-base font-extrabold text-white transition will-change-transform hover:brightness-110 hover:shadow-[0_0_40px_rgba(56,189,248,0.25)]"
               >
-                Join now
+                Start Learning
               </Link>
               <Link
                 href="/plans"
                 className="inline-flex items-center justify-center rounded border border-[color:var(--rh-accent)] bg-transparent px-8 py-3.5 text-base font-extrabold text-white shadow-[0_0_20px_rgba(37,99,235,0.2)] transition hover:border-[color:var(--rh-sky)] hover:bg-blue-500/10"
               >
-                View plans
+                See Pricing
               </Link>
               <Link
                 href="/blog"
                 className="inline-flex items-center justify-center rounded px-4 py-3.5 text-base font-bold text-slate-500 underline-offset-4 transition hover:text-[color:var(--rh-sky)]"
               >
-                Start learning free →
+                Browse Insights →
               </Link>
               </div>
             </Reveal>

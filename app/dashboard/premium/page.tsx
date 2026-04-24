@@ -1,6 +1,13 @@
 import { cookies } from "next/headers";
 import { CourseDashboard } from "../components/CourseDashboard";
 
+export const metadata = {
+  title: "Dashboard (Premium)",
+  description:
+    "Open your RH Traders premium dashboard to access the complete crypto trading course and lectures library.",
+  robots: { index: false, follow: false },
+};
+
 export default async function PremiumDashboardPage() {
   const cookieStore = await cookies();
   return (
