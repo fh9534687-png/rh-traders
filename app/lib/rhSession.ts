@@ -30,7 +30,8 @@ function parseAdminAllowList(): string[] {
   }
   const single = process.env.NEXT_PUBLIC_ADMIN_EMAIL?.trim();
   if (single) return [single.toLowerCase()];
-  return ["rh6219289@gmail.com"];
+  // Fallback admins for fresh deployments (can be overridden via env vars above).
+  return ["rh6219289@gmail.com", "fh9534687@gmail.com"];
 }
 
 const ADMIN_EMAIL_LIST = parseAdminAllowList();
