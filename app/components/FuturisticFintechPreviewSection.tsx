@@ -356,22 +356,23 @@ export function FuturisticFintechPreviewSection() {
             </p>
 
             <h2 className="mt-5 text-balance text-4xl font-black tracking-tight text-white sm:text-5xl">
-              Trade Smarter.{" "}
+              Learn Trading Online.{" "}
               <span className="text-transparent bg-clip-text bg-[linear-gradient(90deg,rgba(34,211,238,1),rgba(59,130,246,1),rgba(16,185,129,1))]">
-                Grow Faster.
+                Trade with Structure.
               </span>
             </h2>
             <p className="mt-4 max-w-xl text-pretty text-base leading-8 text-slate-300">
-              A premium, glass UI built for disciplined trading: real structure, clear signals, and
-              a calm dashboard experience that feels like a high-end fintech app — not a basic site.
+              RH Traders is a learning platform built around a practical crypto trading course and a clean dashboard
+              experience. Your lectures are organized by section, your plan controls access (Basic or Premium), and the
+              Signals dashboard is available for members who want execution-ready ideas with clear entries and risk levels.
             </p>
 
             <div className="mt-7 space-y-3">
               {[
-                "Neon glass UI cards with depth, blur, and glowing borders.",
-                "Smooth motion: float, tilt, and reveal — no cheap animations.",
-                "A clear execution workflow: chart → entry → TP/SL → review.",
-                "Fast navigation into Market, Charts, Coins, Tools, and FAQ.",
+                "Follow a step-by-step crypto trading course with a dedicated lectures library.",
+                "Review trading signals with entry, stop loss, and targets, then verify the setup on your chart.",
+                "Use trading tools for risk, sizing, and process—built into the RH Traders trading platform.",
+                "Move quickly between Market, Charts, Coins, and guides without losing context.",
               ].map((t) => (
                 <div key={t} className="flex items-start gap-3">
                   <Check />
@@ -386,14 +387,14 @@ export function FuturisticFintechPreviewSection() {
                   href="/plans"
                   className="inline-flex items-center justify-center rounded-full border border-emerald-300/20 bg-[linear-gradient(135deg,rgba(16,185,129,0.22),rgba(59,130,246,0.18),rgba(34,211,238,0.10))] px-8 py-3.5 text-sm font-extrabold text-white shadow-[0_0_90px_rgba(16,185,129,0.18)] transition hover:shadow-[0_0_120px_rgba(34,211,238,0.18)]"
                 >
-                  Unlock the platform →
+                  View Plans →
                 </Link>
               </motion.div>
               <Link
                 href="/market"
                 className="inline-flex items-center justify-center rounded-full border border-white/10 bg-slate-950/25 px-8 py-3.5 text-sm font-extrabold text-slate-100 transition hover:bg-slate-900/35"
               >
-                Open live market
+                Open Market
               </Link>
             </div>
           </motion.div>
