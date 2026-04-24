@@ -138,6 +138,9 @@ export type SelectiveAccessRequest = {
 };
 
 export function getDb(): Database | null {
+  const databaseURL = (process.env.NEXT_PUBLIC_FIREBASE_DATABASE_URL ?? "").trim();
+  // RTDB requires databaseURL. Keep Auth working even if RTDB isn't configured.
+  if (!databaseURL) return null;
   const app = getFirebaseApp();
   return app ? getDatabase(app) : null;
 }

@@ -25,9 +25,6 @@ export function getFirebaseApp(): FirebaseApp | null {
     !apiKey ||
     !authDomain ||
     !projectId ||
-    !databaseURL ||
-    !storageBucket ||
-    !messagingSenderId ||
     !appId
   ) {
     if (!warnedMissingEnv) {
@@ -45,9 +42,10 @@ export function getFirebaseApp(): FirebaseApp | null {
     apiKey,
     authDomain,
     projectId,
-    databaseURL,
-    storageBucket,
-    messagingSenderId,
+    // Optional for Auth; required only if you use those products.
+    databaseURL: databaseURL || undefined,
+    storageBucket: storageBucket || undefined,
+    messagingSenderId: messagingSenderId || undefined,
     appId,
     measurementId: measurementId || undefined,
   };
