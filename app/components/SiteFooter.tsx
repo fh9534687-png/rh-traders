@@ -56,9 +56,14 @@ export function SiteFooter() {
         <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-4">
           <div>
             <FooterLogo />
-            <p className="mt-4 max-w-xs text-sm leading-7 text-slate-400">
-              Premium crypto signals, learning, and market analysis—built
-              with a clean, professional trading aesthetic.
+            <p className="mt-4 max-w-sm text-sm leading-7 text-slate-400">
+              RH Traders is an education-first, trustworthy crypto trading platform: clear
+              courses, honest guidance, and support you can reach—no hype, no hidden promises.
+            </p>
+            <p className="mt-3 max-w-sm text-sm leading-7 text-slate-400">
+              You&apos;ll learn how markets move, how to read charts and context, risk and
+              position sizing, when and how to use signals responsibly, and how to build
+              discipline with a structured dashboard—so you can trade with a plan, not guesswork.
             </p>
           </div>
 
