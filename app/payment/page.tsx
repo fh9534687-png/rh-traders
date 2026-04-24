@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
-import { onAuthStateChanged } from "firebase/auth";
+import { onAuthStateChanged, type Auth } from "firebase/auth";
 import { setRhPaymentStatus, setRhPlan } from "../lib/rhEntitlements";
 import { firebaseAuth } from "../lib/firebase/auth";
 import { savePayment, type Plan } from "../lib/firebase/db";
@@ -31,6 +31,15 @@ const PLAN_LABEL: Record<RhPlanId, string> = {
   signals: "Signals Dashboard",
 };
 
+function mustAuth(): Auth {
+  if (!firebaseAuth) {
+    throw new Error(
+      "Firebase is not configured. Add NEXT_PUBLIC_FIREBASE_* environment variables (Vercel + .env.local).",
+    );
+  }
+  return firebaseAuth;
+}
+
 export default function ManualPaymentPage() {
   const router = useRouter();
   const [authReady, setAuthReady] = useState(false);
@@ -48,7 +57,13 @@ export default function ManualPaymentPage() {
   const didPrefillName = useRef(false);
 
   useEffect(() => {
-    const unsub = onAuthStateChanged(firebaseAuth, (u) => {
+    if (!firebaseAuth) {
+      router.replace("/auth?next=/payment");
+      return;
+    }
+
+    const auth = mustAuth();
+    const unsub = onAuthStateChanged(auth, (u) => {
       if (!u?.email) {
         router.replace("/auth?next=/payment");
         return;
@@ -81,8 +96,9 @@ export default function ManualPaymentPage() {
     e.preventDefault();
     setError(null);
 
-    await firebaseAuth.authStateReady();
-    const u = firebaseAuth.currentUser;
+    const auth = mustAuth();
+    await auth.authStateReady();
+    const u = auth.currentUser;
     if (!u?.email) {
       setError("You must be signed in to submit a payment.");
       router.replace("/auth?next=/payment");

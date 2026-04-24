@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
-import { onAuthStateChanged } from "firebase/auth";
+import { onAuthStateChanged, type Auth } from "firebase/auth";
 import { onValue, ref } from "firebase/database";
 import { firebaseAuth } from "../../lib/firebase/auth";
 import { db, keyFromEmail, type UserData } from "../../lib/firebase/db";
@@ -27,6 +27,15 @@ function hoursSince(ts: number | null | undefined) {
 const card =
   "rounded-2xl border-2 border-sky-400/25 bg-slate-950/60 p-6 shadow-[0_0_40px_rgba(56,189,248,0.12)] backdrop-blur-sm transition hover:border-sky-400/40";
 
+function mustAuth(): Auth {
+  if (!firebaseAuth) {
+    throw new Error(
+      "Firebase is not configured. Add NEXT_PUBLIC_FIREBASE_* environment variables (Vercel + .env.local).",
+    );
+  }
+  return firebaseAuth;
+}
+
 export default function PaymentStatusPage() {
   const router = useRouter();
   const redirected = useRef(false);
@@ -37,7 +46,13 @@ export default function PaymentStatusPage() {
   const [userSnap, setUserSnap] = useState<UserData | null | undefined>(undefined);
 
   useEffect(() => {
-    const unsub = onAuthStateChanged(firebaseAuth, (u) => {
+    if (!firebaseAuth) {
+      router.replace("/auth?next=/payment/status");
+      return;
+    }
+
+    const auth = mustAuth();
+    const unsub = onAuthStateChanged(auth, (u) => {
       if (!u?.email) {
         router.replace("/auth?next=/payment/status");
         return;
@@ -53,6 +68,10 @@ export default function PaymentStatusPage() {
 
   useEffect(() => {
     if (!authReady || !email) return;
+    if (!db) {
+      setUserSnap(null);
+      return;
+    }
     const r = ref(db, `users/${keyFromEmail(email)}`);
     const unsub = onValue(r, (snap) => {
       if (!snap.exists()) {

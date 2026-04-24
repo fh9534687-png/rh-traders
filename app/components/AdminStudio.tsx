@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useEffect, useMemo, useRef, useState } from "react";
+import type { Auth } from "firebase/auth";
 import { firebaseAuth } from "../lib/firebase/auth";
 import {
   approvePayment as approveDbPayment,
@@ -35,6 +36,15 @@ import {
   type SignalsRequest,
   type UserData,
 } from "../lib/firebase/db";
+
+function mustAuth(): Auth {
+  if (!firebaseAuth) {
+    throw new Error(
+      "Firebase is not configured. Add NEXT_PUBLIC_FIREBASE_* environment variables (Vercel + .env.local).",
+    );
+  }
+  return firebaseAuth;
+}
 
 function safeParse<T>(raw: string | null, fallback: T): T {
   if (!raw) return fallback;
@@ -105,9 +115,10 @@ export function AdminStudio() {
     aliveRef.current = true;
     void (async () => {
       try {
-        await firebaseAuth.authStateReady();
+        const auth = mustAuth();
+        await auth.authStateReady();
         if (!aliveRef.current) return;
-        setAuthOk(Boolean(firebaseAuth.currentUser));
+        setAuthOk(Boolean(auth.currentUser));
       } catch {
         if (!aliveRef.current) return;
         setAuthOk(false);
@@ -364,8 +375,9 @@ export function AdminStudio() {
 
     setBusyId("lecture");
     try {
-      await firebaseAuth.authStateReady();
-      if (!firebaseAuth.currentUser) {
+      const auth = mustAuth();
+      await auth.authStateReady();
+      if (!auth.currentUser) {
         window.alert("Firebase session not ready. Please log out and log back in, then try again.");
         return;
       }

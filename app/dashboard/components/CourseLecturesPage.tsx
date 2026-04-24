@@ -28,6 +28,12 @@ export function CourseLecturesPage({ tier }: { tier: Tier }) {
   const [openModule, setOpenModule] = useState<string>("");
 
   useEffect(() => {
+    if (!db) {
+      setItems([]);
+      setLoading(false);
+      return;
+    }
+
     function rowsToLectures(
       plan: "basic" | "premium",
       raw: Record<string, Partial<CourseLectureRow>> | null

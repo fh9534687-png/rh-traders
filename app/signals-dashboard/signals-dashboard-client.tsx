@@ -50,6 +50,13 @@ export function SignalsDashboardClient({ email, role }: { email: string; role: s
     setLoading(true);
     setError(null);
 
+    if (!db) {
+      setSignals([]);
+      setLoading(false);
+      setError("Signals are unavailable until Firebase is configured.");
+      return;
+    }
+
     const r = ref(db, "signals");
     const unsub = onValue(
       r,

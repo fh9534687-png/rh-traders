@@ -76,6 +76,12 @@ export function CourseLectures({ tier }: { tier: Tier }) {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    if (!db) {
+      setItems([]);
+      setLoading(false);
+      return;
+    }
+
     function rowsToLectures(
       plan: "basic" | "premium",
       raw: Record<string, Partial<CourseLectureRow>> | null,

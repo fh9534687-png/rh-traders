@@ -7,10 +7,20 @@ import {
   rejectSelectiveAccessRequest,
   type SelectiveAccessRequest,
 } from "../lib/firebase/db";
+import type { Auth } from "firebase/auth";
 import { firebaseAuth } from "../lib/firebase/auth";
 
 const cardClass =
   "overflow-hidden rounded-3xl border border-sky-400/20 bg-slate-900/45 p-6 shadow-[0_0_60px_rgba(37,99,235,0.10)] backdrop-blur-sm sm:p-8";
+
+function mustAuth(): Auth {
+  if (!firebaseAuth) {
+    throw new Error(
+      "Firebase is not configured. Add NEXT_PUBLIC_FIREBASE_* environment variables (Vercel + .env.local).",
+    );
+  }
+  return firebaseAuth;
+}
 
 function setCookie(name: string, value: string) {
   document.cookie = `${encodeURIComponent(name)}=${encodeURIComponent(value)}; path=/; max-age=2592000; samesite=lax`;
@@ -34,8 +44,9 @@ export function SelectiveAccessPanelClient() {
     void (async () => {
       setError(null);
       try {
-        await firebaseAuth.authStateReady();
-        const u = firebaseAuth.currentUser;
+        const auth = mustAuth();
+        await auth.authStateReady();
+        const u = auth.currentUser;
         if (!u?.email) {
           if (alive) {
             setRow(null);
@@ -63,8 +74,9 @@ export function SelectiveAccessPanelClient() {
     setBusy("accept");
     setError(null);
     try {
-      await firebaseAuth.authStateReady();
-      const u = firebaseAuth.currentUser;
+      const auth = mustAuth();
+      await auth.authStateReady();
+      const u = auth.currentUser;
       const email = u?.email?.trim().toLowerCase() || "";
       await acceptSelectiveAccessRequest(row.id, email);
       // This cookie is what the middleware uses to allow the specific dashboard immediately.
@@ -82,8 +94,9 @@ export function SelectiveAccessPanelClient() {
     setBusy("reject");
     setError(null);
     try {
-      await firebaseAuth.authStateReady();
-      const u = firebaseAuth.currentUser;
+      const auth = mustAuth();
+      await auth.authStateReady();
+      const u = auth.currentUser;
       const email = u?.email?.trim().toLowerCase() || "";
       await rejectSelectiveAccessRequest(row.id, email);
       setRow(null);

@@ -7,6 +7,7 @@ import {
   createUserWithEmailAndPassword,
   sendPasswordResetEmail,
   signInWithEmailAndPassword,
+  type Auth,
   updateProfile,
 } from "firebase/auth";
 import { isAdminEmail, setRhProfileName, setRhSession } from "../lib/rhSession";
@@ -16,6 +17,15 @@ import { setRhSignalsRequestStatus } from "../lib/rhSignals";
 import { getLatestSignalsRequestForEmail, getUserData, saveUserData, type Plan, type Role } from "../lib/firebase/db";
 
 type Mode = "login" | "signup";
+
+function mustAuth(): Auth {
+  if (!firebaseAuth) {
+    throw new Error(
+      "Firebase is not configured. Add NEXT_PUBLIC_FIREBASE_* environment variables (Vercel + .env.local).",
+    );
+  }
+  return firebaseAuth;
+}
 
 function getFirebaseErrorMessage(err: unknown) {
   if (!err || typeof err !== "object") return null;
@@ -169,6 +179,7 @@ export function AuthCard() {
     e.preventDefault();
     setError(null);
 
+    const auth = mustAuth();
     const cleanEmail = email.trim();
     if (!isValidEmail(cleanEmail)) {
       setError("Please enter a valid email.");
@@ -187,12 +198,12 @@ export function AuthCard() {
 
     setSubmitting(true);
     try {
-      await firebaseAuth.authStateReady();
+      await auth.authStateReady();
 
       const fullName = [firstName, lastName].map((s) => s.trim()).filter(Boolean).join(" ");
 
       if (mode === "signup") {
-        const cred = await createUserWithEmailAndPassword(firebaseAuth, cleanEmail, password);
+        const cred = await createUserWithEmailAndPassword(auth, cleanEmail, password);
         if (fullName) {
           await updateProfile(cred.user, { displayName: fullName });
         }
@@ -210,7 +221,7 @@ export function AuthCard() {
       }
 
       // LOGIN
-      const cred = await signInWithEmailAndPassword(firebaseAuth, cleanEmail, password);
+      const cred = await signInWithEmailAndPassword(auth, cleanEmail, password);
       const userEmail = cred.user.email ?? cleanEmail;
       const display = cred.user.displayName ?? "";
 
@@ -307,6 +318,7 @@ export function AuthCard() {
   async function onSendPasswordReset() {
     setError(null);
     setResetSent(false);
+    const auth = mustAuth();
     const cleanEmail = email.trim();
     if (!isValidEmail(cleanEmail)) {
       setError("Please enter a valid email.");
@@ -314,13 +326,13 @@ export function AuthCard() {
     }
     setSubmitting(true);
     try {
-      await firebaseAuth.authStateReady();
+      await auth.authStateReady();
       /**
        * Do not pass `continueUrl` here: a mismatched or double-encoded URL can make Firebase’s
        * hosted action page treat the flow as invalid. Users complete reset on Firebase’s page,
        * or—if you set a custom “Email action handler” in Console to `/auth`—via `oobFromEmail` below.
        */
-      await sendPasswordResetEmail(firebaseAuth, cleanEmail);
+      await sendPasswordResetEmail(auth, cleanEmail);
       setResetSent(true);
     } catch (err) {
       setError(
@@ -336,6 +348,7 @@ export function AuthCard() {
     e.preventDefault();
     setError(null);
     if (!oobFromEmail) return;
+    const auth = mustAuth();
     if (resetNewPw.trim().length < 6) {
       setError("Password must be at least 6 characters.");
       return;
@@ -346,8 +359,8 @@ export function AuthCard() {
     }
     setSubmitting(true);
     try {
-      await firebaseAuth.authStateReady();
-      await confirmPasswordReset(firebaseAuth, oobFromEmail, resetNewPw);
+      await auth.authStateReady();
+      await confirmPasswordReset(auth, oobFromEmail, resetNewPw);
       setOobFromEmail(null);
       setResetNewPw("");
       setResetConfirmPw("");

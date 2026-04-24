@@ -1,5 +1,6 @@
 import {
   getDatabase,
+  type Database,
   ref,
   get,
   set,
@@ -136,7 +137,16 @@ export type SelectiveAccessRequest = {
   createdBy?: string;
 };
 
-export const db = getDatabase(firebaseApp);
+export const db: Database | null = firebaseApp ? getDatabase(firebaseApp) : null;
+
+function mustDb(): Database {
+  if (!db) {
+    throw new Error(
+      "Firebase Realtime Database is not configured. Add NEXT_PUBLIC_FIREBASE_* environment variables.",
+    );
+  }
+  return db;
+}
 
 export function keyFromEmail(email: string) {
   return email.trim().toLowerCase().replace(/\./g, ",");
@@ -163,7 +173,7 @@ export async function saveUserData(
 ) {
   const safeEmail = email.trim().toLowerCase();
   const userKey = keyFromEmail(safeEmail);
-  const userRef = ref(db, `users/${userKey}`);
+  const userRef = ref(mustDb(), `users/${userKey}`);
   const snap = await get(userRef);
   const existing = (snap.exists() ? (snap.val() as Partial<UserData>) : null) ?? null;
 
@@ -213,7 +223,7 @@ export async function updateUserPaymentSnapshot(
   patch: Partial<Pick<UserData, "paymentStatus" | "paymentSubmittedAt" | "latestPaymentId" | "plan">>,
 ) {
   const safeEmail = email.trim().toLowerCase();
-  const userRef = ref(db, `users/${keyFromEmail(safeEmail)}`);
+  const userRef = ref(mustDb(), `users/${keyFromEmail(safeEmail)}`);
   await update(userRef, { ...patch, email: safeEmail });
 }
 
@@ -224,14 +234,14 @@ export async function updateUserSignalsRequestSnapshot(
   >,
 ) {
   const safeEmail = email.trim().toLowerCase();
-  const userRef = ref(db, `users/${keyFromEmail(safeEmail)}`);
+  const userRef = ref(mustDb(), `users/${keyFromEmail(safeEmail)}`);
   await update(userRef, { ...patch, email: safeEmail });
 }
 
 export async function getUserData(email: string) {
   const safeEmail = email.trim().toLowerCase();
   const userKey = keyFromEmail(safeEmail);
-  const snap = await get(ref(db, `users/${userKey}`));
+  const snap = await get(ref(mustDb(), `users/${userKey}`));
   return snap.exists() ? (snap.val() as UserData) : null;
 }
 
@@ -240,7 +250,7 @@ export async function createSignalsRequest(input: { email: string; phone: string
   const phone = input.phone.trim();
   if (!phone) throw new Error("Phone number is required.");
 
-  const idRef = push(ref(db, "signalsRequests"));
+  const idRef = push(ref(mustDb(), "signalsRequests"));
   const id = idRef.key!;
   const now = Date.now();
   const data: SignalsRequest = {
@@ -261,7 +271,7 @@ export async function createSignalsRequest(input: { email: string; phone: string
 }
 
 export async function getSignalsRequests() {
-  const snap = await get(ref(db, "signalsRequests"));
+  const snap = await get(ref(mustDb(), "signalsRequests"));
   if (!snap.exists()) return [] as SignalsRequest[];
   const raw = snap.val() as Record<string, SignalsRequest>;
   return Object.values(raw).sort((a, b) => b.createdAt - a.createdAt);
@@ -270,7 +280,7 @@ export async function getSignalsRequests() {
 export async function getLatestSignalsRequestForEmail(email: string) {
   const safeEmail = email.trim().toLowerCase();
   if (!safeEmail) return null;
-  const q = query(ref(db, "signalsRequests"), orderByChild("email"), equalTo(safeEmail), limitToLast(1));
+  const q = query(ref(mustDb(), "signalsRequests"), orderByChild("email"), equalTo(safeEmail), limitToLast(1));
   const snap = await get(q);
   if (!snap.exists()) return null;
   const raw = snap.val() as Record<string, SignalsRequest>;
@@ -279,7 +289,7 @@ export async function getLatestSignalsRequestForEmail(email: string) {
 }
 
 export async function approveSignalsRequest(requestId: string, reviewedByEmail: string) {
-  const rRef = ref(db, `signalsRequests/${requestId}`);
+  const rRef = ref(mustDb(), `signalsRequests/${requestId}`);
   const snap = await get(rRef);
   if (!snap.exists()) throw new Error("Request not found.");
   const row = snap.val() as SignalsRequest;
@@ -292,7 +302,7 @@ export async function approveSignalsRequest(requestId: string, reviewedByEmail: 
 }
 
 export async function rejectSignalsRequest(requestId: string, reviewedByEmail: string) {
-  const rRef = ref(db, `signalsRequests/${requestId}`);
+  const rRef = ref(mustDb(), `signalsRequests/${requestId}`);
   const snap = await get(rRef);
   if (!snap.exists()) throw new Error("Request not found.");
   const row = snap.val() as SignalsRequest;
@@ -334,13 +344,13 @@ export async function savePayment(
   if (!Number.isFinite(input.amount) || input.amount <= 0) throw new Error("Amount is required.");
 
   // Duplicate protection (critical): block any repeated trxId.
-  const trxQ = query(ref(db, "payments"), orderByChild("trxId"), equalTo(trxId), limitToLast(1));
+  const trxQ = query(ref(mustDb(), "payments"), orderByChild("trxId"), equalTo(trxId), limitToLast(1));
   const dupSnap = await get(trxQ);
   if (dupSnap.exists()) {
     throw new Error("Transaction ID already used");
   }
 
-  const idRef = push(ref(db, "payments"));
+  const idRef = push(ref(mustDb(), "payments"));
   const id = idRef.key!;
   const now = Date.now();
   const data: PaymentData = {
@@ -367,14 +377,14 @@ export async function savePayment(
 }
 
 export async function getAllPayments() {
-  const snap = await get(ref(db, "payments"));
+  const snap = await get(ref(mustDb(), "payments"));
   if (!snap.exists()) return [] as PaymentData[];
   const raw = snap.val() as Record<string, PaymentData>;
   return Object.values(raw).sort((a, b) => b.createdAt - a.createdAt);
 }
 
 export async function getAllUsers() {
-  const snap = await get(ref(db, "users"));
+  const snap = await get(ref(mustDb(), "users"));
   if (!snap.exists()) return [] as UserData[];
   const raw = snap.val() as Record<string, UserData>;
   return Object.values(raw).sort((a, b) => b.enrolledAt - a.enrolledAt);
@@ -403,7 +413,7 @@ export async function saveCourseLecture(
   plan: Exclude<Plan, "signals">,
   input: { title: string; videoUrl: string; category: string; zoom?: string; createdBy?: string },
 ) {
-  const idRef = push(ref(db, `courses/${plan}`));
+  const idRef = push(ref(mustDb(), `courses/${plan}`));
   const id = idRef.key!;
   const row: CourseLectureRow = {
     title: input.title.trim(),
@@ -430,7 +440,7 @@ export async function saveCourseLecture(
 
 export async function getLectures(plan: Exclude<Plan, "signals">) {
   // Preferred structure: `courses/{plan}/{lectureId}`
-  const snap = await get(ref(db, `courses/${plan}`));
+  const snap = await get(ref(mustDb(), `courses/${plan}`));
   if (snap.exists()) {
     const raw = snap.val() as Record<string, Partial<CourseLectureRow>>;
     return Object.entries(raw)
@@ -457,7 +467,7 @@ export async function getLectures(plan: Exclude<Plan, "signals">) {
   }
 
   // Legacy fallback: `lectures` flat collection.
-  const legacy = await get(ref(db, "lectures"));
+  const legacy = await get(ref(mustDb(), "lectures"));
   if (!legacy.exists()) return [] as LectureData[];
   const raw = legacy.val() as Record<string, LectureData>;
   return Object.values(raw)
@@ -466,7 +476,7 @@ export async function getLectures(plan: Exclude<Plan, "signals">) {
 }
 
 export async function addSignal(input: Omit<SignalData, "id" | "createdAt">) {
-  const idRef = push(ref(db, "signals"));
+  const idRef = push(ref(mustDb(), "signals"));
   const id = idRef.key!;
   const data: SignalData = { id, createdAt: Date.now(), ...input };
   await set(idRef, data);
@@ -474,14 +484,14 @@ export async function addSignal(input: Omit<SignalData, "id" | "createdAt">) {
 }
 
 export async function getSignals() {
-  const snap = await get(ref(db, "signals"));
+  const snap = await get(ref(mustDb(), "signals"));
   if (!snap.exists()) return [] as SignalData[];
   const raw = snap.val() as Record<string, SignalData>;
   return Object.values(raw).sort((a, b) => b.createdAt - a.createdAt);
 }
 
 export async function requestLiveSession(email: string) {
-  const idRef = push(ref(db, "liveSessions"));
+  const idRef = push(ref(mustDb(), "liveSessions"));
   const id = idRef.key!;
   const data: LiveSessionRequest = {
     id,
@@ -494,7 +504,7 @@ export async function requestLiveSession(email: string) {
 }
 
 export async function getLiveSessions() {
-  const snap = await get(ref(db, "liveSessions"));
+  const snap = await get(ref(mustDb(), "liveSessions"));
   if (!snap.exists()) return [] as LiveSessionRequest[];
   const raw = snap.val() as Record<string, LiveSessionRequest>;
   return Object.values(raw).sort((a, b) => b.createdAt - a.createdAt);
@@ -505,7 +515,7 @@ export async function approveLiveSession(
   meetingLink: string,
   reviewedByEmail: string,
 ) {
-  const rRef = ref(db, `liveSessions/${requestId}`);
+  const rRef = ref(mustDb(), `liveSessions/${requestId}`);
   const snap = await get(rRef);
   if (!snap.exists()) throw new Error("Request not found.");
   await update(rRef, {
@@ -517,7 +527,7 @@ export async function approveLiveSession(
 }
 
 export async function rejectLiveSession(requestId: string, reviewedByEmail: string) {
-  const rRef = ref(db, `liveSessions/${requestId}`);
+  const rRef = ref(mustDb(), `liveSessions/${requestId}`);
   const snap = await get(rRef);
   if (!snap.exists()) throw new Error("Request not found.");
   await update(rRef, {
@@ -535,7 +545,7 @@ export async function requestSignalCall(email: string, input: { name: string; wh
   if (!name) throw new Error("Name is required.");
   if (!whatsapp) throw new Error("WhatsApp number is required.");
 
-  const idRef = push(ref(db, "signalCalls"));
+  const idRef = push(ref(mustDb(), "signalCalls"));
   const id = idRef.key!;
   const row: SignalCallRequest = {
     id,
@@ -550,14 +560,14 @@ export async function requestSignalCall(email: string, input: { name: string; wh
 }
 
 export async function getSignalCalls() {
-  const snap = await get(ref(db, "signalCalls"));
+  const snap = await get(ref(mustDb(), "signalCalls"));
   if (!snap.exists()) return [] as SignalCallRequest[];
   const raw = snap.val() as Record<string, SignalCallRequest>;
   return Object.values(raw).sort((a, b) => b.createdAt - a.createdAt);
 }
 
 export async function approveSignalCall(requestId: string, meetingLink: string, reviewedByEmail: string) {
-  const rRef = ref(db, `signalCalls/${requestId}`);
+  const rRef = ref(mustDb(), `signalCalls/${requestId}`);
   const snap = await get(rRef);
   if (!snap.exists()) throw new Error("Request not found.");
   await update(rRef, {
@@ -569,7 +579,7 @@ export async function approveSignalCall(requestId: string, meetingLink: string, 
 }
 
 export async function rejectSignalCall(requestId: string, reviewedByEmail: string) {
-  const rRef = ref(db, `signalCalls/${requestId}`);
+  const rRef = ref(mustDb(), `signalCalls/${requestId}`);
   const snap = await get(rRef);
   if (!snap.exists()) throw new Error("Request not found.");
   await update(rRef, {
@@ -586,18 +596,18 @@ export async function addSelectedUser(email: string) {
   const safeEmail = email.trim().toLowerCase();
   const userKey = keyFromEmail(safeEmail);
   const data: SelectedUser = { email: safeEmail, addedAt: Date.now() };
-  await set(ref(db, `selectedUsers/${userKey}`), data);
+  await set(ref(mustDb(), `selectedUsers/${userKey}`), data);
   return data;
 }
 
 export async function removeSelectedUser(email: string) {
   const safeEmail = email.trim().toLowerCase();
   const userKey = keyFromEmail(safeEmail);
-  await set(ref(db, `selectedUsers/${userKey}`), null);
+  await set(ref(mustDb(), `selectedUsers/${userKey}`), null);
 }
 
 export async function getSelectedUsers() {
-  const snap = await get(ref(db, "selectedUsers"));
+  const snap = await get(ref(mustDb(), "selectedUsers"));
   if (!snap.exists()) return [] as SelectedUser[];
   const raw = snap.val() as Record<string, SelectedUser>;
   return Object.values(raw).sort((a, b) => b.addedAt - a.addedAt);
@@ -614,7 +624,7 @@ export async function createSelectiveAccessRequest(input: {
   if (!safeEmail) throw new Error("Email is required.");
   if (!name) throw new Error("Name is required.");
 
-  const idRef = push(ref(db, "selectiveAccessRequests"));
+  const idRef = push(ref(mustDb(), "selectiveAccessRequests"));
   const id = idRef.key!;
   const now = Date.now();
   const row: SelectiveAccessRequest = {
@@ -631,7 +641,7 @@ export async function createSelectiveAccessRequest(input: {
 }
 
 export async function getSelectiveAccessRequests() {
-  const snap = await get(ref(db, "selectiveAccessRequests"));
+  const snap = await get(ref(mustDb(), "selectiveAccessRequests"));
   if (!snap.exists()) return [] as SelectiveAccessRequest[];
   const raw = snap.val() as Record<string, SelectiveAccessRequest>;
   return Object.values(raw).sort((a, b) => b.createdAt - a.createdAt);
@@ -641,7 +651,7 @@ export async function getLatestSelectiveAccessRequestForEmail(email: string) {
   const safeEmail = email.trim().toLowerCase();
   if (!safeEmail) return null;
   const q = query(
-    ref(db, "selectiveAccessRequests"),
+    ref(mustDb(), "selectiveAccessRequests"),
     orderByChild("email"),
     equalTo(safeEmail),
     limitToLast(1),
@@ -654,7 +664,7 @@ export async function getLatestSelectiveAccessRequestForEmail(email: string) {
 }
 
 export async function acceptSelectiveAccessRequest(requestId: string, acceptedByEmail: string) {
-  const rRef = ref(db, `selectiveAccessRequests/${requestId}`);
+  const rRef = ref(mustDb(), `selectiveAccessRequests/${requestId}`);
   const snap = await get(rRef);
   if (!snap.exists()) throw new Error("Request not found.");
   const row = snap.val() as SelectiveAccessRequest;
@@ -666,7 +676,7 @@ export async function acceptSelectiveAccessRequest(requestId: string, acceptedBy
 
   // Store a simple grant keyed by email.
   const key = keyFromEmail(row.email);
-  await set(ref(db, `selectiveAccessGrants/${key}`), {
+  await set(ref(mustDb(), `selectiveAccessGrants/${key}`), {
     email: row.email,
     name: row.name,
     dashboard: row.dashboard,
@@ -675,7 +685,7 @@ export async function acceptSelectiveAccessRequest(requestId: string, acceptedBy
   });
 
   // Back-compat: also mirror into selectedUsers (if you already use it elsewhere).
-  await set(ref(db, `selectedUsers/${key}`), {
+  await set(ref(mustDb(), `selectedUsers/${key}`), {
     email: row.email,
     addedAt: Date.now(),
     dashboard: row.dashboard,
@@ -685,7 +695,7 @@ export async function acceptSelectiveAccessRequest(requestId: string, acceptedBy
 }
 
 export async function rejectSelectiveAccessRequest(requestId: string, rejectedByEmail: string) {
-  const rRef = ref(db, `selectiveAccessRequests/${requestId}`);
+  const rRef = ref(mustDb(), `selectiveAccessRequests/${requestId}`);
   const snap = await get(rRef);
   if (!snap.exists()) throw new Error("Request not found.");
   await update(rRef, {
@@ -699,11 +709,11 @@ export async function rejectSelectiveAccessRequest(requestId: string, rejectedBy
 }
 
 export async function deleteSelectiveAccessRequest(requestId: string) {
-  await remove(ref(db, `selectiveAccessRequests/${requestId}`));
+  await remove(ref(mustDb(), `selectiveAccessRequests/${requestId}`));
 }
 
 export async function approvePayment(paymentId: string, reviewedByEmail: string) {
-  const pRef = ref(db, `payments/${paymentId}`);
+  const pRef = ref(mustDb(), `payments/${paymentId}`);
   const snap = await get(pRef);
   if (!snap.exists()) throw new Error("Payment not found.");
   const p = snap.val() as PaymentData;
@@ -716,7 +726,7 @@ export async function approvePayment(paymentId: string, reviewedByEmail: string)
 
   const userRole = roleFromEmail(p.email);
   const u = await saveUserData(p.email, userRole, p.plan);
-  await update(ref(db, `users/${keyFromEmail(p.email)}`), {
+  await update(ref(mustDb(), `users/${keyFromEmail(p.email)}`), {
     isPaid: true,
     plan: p.plan,
     paymentStatus: "approved",
@@ -725,7 +735,7 @@ export async function approvePayment(paymentId: string, reviewedByEmail: string)
 }
 
 export async function rejectPayment(paymentId: string, _reviewedByEmail: string) {
-  const pRef = ref(db, `payments/${paymentId}`);
+  const pRef = ref(mustDb(), `payments/${paymentId}`);
   const snap = await get(pRef);
   if (!snap.exists()) throw new Error("Payment not found.");
   const p = snap.val() as PaymentData;
@@ -748,7 +758,7 @@ export async function rejectPayment(paymentId: string, _reviewedByEmail: string)
 }
 
 export async function deletePaymentRequest(paymentId: string) {
-  const pRef = ref(db, `payments/${paymentId}`);
+  const pRef = ref(mustDb(), `payments/${paymentId}`);
   const snap = await get(pRef);
   if (!snap.exists()) return;
   const p = snap.val() as PaymentData;
@@ -768,7 +778,7 @@ export async function deletePaymentRequest(paymentId: string) {
 }
 
 export async function deleteSignalsRequest(requestId: string) {
-  const rRef = ref(db, `signalsRequests/${requestId}`);
+  const rRef = ref(mustDb(), `signalsRequests/${requestId}`);
   const snap = await get(rRef);
   if (!snap.exists()) return;
   const r = snap.val() as SignalsRequest;
@@ -787,12 +797,12 @@ export async function deleteSignalsRequest(requestId: string) {
 }
 
 export async function deleteSignalCallRequest(callId: string) {
-  const rRef = ref(db, `signalCalls/${callId}`);
+  const rRef = ref(mustDb(), `signalCalls/${callId}`);
   await remove(rRef);
 }
 
 export async function deleteLecture(plan: Exclude<Plan, "signals">, lectureId: string) {
-  await remove(ref(db, `courses/${plan}/${lectureId}`));
+  await remove(ref(mustDb(), `courses/${plan}/${lectureId}`));
 }
 
 

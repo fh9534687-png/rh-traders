@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useEffect, useMemo, useRef, useState } from "react";
-import { onAuthStateChanged } from "firebase/auth";
+import { onAuthStateChanged, type Auth } from "firebase/auth";
 import { firebaseAuth } from "../lib/firebase/auth";
 import { getUserData } from "../lib/firebase/db";
 import { isAdminEmail, setRhSession } from "../lib/rhSession";
@@ -15,6 +15,15 @@ import {
   type RhPaymentStatus,
 } from "../lib/rhEntitlements";
 import { LogoutButton } from "./LogoutButton";
+
+function mustAuth(): Auth {
+  if (!firebaseAuth) {
+    throw new Error(
+      "Firebase is not configured. Add NEXT_PUBLIC_FIREBASE_* environment variables (Vercel + .env.local).",
+    );
+  }
+  return firebaseAuth;
+}
 
 function Icon({
   name,
@@ -141,7 +150,13 @@ export function UserMenu() {
   const rtdbSyncGenRef = useRef(0);
 
   useEffect(() => {
-    const unsub = onAuthStateChanged(firebaseAuth, (u) => {
+    if (!firebaseAuth) {
+      setAuthReady(true);
+      return;
+    }
+
+    const auth = mustAuth();
+    const unsub = onAuthStateChanged(auth, (u) => {
       if (!u) {
         rtdbSyncGenRef.current += 1;
         setEmail(null);
@@ -194,7 +209,7 @@ export function UserMenu() {
           return;
         }
         if (genAtStart !== rtdbSyncGenRef.current) return;
-        const cu = firebaseAuth.currentUser;
+        const cu = auth.currentUser;
         if (!cu?.email || cu.email.trim().toLowerCase() !== e) return;
 
         const r: "admin" | "user" =
