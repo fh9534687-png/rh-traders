@@ -20,9 +20,7 @@ type Mode = "login" | "signup";
 
 function mustAuth(): Auth {
   if (!firebaseAuth) {
-    throw new Error(
-      "Firebase is not configured. Add NEXT_PUBLIC_FIREBASE_* environment variables (Vercel + .env.local).",
-    );
+    throw new Error("Firebase is not configured.");
   }
   return firebaseAuth;
 }
@@ -38,6 +36,19 @@ function getFirebaseErrorMessage(err: unknown) {
       "Firebase is not configured for Email/Password sign-in yet. " +
       "Go to Firebase Console → Authentication → Sign-in method → enable Email/Password. " +
       "Then restart the dev server."
+    );
+  }
+  if (code === "auth/unauthorized-domain") {
+    return (
+      "This domain is not authorized for Firebase Auth. " +
+      "In Firebase Console → Authentication → Settings → Authorized domains, add your Vercel domain " +
+      "(e.g. rh-traders.vercel.app), then redeploy."
+    );
+  }
+  if (code === "auth/invalid-api-key") {
+    return (
+      "Firebase API key is invalid or missing in this deployment. " +
+      "Check Vercel → Project → Settings → Environment Variables for NEXT_PUBLIC_FIREBASE_API_KEY and redeploy."
     );
   }
 
@@ -179,7 +190,17 @@ export function AuthCard() {
     e.preventDefault();
     setError(null);
 
-    const auth = mustAuth();
+    let auth: Auth;
+    try {
+      auth = mustAuth();
+    } catch (err) {
+      setError(
+        err instanceof Error
+          ? `${err.message} Add NEXT_PUBLIC_FIREBASE_* env vars in Vercel (Production + Preview) and redeploy.`
+          : "Firebase is not configured. Add NEXT_PUBLIC_FIREBASE_* env vars in Vercel and redeploy.",
+      );
+      return;
+    }
     const cleanEmail = email.trim();
     if (!isValidEmail(cleanEmail)) {
       setError("Please enter a valid email.");
@@ -318,7 +339,17 @@ export function AuthCard() {
   async function onSendPasswordReset() {
     setError(null);
     setResetSent(false);
-    const auth = mustAuth();
+    let auth: Auth;
+    try {
+      auth = mustAuth();
+    } catch (err) {
+      setError(
+        err instanceof Error
+          ? `${err.message} Add NEXT_PUBLIC_FIREBASE_* env vars in Vercel (Production + Preview) and redeploy.`
+          : "Firebase is not configured. Add NEXT_PUBLIC_FIREBASE_* env vars in Vercel and redeploy.",
+      );
+      return;
+    }
     const cleanEmail = email.trim();
     if (!isValidEmail(cleanEmail)) {
       setError("Please enter a valid email.");
@@ -348,7 +379,17 @@ export function AuthCard() {
     e.preventDefault();
     setError(null);
     if (!oobFromEmail) return;
-    const auth = mustAuth();
+    let auth: Auth;
+    try {
+      auth = mustAuth();
+    } catch (err) {
+      setError(
+        err instanceof Error
+          ? `${err.message} Add NEXT_PUBLIC_FIREBASE_* env vars in Vercel (Production + Preview) and redeploy.`
+          : "Firebase is not configured. Add NEXT_PUBLIC_FIREBASE_* env vars in Vercel and redeploy.",
+      );
+      return;
+    }
     if (resetNewPw.trim().length < 6) {
       setError("Password must be at least 6 characters.");
       return;
