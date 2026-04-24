@@ -21,11 +21,11 @@ export default function MarketPage() {
             Education hub
           </p>
           <h1 className="mt-4 text-balance font-[Georgia,Times_New_Roman,Times,serif] text-3xl font-bold tracking-tight text-white sm:text-4xl lg:text-5xl">
-            Understanding the crypto market
+            Crypto market education for better execution
           </h1>
           <p className="mx-auto mt-3 max-w-3xl text-pretty text-base text-slate-200/90 sm:text-lg">
-            A practical guide to execution, liquidity, market structure, and risk—written for traders
-            who want clarity, not hype.
+            Learn trading online with a practical breakdown of how crypto markets work, how orders become fills, and how
+            disciplined risk management fits into a trading platform workflow.
           </p>
           <p className="mx-auto mt-3 max-w-3xl text-pretty text-sm leading-7 text-slate-400 sm:text-base">
             You’ll learn how orders turn into fills, how order books and spreads affect your entry,

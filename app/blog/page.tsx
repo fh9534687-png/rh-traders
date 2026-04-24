@@ -1,5 +1,11 @@
 import Link from "next/link";
 
+export const metadata = {
+  title: "Learn Trading Online with Practical Guides",
+  description:
+    "Explore RH Traders guides on market structure, risk management, and execution. These articles support our crypto trading course and help you learn trading online with a professional process.",
+};
+
 const posts = [
   {
     title: "Crypto Trading Fundamentals",
@@ -31,12 +37,17 @@ export default function BlogPage() {
       <div className="rh-wrap relative">
         <header className="mx-auto max-w-[860px] text-center">
           <h1 className="text-3xl font-extrabold tracking-tight text-white sm:text-4xl">
-            Blog
+            Crypto trading guides from RH Traders
           </h1>
           <p className="mt-3 text-base text-slate-400 sm:text-lg">
-            Clean, educational reads—built to improve your trading decisions.
+            If you are working through a crypto trading course or you want to learn trading online in a structured way,
+            these articles explain the fundamentals behind execution, risk, and consistency.
           </p>
         </header>
+
+        <section className="mx-auto mt-8 max-w-[980px]">
+          <h2 className="sr-only">Featured guides</h2>
+        </section>
 
         <section className="mx-auto mt-10 grid max-w-[980px] gap-6 md:grid-cols-3">
           {posts.map((p) => (
@@ -58,13 +69,13 @@ export default function BlogPage() {
 
         <div className="mx-auto mt-10 flex max-w-[980px] flex-col items-center gap-3 text-center">
           <p className="text-sm text-slate-400">
-            Ready to unlock the full course and signals?
+            Ready to access the full dashboard and trading signals?
           </p>
           <Link
             href="/plans"
             className="rh-btn-primary inline-flex items-center justify-center rounded-full px-8 py-3 text-base font-extrabold text-white"
           >
-            Choose a Plan
+            View Plans
           </Link>
         </div>
       </div>

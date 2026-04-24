@@ -90,17 +90,22 @@ export default function PlansPage() {
       <div className="rh-wrap relative">
         <header className="mx-auto max-w-[820px] text-center">
           <h1 className="text-3xl font-extrabold tracking-tight text-white sm:text-4xl">
-            Choose Your Trading Plan
+            Choose a plan for your crypto trading course
           </h1>
           <p className="mt-3 text-base text-slate-400 sm:text-lg">
-            Start your journey with professional crypto trading education
+            RH Traders is a trading platform built for structured learning. Pick a plan to learn trading online
+            through guided lessons, a practical dashboard, and (if you choose) trading signals with clear execution notes.
           </p>
         </header>
 
         <section
           id="rh-pricing"
           className="mx-auto mt-10 grid max-w-[1200px] gap-6 md:grid-cols-2 lg:grid-cols-3"
+          aria-labelledby="rh-pricing-heading"
         >
+          <h2 id="rh-pricing-heading" className="sr-only">
+            Plans and pricing
+          </h2>
           {plans.map((plan) => (
             <div key={plan.id}>
               <PricingCard plan={plan} onSelect={onSelect} />
@@ -108,9 +113,15 @@ export default function PlansPage() {
           ))}
         </section>
 
-        <p className="mx-auto mt-10 max-w-[820px] text-center text-sm text-slate-500">
-          Secure payment and lifetime access to your dashboard
-        </p>
+        <section className="mx-auto mt-12 max-w-[820px] text-center">
+          <h2 className="text-lg font-extrabold tracking-tight text-white">
+            What happens after you choose a plan
+          </h2>
+          <p className="mt-3 text-sm leading-7 text-slate-400">
+            You will complete a secure checkout and then get access to your dashboard. From there you can open the
+            lectures library, follow the course modules in order, and track what you have completed.
+          </p>
+        </section>
       </div>
     </main>
   );

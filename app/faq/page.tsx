@@ -3,6 +3,12 @@ import Image from "next/image";
 import { FaqCardThumbnail } from "../components/FaqCardThumbnail";
 import { faqItems } from "../../data/faqData";
 
+export const metadata = {
+  title: "Crypto Trading FAQ and Learning Guides",
+  description:
+    "Find clear answers to common questions about crypto trading, exchanges, charts, and risk. RH Traders FAQ supports our crypto trading course and helps you learn trading online with confidence.",
+};
+
 export default function FaqPage() {
   return (
     <main className="relative flex-1 bg-[#020617] px-5 py-14">
@@ -14,11 +20,11 @@ export default function FaqPage() {
             Guides
           </p>
           <h1 className="mt-3 text-3xl font-extrabold tracking-tight text-white sm:text-4xl lg:text-[2.5rem]">
-            FAQ
+            Crypto trading FAQ
           </h1>
           <p className="mx-auto mt-4 max-w-2xl text-base text-slate-400 sm:text-lg">
-            In-depth articles—pick a topic below. Same neon-blue trading visual
-            language as the rest of RH Traders.
+            These guides explain core concepts you will use inside the RH Traders learning dashboard, from reading charts
+            to managing risk. Choose a topic below to support your course progress.
           </p>
         </header>
 
@@ -56,7 +62,7 @@ export default function FaqPage() {
                     <>
                       <Image
                         src={item.image}
-                        alt={item.title}
+                        alt={`${item.title} guide`}
                         fill
                         sizes="(max-width: 1024px) 100vw, 420px"
                         className="object-cover object-center"

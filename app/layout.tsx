@@ -34,6 +34,15 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const websiteJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    name: "RH Traders",
+    url: siteUrl,
+    description:
+      "RH Traders is a learning platform for structured crypto trading education, dashboards, and trading signals.",
+  };
+
   const orgJsonLd = {
     "@context": "https://schema.org",
     "@type": "Organization",
@@ -54,7 +63,7 @@ export default function RootLayout({
         <script
           type="application/ld+json"
           // JSON-LD must be a string to avoid escaping issues.
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(orgJsonLd) }}
+          dangerouslySetInnerHTML={{ __html: JSON.stringify([websiteJsonLd, orgJsonLd]) }}
         />
         <Header />
         {children}
