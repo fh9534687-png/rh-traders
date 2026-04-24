@@ -390,7 +390,7 @@ export function Header() {
           </Link>
 
           <nav
-            className="hidden min-w-0 flex-1 items-center justify-center gap-3 md:flex lg:gap-4"
+            className="hidden min-w-0 flex-1 items-center justify-center gap-3 lg:flex lg:gap-4"
             aria-label="Primary"
           >
             {navItems.map((item) => (
@@ -411,7 +411,7 @@ export function Header() {
             <button
               type="button"
               onClick={() => setMobileOpen((v) => !v)}
-              className="inline-flex items-center justify-center rounded-2xl border border-sky-400/20 bg-slate-950/30 px-3 py-2 transition hover:bg-slate-900/40 md:hidden"
+              className="inline-flex items-center justify-center rounded-2xl border border-sky-400/20 bg-slate-950/30 px-3 py-2 transition hover:bg-slate-900/40 lg:hidden"
               aria-label={mobileOpen ? "Close menu" : "Open menu"}
               aria-expanded={mobileOpen}
             >
@@ -423,7 +423,7 @@ export function Header() {
       </div>
 
       {mobileOpen ? (
-        <div className="md:hidden">
+        <div className="lg:hidden">
           <button
             type="button"
             aria-label="Close menu"
