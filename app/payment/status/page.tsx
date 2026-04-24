@@ -5,8 +5,8 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import { onAuthStateChanged, type Auth } from "firebase/auth";
 import { onValue, ref } from "firebase/database";
-import { firebaseAuth } from "../../lib/firebase/auth";
-import { db, keyFromEmail, type UserData } from "../../lib/firebase/db";
+import { getFirebaseAuth } from "../../lib/firebase/auth";
+import { getDb, keyFromEmail, type UserData } from "../../lib/firebase/db";
 import { markRhPaid, setRhPaymentStatus, setRhPlan, type RhPlanId } from "../../lib/rhEntitlements";
 
 function getCookie(name: string) {
@@ -28,12 +28,13 @@ const card =
   "rounded-2xl border-2 border-sky-400/25 bg-slate-950/60 p-6 shadow-[0_0_40px_rgba(56,189,248,0.12)] backdrop-blur-sm transition hover:border-sky-400/40";
 
 function mustAuth(): Auth {
-  if (!firebaseAuth) {
+  const auth = getFirebaseAuth();
+  if (!auth) {
     throw new Error(
       "Firebase is not configured. Add NEXT_PUBLIC_FIREBASE_* environment variables (Vercel + .env.local).",
     );
   }
-  return firebaseAuth;
+  return auth;
 }
 
 export default function PaymentStatusPage() {
@@ -46,7 +47,7 @@ export default function PaymentStatusPage() {
   const [userSnap, setUserSnap] = useState<UserData | null | undefined>(undefined);
 
   useEffect(() => {
-    if (!firebaseAuth) {
+    if (!getFirebaseAuth()) {
       router.replace("/auth?next=/payment/status");
       return;
     }
@@ -68,6 +69,7 @@ export default function PaymentStatusPage() {
 
   useEffect(() => {
     if (!authReady || !email) return;
+    const db = getDb();
     if (!db) {
       setUserSnap(null);
       return;

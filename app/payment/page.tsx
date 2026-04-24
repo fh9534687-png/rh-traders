@@ -5,7 +5,7 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import { onAuthStateChanged, type Auth } from "firebase/auth";
 import { setRhPaymentStatus, setRhPlan } from "../lib/rhEntitlements";
-import { firebaseAuth } from "../lib/firebase/auth";
+import { getFirebaseAuth } from "../lib/firebase/auth";
 import { savePayment, type Plan } from "../lib/firebase/db";
 
 function getCookie(name: string) {
@@ -32,12 +32,13 @@ const PLAN_LABEL: Record<RhPlanId, string> = {
 };
 
 function mustAuth(): Auth {
-  if (!firebaseAuth) {
+  const auth = getFirebaseAuth();
+  if (!auth) {
     throw new Error(
       "Firebase is not configured. Add NEXT_PUBLIC_FIREBASE_* environment variables (Vercel + .env.local).",
     );
   }
-  return firebaseAuth;
+  return auth;
 }
 
 export default function ManualPaymentPage() {
@@ -57,7 +58,7 @@ export default function ManualPaymentPage() {
   const didPrefillName = useRef(false);
 
   useEffect(() => {
-    if (!firebaseAuth) {
+    if (!getFirebaseAuth()) {
       router.replace("/auth?next=/payment");
       return;
     }

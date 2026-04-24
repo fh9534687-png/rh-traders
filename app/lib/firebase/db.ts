@@ -12,7 +12,7 @@ import {
   equalTo,
   limitToLast,
 } from "firebase/database";
-import { firebaseApp } from "./client";
+import { getFirebaseApp } from "./client";
 import { isAdminEmail } from "../rhSession";
 
 export type Role = "admin" | "user";
@@ -137,9 +137,13 @@ export type SelectiveAccessRequest = {
   createdBy?: string;
 };
 
-export const db: Database | null = firebaseApp ? getDatabase(firebaseApp) : null;
+export function getDb(): Database | null {
+  const app = getFirebaseApp();
+  return app ? getDatabase(app) : null;
+}
 
 function mustDb(): Database {
+  const db = getDb();
   if (!db) {
     throw new Error(
       "Firebase Realtime Database is not configured. Add NEXT_PUBLIC_FIREBASE_* environment variables.",

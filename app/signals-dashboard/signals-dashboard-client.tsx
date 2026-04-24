@@ -3,7 +3,7 @@
 import { useEffect, useMemo, useState } from "react";
 import Link from "next/link";
 import { onValue, ref } from "firebase/database";
-import { addSignal, db, requestSignalCall, type SignalData } from "../lib/firebase/db";
+import { addSignal, getDb, requestSignalCall, type SignalData } from "../lib/firebase/db";
 import { LogoutButton } from "../components/LogoutButton";
 
 const inputClass =
@@ -50,6 +50,7 @@ export function SignalsDashboardClient({ email, role }: { email: string; role: s
     setLoading(true);
     setError(null);
 
+    const db = getDb();
     if (!db) {
       setSignals([]);
       setLoading(false);

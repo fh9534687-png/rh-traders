@@ -4,13 +4,13 @@ function env(name: string) {
   return (process.env[name] ?? "").trim();
 }
 
-function canInitFirebaseInThisRuntime() {
-  // Prevent Next.js build/prerender from initializing Firebase Web SDK on the server.
-  return typeof window !== "undefined";
-}
+let cachedApp: FirebaseApp | null | undefined;
+let warnedMissingEnv = false;
 
 export function getFirebaseApp(): FirebaseApp | null {
-  if (!canInitFirebaseInThisRuntime()) return null;
+  // Prevent Next.js build/prerender from initializing Firebase Web SDK on the server.
+  if (typeof window === "undefined") return null;
+  if (cachedApp !== undefined) return cachedApp;
 
   const apiKey = env("NEXT_PUBLIC_FIREBASE_API_KEY");
   const authDomain = env("NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN");
@@ -31,7 +31,15 @@ export function getFirebaseApp(): FirebaseApp | null {
     !messagingSenderId ||
     !appId
   ) {
-    return null;
+    if (!warnedMissingEnv) {
+      warnedMissingEnv = true;
+      // Helpful in production debugging without leaking secret values.
+      console.warn(
+        "[RH Traders] Firebase env vars missing. Check Vercel env: NEXT_PUBLIC_FIREBASE_*",
+      );
+    }
+    cachedApp = null;
+    return cachedApp;
   }
 
   const firebaseConfig = {
@@ -45,8 +53,11 @@ export function getFirebaseApp(): FirebaseApp | null {
     measurementId: env("NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID") || undefined,
   };
 
-  return getApps().length > 0 ? getApps()[0]! : initializeApp(firebaseConfig);
+  cachedApp = getApps().length > 0 ? getApps()[0]! : initializeApp(firebaseConfig);
+  return cachedApp;
 }
 
-export const firebaseApp: FirebaseApp | null = getFirebaseApp();
+export function isFirebaseConfigured(): boolean {
+  return Boolean(getFirebaseApp());
+}
 

@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { onAuthStateChanged, type Auth } from "firebase/auth";
-import { firebaseAuth } from "../lib/firebase/auth";
+import { getFirebaseAuth } from "../lib/firebase/auth";
 import { getUserData } from "../lib/firebase/db";
 import { isAdminEmail, setRhSession } from "../lib/rhSession";
 import {
@@ -17,12 +17,13 @@ import {
 import { LogoutButton } from "./LogoutButton";
 
 function mustAuth(): Auth {
-  if (!firebaseAuth) {
+  const auth = getFirebaseAuth();
+  if (!auth) {
     throw new Error(
       "Firebase is not configured. Add NEXT_PUBLIC_FIREBASE_* environment variables (Vercel + .env.local).",
     );
   }
-  return firebaseAuth;
+  return auth;
 }
 
 function Icon({
@@ -150,7 +151,8 @@ export function UserMenu() {
   const rtdbSyncGenRef = useRef(0);
 
   useEffect(() => {
-    if (!firebaseAuth) {
+    const authMaybe = getFirebaseAuth();
+    if (!authMaybe) {
       setAuthReady(true);
       return;
     }

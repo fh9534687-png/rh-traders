@@ -4,15 +4,16 @@ import { useRouter } from "next/navigation";
 import { signOut, type Auth } from "firebase/auth";
 import { clearRhSession } from "../lib/rhSession";
 import { clearRhEntitlements } from "../lib/rhEntitlements";
-import { firebaseAuth } from "../lib/firebase/auth";
+import { getFirebaseAuth } from "../lib/firebase/auth";
 
 function mustAuth(): Auth {
-  if (!firebaseAuth) {
+  const auth = getFirebaseAuth();
+  if (!auth) {
     throw new Error(
       "Firebase is not configured. Add NEXT_PUBLIC_FIREBASE_* environment variables (Vercel + .env.local).",
     );
   }
-  return firebaseAuth;
+  return auth;
 }
 
 export function LogoutButton({ className = "" }: { className?: string }) {

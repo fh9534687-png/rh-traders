@@ -8,18 +8,19 @@ import {
   type SelectiveAccessRequest,
 } from "../lib/firebase/db";
 import type { Auth } from "firebase/auth";
-import { firebaseAuth } from "../lib/firebase/auth";
+import { getFirebaseAuth } from "../lib/firebase/auth";
 
 const cardClass =
   "overflow-hidden rounded-3xl border border-sky-400/20 bg-slate-900/45 p-6 shadow-[0_0_60px_rgba(37,99,235,0.10)] backdrop-blur-sm sm:p-8";
 
 function mustAuth(): Auth {
-  if (!firebaseAuth) {
+  const auth = getFirebaseAuth();
+  if (!auth) {
     throw new Error(
       "Firebase is not configured. Add NEXT_PUBLIC_FIREBASE_* environment variables (Vercel + .env.local).",
     );
   }
-  return firebaseAuth;
+  return auth;
 }
 
 function setCookie(name: string, value: string) {

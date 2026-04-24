@@ -2,7 +2,7 @@
 
 import { useEffect, useMemo, useState } from "react";
 import { onValue, ref } from "firebase/database";
-import { db, type CourseLectureRow, type LectureData } from "../../lib/firebase/db";
+import { getDb, type CourseLectureRow, type LectureData } from "../../lib/firebase/db";
 
 type Tier = "basic" | "premium";
 
@@ -76,6 +76,7 @@ export function CourseLectures({ tier }: { tier: Tier }) {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    const db = getDb();
     if (!db) {
       setItems([]);
       setLoading(false);

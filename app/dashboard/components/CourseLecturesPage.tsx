@@ -3,7 +3,7 @@
 import { useEffect, useMemo, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { onValue, ref } from "firebase/database";
-import { db, type CourseLectureRow, type LectureData } from "../../lib/firebase/db";
+import { getDb, type CourseLectureRow, type LectureData } from "../../lib/firebase/db";
 
 type Tier = "basic" | "premium";
 
@@ -28,6 +28,7 @@ export function CourseLecturesPage({ tier }: { tier: Tier }) {
   const [openModule, setOpenModule] = useState<string>("");
 
   useEffect(() => {
+    const db = getDb();
     if (!db) {
       setItems([]);
       setLoading(false);
