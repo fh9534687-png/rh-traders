@@ -550,18 +550,18 @@ export default function Home() {
           </div>
         </section>
 
-        <section className="rh-wrap w-full px-5 py-14">
+        <section className="rh-wrap w-full px-5 py-10 sm:py-12">
           <div className="rounded-[2.5rem] border border-sky-400/25 bg-[linear-gradient(180deg,rgba(56,189,248,0.14),rgba(2,6,23,0.55))] p-6 shadow-[0_30px_90px_rgba(2,6,23,0.55)] backdrop-blur-sm sm:p-10">
-            <div className="grid items-center gap-12 lg:grid-cols-2">
-              <div className="relative">
-                <div className="relative mx-auto w-full max-w-[520px]">
-                  <div className="relative aspect-[4/3] overflow-hidden rounded-[2.25rem] border border-white/10 bg-slate-950/20 shadow-[0_0_70px_rgba(56,189,248,0.18)]">
+            <div className="grid items-center gap-10 lg:grid-cols-2 lg:gap-12">
+              <div className="flex flex-col lg:pr-2">
+                <div className="relative w-full">
+                  <div className="relative aspect-[6/5] w-full overflow-hidden rounded-[2.25rem] border border-white/10 bg-slate-950/20 shadow-[0_0_70px_rgba(56,189,248,0.18)]">
                     <Image
-                      src="/images/welcome/trainer-1.png"
+                      src="/images/welcome/trainer-2.png"
                       alt="Raja Haseeb Nawaz — Founder of RH Traders"
                       fill
-                      sizes="(max-width: 1024px) 100vw, 520px"
-                      className="object-cover object-[50%_25%]"
+                      sizes="(max-width: 1024px) 100vw, 50vw"
+                      className="object-cover object-[50%_10%]"
                       priority={false}
                     />
                     <div className="pointer-events-none absolute inset-0 bg-gradient-to-tr from-[#020617]/55 via-transparent to-transparent" />
@@ -572,7 +572,8 @@ export default function Home() {
                 </div>
               </div>
 
-              <div>
+              <div className="lg:pl-2">
+                <div className="mx-auto w-full max-w-[720px]">
                 <div className="flex items-center gap-3">
                   <p className="text-xs font-extrabold uppercase tracking-[0.22em] text-[color:var(--rh-border-red)]">
                     Raja Haseeb Nawaz
@@ -599,14 +600,14 @@ export default function Home() {
                 </p>
 
                 <div className="mt-7 grid gap-5 sm:grid-cols-2">
-                  <div className="rounded-3xl border border-sky-400/20 bg-slate-950/30 p-5 shadow-[0_0_40px_rgba(56,189,248,0.10)]">
+                  <div className="rounded-3xl border border-sky-400/20 bg-slate-950/30 p-6 shadow-[0_0_40px_rgba(56,189,248,0.10)] sm:min-h-[200px]">
                     <p className="text-sm font-extrabold text-white">Our Mission</p>
                     <p className="mt-2 text-sm leading-7 text-slate-300">
                       Provide structured trading education, practical execution models, and risk
                       standards that help traders improve consistency over time.
                     </p>
                   </div>
-                  <div className="rounded-3xl border border-sky-400/20 bg-slate-950/30 p-5 shadow-[0_0_40px_rgba(56,189,248,0.10)]">
+                  <div className="rounded-3xl border border-sky-400/20 bg-slate-950/30 p-6 shadow-[0_0_40px_rgba(56,189,248,0.10)] sm:min-h-[200px]">
                     <p className="text-sm font-extrabold text-white">Support System</p>
                     <p className="mt-2 text-sm leading-7 text-slate-300">
                       Our support system is available 24/7 to answer questions, remove confusion, and
@@ -628,6 +629,7 @@ export default function Home() {
                   >
                     Contact Support
                   </Link>
+                </div>
                 </div>
               </div>
             </div>

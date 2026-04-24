@@ -6,6 +6,100 @@ import { Logo } from "./Logo";
 import { UserMenu } from "./UserMenu";
 import { ToolsMenu } from "./ToolsMenu";
 
+function TopBarIcon({ kind }: { kind: "phone" | "email" | "pin" | "contact" }) {
+  const cls = "h-4 w-4 text-[#0b1b3a]";
+  if (kind === "phone")
+    return (
+      <svg className={cls} viewBox="0 0 24 24" fill="none" aria-hidden>
+        <path
+          d="M8.2 11.2c1.7 3 4.2 5.4 7.2 7.2l2.4-2.4c.4-.4 1-.5 1.5-.3 1 .4 2.2.7 3.4.7.8 0 1.3.6 1.3 1.3V21c0 .8-.6 1.4-1.3 1.4C10.2 22.4 1.6 13.8 1.6 3.7 1.6 3 2.2 2.4 3 2.4H6c.7 0 1.3.6 1.3 1.3 0 1.2.2 2.3.7 3.4.2.5.1 1.1-.3 1.5L8.2 11.2Z"
+          stroke="currentColor"
+          strokeWidth="2"
+          strokeLinejoin="round"
+        />
+      </svg>
+    );
+  if (kind === "email")
+    return (
+      <svg className={cls} viewBox="0 0 24 24" fill="none" aria-hidden>
+        <path
+          d="M4 6h16v12H4V6Z"
+          stroke="currentColor"
+          strokeWidth="2"
+          strokeLinejoin="round"
+        />
+        <path
+          d="m4 7 8 6 8-6"
+          stroke="currentColor"
+          strokeWidth="2"
+          strokeLinejoin="round"
+        />
+      </svg>
+    );
+  if (kind === "pin")
+    return (
+      <svg className={cls} viewBox="0 0 24 24" fill="none" aria-hidden>
+        <path
+          d="M12 22s7-5.1 7-12a7 7 0 1 0-14 0c0 6.9 7 12 7 12Z"
+          stroke="currentColor"
+          strokeWidth="2"
+          strokeLinejoin="round"
+        />
+        <path
+          d="M12 13.2a3.2 3.2 0 1 0 0-6.4 3.2 3.2 0 0 0 0 6.4Z"
+          stroke="currentColor"
+          strokeWidth="2"
+          strokeLinejoin="round"
+        />
+      </svg>
+    );
+  return (
+    <svg className={cls} viewBox="0 0 24 24" fill="none" aria-hidden>
+      <path
+        d="M4 4h16v12H7l-3 3V4Z"
+        stroke="currentColor"
+        strokeWidth="2"
+        strokeLinejoin="round"
+      />
+      <path
+        d="M8 9.5h8M8 12.5h6"
+        stroke="currentColor"
+        strokeWidth="2"
+        strokeLinecap="round"
+      />
+    </svg>
+  );
+}
+
+function TopSocialIcon({
+  href,
+  label,
+  className,
+  children,
+}: {
+  href: string;
+  label: string;
+  className: string;
+  children: React.ReactNode;
+}) {
+  return (
+    <a
+      href={href}
+      target="_blank"
+      rel="noreferrer"
+      aria-label={label}
+      title={label}
+      className={[
+        "inline-flex h-8 w-8 items-center justify-center rounded-full border border-white/10 text-white shadow-[0_10px_20px_rgba(0,0,0,0.25)] transition",
+        "hover:scale-[1.04] hover:shadow-[0_14px_30px_rgba(0,0,0,0.32)]",
+        className,
+      ].join(" ")}
+    >
+      {children}
+    </a>
+  );
+}
+
 function NavIcon({
   name,
 }: {
@@ -210,7 +304,84 @@ export function Header() {
   }, [mobileOpen]);
 
   return (
-    <header className="sticky top-0 z-50 w-full border-b border-sky-500/15 bg-[color:var(--rh-header-bg)] shadow-[0_8px_26px_rgba(0,0,0,0.35)] backdrop-blur-md">
+    <header className="sticky top-0 z-50 w-full border-b border-sky-500/15 bg-[#0b1b3a] shadow-[0_8px_26px_rgba(0,0,0,0.35)]">
+      {/* Top info bar (light blue like reference) */}
+      <div className="border-b border-sky-500/10 bg-[#87CEEB]">
+        <div className="mx-auto w-full max-w-[1440px] px-4 sm:px-6">
+          <div className="flex items-center justify-between gap-3 py-1.5 text-[11px] font-bold text-slate-900 sm:py-2">
+            <div className="flex min-w-0 flex-wrap items-center gap-x-4 gap-y-1 text-slate-900">
+              <a
+                href="tel:+923495357142"
+                className="inline-flex items-center gap-2 transition hover:text-slate-950"
+              >
+                <TopBarIcon kind="phone" />
+                <span>+92 349 5357142</span>
+              </a>
+              <a
+                href="mailto:rh6219289@gmail.com"
+                className="hidden items-center gap-2 transition hover:text-slate-950 sm:inline-flex"
+              >
+                <TopBarIcon kind="email" />
+                <span>rh6219289@gmail.com</span>
+              </a>
+              <span className="hidden items-center gap-2 text-slate-800 lg:inline-flex">
+                <TopBarIcon kind="pin" />
+                <span>Gujarkhan, Dultaala</span>
+              </span>
+              <Link
+                href="/contact"
+                className="hidden items-center gap-2 text-slate-900 transition hover:text-slate-950 md:inline-flex"
+              >
+                <TopBarIcon kind="contact" />
+                <span>Contact</span>
+              </Link>
+            </div>
+
+            <div className="flex items-center gap-2">
+              <TopSocialIcon
+                href="https://www.instagram.com/bulls_tradingzone?igsh=MXZ1amk1M2ZwZnBsNQ%3D%3D&utm_source=qr"
+                label="Instagram"
+                className="bg-[radial-gradient(circle_at_30%_20%,#feda75,transparent_55%),radial-gradient(circle_at_20%_90%,#fa7e1e,transparent_55%),radial-gradient(circle_at_90%_30%,#d62976,transparent_55%),radial-gradient(circle_at_80%_95%,#962fbf,transparent_55%),radial-gradient(circle_at_65%_50%,#4f5bd5,transparent_55%)]"
+              >
+                <svg aria-hidden="true" viewBox="0 0 24 24" className="h-4 w-4" fill="currentColor">
+                  <path d="M7.5 2h9A5.5 5.5 0 0 1 22 7.5v9A5.5 5.5 0 0 1 16.5 22h-9A5.5 5.5 0 0 1 2 16.5v-9A5.5 5.5 0 0 1 7.5 2Zm0 2A3.5 3.5 0 0 0 4 7.5v9A3.5 3.5 0 0 0 7.5 20h9a3.5 3.5 0 0 0 3.5-3.5v-9A3.5 3.5 0 0 0 16.5 4h-9Zm10.2 1.6a1 1 0 1 1 0 2 1 1 0 0 1 0-2ZM12 7a5 5 0 1 1 0 10 5 5 0 0 1 0-10Zm0 2a3 3 0 1 0 0 6 3 3 0 0 0 0-6Z" />
+                </svg>
+              </TopSocialIcon>
+
+              <TopSocialIcon
+                href="https://www.facebook.com/share/1BotTncw1F/?mibextid=wwXIfr"
+                label="Facebook"
+                className="bg-[#1877F2]"
+              >
+                <svg aria-hidden="true" viewBox="0 0 24 24" className="h-4 w-4" fill="currentColor">
+                  <path d="M13.5 22v-8h2.8l.5-3H13.5V9.1c0-.9.3-1.6 1.7-1.6h1.9V4.8c-.3 0-1.5-.1-2.8-.1-2.8 0-4.8 1.7-4.8 4.8V11H7v3h2.6v8h3.9Z" />
+                </svg>
+              </TopSocialIcon>
+
+              <TopSocialIcon
+                href="https://www.tiktok.com/@itssebi24?_r=1&_t=ZS-95bqlbwTi6P"
+                label="TikTok"
+                className="bg-[#0b1220]"
+              >
+                <svg aria-hidden="true" viewBox="0 0 24 24" className="h-4 w-4" fill="currentColor">
+                  <path d="M16.6 2c.2 1.8 1.2 3.3 2.7 4.3 1 0.7 2.1 1 2.7 1.1v3.1c-.7 0-2.7-.1-4.6-1.3v7.1c0 3.3-2.7 6-6 6s-6-2.7-6-6 2.7-6 6-6c.3 0 .6 0 .9.1v3.4c-.3-.1-.6-.2-.9-.2-1.6 0-2.9 1.3-2.9 2.9s1.3 2.9 2.9 2.9 2.9-1.3 2.9-2.9V2h3.3Z" />
+                </svg>
+              </TopSocialIcon>
+
+              <TopSocialIcon
+                href="http://www.youtube.com/@RHworld-o9s"
+                label="YouTube"
+                className="bg-[#FF0000]"
+              >
+                <svg aria-hidden="true" viewBox="0 0 24 24" className="h-4 w-4" fill="currentColor">
+                  <path d="M21.6 7.2a3 3 0 0 0-2.1-2.1C17.8 4.6 12 4.6 12 4.6s-5.8 0-7.5.5A3 3 0 0 0 2.4 7.2 31 31 0 0 0 2 12a31 31 0 0 0 .4 4.8 3 3 0 0 0 2.1 2.1c1.7.5 7.5.5 7.5.5s5.8 0 7.5-.5a3 3 0 0 0 2.1-2.1A31 31 0 0 0 22 12a31 31 0 0 0-.4-4.8ZM10 15.5v-7l6 3.5-6 3.5Z" />
+                </svg>
+              </TopSocialIcon>
+            </div>
+          </div>
+        </div>
+      </div>
+
       {/* Header gets a bit more width so the right user menu never clips */}
       <div className="mx-auto w-full max-w-[1440px] px-4 sm:px-6">
         <div className="flex h-16 items-center gap-3">
@@ -259,7 +430,7 @@ export function Header() {
             className="fixed inset-0 z-40 bg-black/55"
             onClick={() => setMobileOpen(false)}
           />
-          <div className="fixed right-0 top-16 z-50 h-[calc(100vh-4rem)] w-[min(92vw,380px)] overflow-y-auto border-l border-sky-400/15 bg-[#020617]/95 shadow-[0_0_70px_rgba(2,6,23,0.85)] backdrop-blur-md">
+          <div className="fixed right-0 top-[calc(4rem+2.25rem)] z-50 h-[calc(100vh-4rem-2.25rem)] w-[min(92vw,380px)] overflow-y-auto border-l border-sky-400/15 bg-[#020617]/95 shadow-[0_0_70px_rgba(2,6,23,0.85)] backdrop-blur-md">
             <div className="p-5">
               <p className="text-xs font-extrabold uppercase tracking-[0.22em] text-slate-400">
                 Menu

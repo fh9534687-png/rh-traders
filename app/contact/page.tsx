@@ -1,13 +1,7 @@
- "use client";
+"use client";
 
 import Link from "next/link";
 import { useMemo, useState } from "react";
-
-export const metadata = {
-  title: "Contact RH Traders",
-  description:
-    "Contact RH Traders for support, plan questions, or partnership requests. Send a message and our team will reply by email.",
-};
 
 type Subject =
   | "Support"
@@ -61,13 +55,34 @@ export default function ContactPage() {
               <div className="rounded-2xl border border-sky-400/15 bg-slate-950/35 p-5">
                 <p className="text-xs font-extrabold tracking-[0.18em] text-slate-500">EMAIL</p>
                 <a
-                  href="mailto:hello@rhtraders.com"
+                  href="mailto:rh6219289@gmail.com"
                   className="mt-2 inline-flex text-base font-extrabold text-white transition hover:text-[color:var(--rh-border-red)]"
                 >
-                  hello@rhtraders.com
+                  rh6219289@gmail.com
                 </a>
                 <p className="mt-2 text-sm leading-7 text-slate-400">
                   Typical response time: within 24 hours (weekdays).
+                </p>
+              </div>
+
+              <div className="rounded-2xl border border-sky-400/15 bg-slate-950/35 p-5">
+                <p className="text-xs font-extrabold tracking-[0.18em] text-slate-500">PHONE</p>
+                <a
+                  href="tel:+923495357142"
+                  className="mt-2 inline-flex text-base font-extrabold text-white transition hover:text-[color:var(--rh-border-red)]"
+                >
+                  +92 349 5357142
+                </a>
+                <p className="mt-2 text-sm leading-7 text-slate-400">
+                  Available on WhatsApp for quick questions.
+                </p>
+              </div>
+
+              <div className="rounded-2xl border border-sky-400/15 bg-slate-950/35 p-5">
+                <p className="text-xs font-extrabold tracking-[0.18em] text-slate-500">LOCATION</p>
+                <p className="mt-2 text-base font-extrabold text-white">Gujarkhan, Dultaala</p>
+                <p className="mt-2 text-sm leading-7 text-slate-400">
+                  Remote-first support. Reach out by email or WhatsApp.
                 </p>
               </div>
 

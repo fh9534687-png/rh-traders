@@ -60,7 +60,7 @@ export default function RiskToolPage() {
               RISK
             </p>
             <h1 className="mt-4 text-2xl font-extrabold tracking-tight text-white sm:text-3xl">
-              Risk Calculator
+              Trading Risk Calculator
             </h1>
             <p className="mt-2 text-sm leading-7 text-slate-300">
               A risk % is only useful when it becomes a number. This tool converts your

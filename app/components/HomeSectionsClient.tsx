@@ -154,7 +154,7 @@ export function HomeSectionsClient() {
           </div>
         </Reveal>
 
-        <div className="mt-10 grid gap-6 md:grid-cols-2">
+        <div className="mt-10 grid items-stretch gap-6 md:grid-cols-2">
           {[
             {
               title: "Market Trend",
@@ -180,13 +180,15 @@ export function HomeSectionsClient() {
             <Reveal key={p.href}>
               <Link
                 href={p.href}
-                className="group rh-card block rounded-3xl p-7 transition will-change-transform hover:-translate-y-1 hover:shadow-[0_0_60px_rgba(56,189,248,0.10)]"
+                className="group rh-card flex h-full flex-col rounded-3xl p-7 transition will-change-transform hover:-translate-y-1 hover:shadow-[0_0_60px_rgba(56,189,248,0.10)]"
               >
-                <div className="flex items-start justify-between gap-6">
-                  <div>
+                <div className="flex flex-1 items-start justify-between gap-6">
+                  <div className="flex flex-1 flex-col">
                     <h3 className="text-xl font-black tracking-tight text-white">{p.title}</h3>
-                    <p className="mt-3 text-base leading-8 text-slate-200">{p.desc}</p>
-                    <span className="mt-5 inline-flex items-center gap-2 text-sm font-semibold text-white/90 transition group-hover:text-sky-300">
+                    <p className="mt-3 min-h-[96px] text-base leading-8 text-slate-200">
+                      {p.desc}
+                    </p>
+                    <span className="mt-auto inline-flex items-center gap-2 pt-5 text-sm font-semibold text-white/90 transition group-hover:text-sky-300">
                       Learn more <span aria-hidden="true">→</span>
                     </span>
                   </div>

@@ -5,7 +5,7 @@ function hasCookie(req: NextRequest, name: string) {
   return Boolean(req.cookies.get(name)?.value);
 }
 
-export function middleware(req: NextRequest) {
+export function proxy(req: NextRequest) {
   const { pathname, searchParams } = req.nextUrl;
 
   // Allow public design preview (no auth / no payment).
@@ -150,3 +150,4 @@ export const config = {
     "/signals-dashboard/:path*",
   ],
 };
+

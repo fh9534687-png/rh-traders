@@ -92,7 +92,7 @@ export default function PositionSizeToolPage() {
               POSITION SIZE
             </p>
             <h1 className="mt-4 text-2xl font-extrabold tracking-tight text-white sm:text-3xl">
-              Position Size Calculator
+              Trading Position Size Calculator
             </h1>
             <p className="mt-2 text-sm leading-7 text-slate-300">
               This tool converts your risk rules into an actual position size. It helps you

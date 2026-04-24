@@ -71,7 +71,7 @@ export default function ProfitLossToolPage() {
               P/L
             </p>
             <h1 className="mt-4 text-2xl font-extrabold tracking-tight text-white sm:text-3xl">
-              Profit / Loss Calculator
+              Trading Profit &amp; Loss Calculator
             </h1>
             <p className="mt-2 text-sm leading-7 text-slate-300">
               This tool estimates profit or loss from entry, exit, and position size. Use it
