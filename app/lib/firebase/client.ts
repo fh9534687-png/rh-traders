@@ -20,7 +20,8 @@ export function getFirebaseApp(): FirebaseApp | null {
   const messagingSenderId = env("NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID");
   const appId = env("NEXT_PUBLIC_FIREBASE_APP_ID");
 
-  // If env vars are missing in the browser, fail loudly with a clear message.
+  // If env vars are missing in the browser, do NOT crash public pages.
+  // Firebase features will show a friendly "not configured" error when used.
   if (
     !apiKey ||
     !authDomain ||
@@ -30,9 +31,7 @@ export function getFirebaseApp(): FirebaseApp | null {
     !messagingSenderId ||
     !appId
   ) {
-    throw new Error(
-      "Firebase is not configured. Missing NEXT_PUBLIC_FIREBASE_* environment variables.",
-    );
+    return null;
   }
 
   const firebaseConfig = {
