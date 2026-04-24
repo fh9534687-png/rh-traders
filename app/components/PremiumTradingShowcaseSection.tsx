@@ -389,19 +389,22 @@ export function PremiumTradingShowcaseSection() {
             <h2 className="mt-5 text-balance text-3xl font-black tracking-tight text-white sm:text-4xl">
               <span className="relative">
                 <span className="absolute -inset-1 -z-10 rounded-2xl bg-[radial-gradient(280px_120px_at_30%_40%,rgba(59,130,246,0.35),transparent_65%)] blur-xl" />
-                Enter the world of smart trading
+                Master the Future of Crypto Trading
               </span>
             </h2>
             <p className="mt-4 max-w-xl text-pretty text-base leading-8 text-slate-300">
-              A modern, high-signal environment built for disciplined crypto learning: clear setups,
-              clean dashboards, and execution rules that feel professional — not noisy.
+              RH Traders is a professional crypto trading platform designed to help you learn trading online with
+              real market insights, structured courses, and high-quality trading signals. Whether you are a beginner
+              or an advanced trader, our platform provides a complete learning environment with practical strategies,
+              risk management techniques, and real-time market analysis to help you grow with confidence.
             </p>
 
             <div className="mt-7 grid gap-3">
               {[
-                "Glass UI cards with strong hierarchy and zero clutter.",
-                "Signals, courses, and tools arranged like a real trading workstation.",
-                "Smooth motion — scroll reveals, floating panels, and premium micro-interactions.",
+                "Learn crypto trading with step-by-step structured courses.",
+                "Access real-time trading signals and market insights.",
+                "Use advanced tools, charts, and portfolio tracking.",
+                "Experience a distraction-free, professional trading dashboard.",
               ].map((t) => (
                 <div key={t} className="flex items-start gap-3">
                   <CheckIcon />
@@ -416,14 +419,14 @@ export function PremiumTradingShowcaseSection() {
                   href="/plans"
                   className="inline-flex items-center justify-center rounded-full border border-sky-400/25 bg-[linear-gradient(135deg,rgba(59,130,246,0.28),rgba(34,211,238,0.14))] px-8 py-3.5 text-sm font-extrabold text-white shadow-[0_0_70px_rgba(59,130,246,0.20)] transition hover:border-sky-400/45 hover:shadow-[0_0_90px_rgba(34,211,238,0.22)]"
                 >
-                  Explore the platform
+                  Access Dashboard
                 </Link>
               </motion.div>
               <Link
                 href="/market"
                 className="inline-flex items-center justify-center rounded-full border border-white/10 bg-slate-950/25 px-8 py-3.5 text-sm font-extrabold text-slate-100 transition hover:bg-slate-900/35 hover:text-white"
               >
-                Open live market
+                View Market
               </Link>
             </div>
 
