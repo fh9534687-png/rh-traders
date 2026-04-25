@@ -200,7 +200,7 @@ export function UserMenu() {
       void (async () => {
         let data = null as Awaited<ReturnType<typeof getUserData>>;
         try {
-          data = await getUserData(e);
+          data = await getUserData(u.uid);
         } catch (err) {
           // Common during login transitions: RTDB rules require auth, but token not ready yet.
           // Do not crash the whole app shell; keep cookie-based state until next refresh.

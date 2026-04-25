@@ -6,18 +6,14 @@ service cloud.firestore {
       return request.auth != null;
     }
 
-    function email() {
-      return signedIn() ? request.auth.token.email : null;
-    }
-
     function isAdmin() {
-      return signedIn() &&
-        get(/databases/$(database)/documents/users/$(email())).data.role == "admin";
+      return signedIn()
+        && get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role == "admin";
     }
 
-    // Users are keyed by email (lowercased) so rules can reference request.auth.token.email directly.
-    match /users/{userEmail} {
-      allow read, write: if signedIn() && userEmail == email();
+    // Users are keyed by UID.
+    match /users/{uid} {
+      allow read, write: if signedIn() && uid == request.auth.uid;
       allow read, write: if isAdmin();
     }
 
@@ -32,8 +28,10 @@ service cloud.firestore {
     }
 
     match /payments/{paymentId} {
-      allow create: if signedIn() && request.resource.data.email == email();
-      allow read: if isAdmin() || (signedIn() && resource.data.email == email());
+      allow create: if signedIn()
+        && request.resource.data.authUid == request.auth.uid
+        && request.resource.data.email == request.auth.token.email;
+      allow read: if isAdmin() || (signedIn() && resource.data.authUid == request.auth.uid);
       allow update, delete: if isAdmin();
     }
 
@@ -43,35 +41,43 @@ service cloud.firestore {
     }
 
     match /signalsRequests/{requestId} {
-      allow create: if signedIn() && request.resource.data.email == email();
-      allow read, update, delete: if isAdmin();
+      allow create: if signedIn()
+        && request.resource.data.authUid == request.auth.uid
+        && request.resource.data.email == request.auth.token.email;
+      allow read: if isAdmin() || (signedIn() && resource.data.authUid == request.auth.uid);
+      allow update, delete: if isAdmin();
     }
 
     match /signalCalls/{requestId} {
-      allow create: if signedIn() && request.resource.data.email == email();
-      allow read, update, delete: if isAdmin();
+      allow create: if signedIn()
+        && request.resource.data.email == request.auth.token.email;
+      allow read: if isAdmin() || (signedIn() && resource.data.email == request.auth.token.email);
+      allow update, delete: if isAdmin();
     }
 
     match /liveSessions/{requestId} {
-      allow create: if signedIn() && request.resource.data.email == email();
-      allow read, update, delete: if isAdmin();
+      allow create: if signedIn()
+        && request.resource.data.authUid == request.auth.uid
+        && request.resource.data.email == request.auth.token.email;
+      allow read: if isAdmin() || (signedIn() && resource.data.authUid == request.auth.uid);
+      allow update, delete: if isAdmin();
     }
 
     match /selectiveAccessRequests/{requestId} {
       allow create: if isAdmin();
-      allow read: if isAdmin() || (signedIn() && resource.data.email == email());
+      allow read: if isAdmin() || (signedIn() && resource.data.authUid == request.auth.uid);
       // Users may update their own request (e.g. accept/reject flow from dashboard).
-      allow update: if isAdmin() || (signedIn() && resource.data.email == email());
-      allow delete: if isAdmin() || (signedIn() && resource.data.email == email());
+      allow update: if isAdmin() || (signedIn() && resource.data.authUid == request.auth.uid);
+      allow delete: if isAdmin() || (signedIn() && resource.data.authUid == request.auth.uid);
     }
 
-    match /selectiveAccessGrants/{grantId} {
-      allow read: if signedIn() && grantId == email();
-      allow write: if isAdmin() || (signedIn() && grantId == email());
+    match /selectiveAccessGrants/{uid} {
+      allow read: if signedIn() && uid == request.auth.uid;
+      allow write: if isAdmin() || (signedIn() && uid == request.auth.uid);
     }
 
-    match /selectedUsers/{id} {
-      allow read, write: if isAdmin() || (signedIn() && id == email());
+    match /selectedUsers/{uid} {
+      allow read, write: if isAdmin() || (signedIn() && uid == request.auth.uid);
     }
   }
 }

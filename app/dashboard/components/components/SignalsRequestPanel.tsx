@@ -7,6 +7,8 @@ import {
   type SignalsRequestStatus,
 } from "../../../lib/firebase/firestore";
 import { setRhSignalsRequestStatus } from "../../../lib/rhSignals";
+import type { Auth } from "firebase/auth";
+import { getFirebaseAuth } from "../../../lib/firebase/auth";
 
 function getCookie(name: string) {
   const key = `${encodeURIComponent(name)}=`;
@@ -38,6 +40,13 @@ export function SignalsRequestPanel() {
   const [done, setDone] = useState(false);
 
   const email = useMemo(() => (getCookie("rh_email") ?? "").trim().toLowerCase(), []);
+  const uid = useMemo(() => (getCookie("rh_uid") ?? "").trim(), []);
+
+  function mustAuth(): Auth {
+    const auth = getFirebaseAuth();
+    if (!auth) throw new Error("Firebase is not configured.");
+    return auth;
+  }
 
   useEffect(() => {
     void (async () => {
@@ -66,7 +75,13 @@ export function SignalsRequestPanel() {
     setError(null);
     setDone(false);
 
-    if (!email) {
+    const auth = mustAuth();
+    await auth.authStateReady();
+    const u = auth.currentUser;
+    const liveUid = (u?.uid ?? uid).trim();
+    const liveEmail = (u?.email ?? email).trim().toLowerCase();
+
+    if (!liveEmail || !liveUid) {
       setError("You need to be logged in to request signals.");
       return;
     }
@@ -77,7 +92,7 @@ export function SignalsRequestPanel() {
 
     setSubmitting(true);
     try {
-      await createSignalsRequest({ email, phone });
+      await createSignalsRequest({ uid: liveUid, email: liveEmail, phone });
       setStatus("pending");
       setRhSignalsRequestStatus("pending");
       setDone(true);

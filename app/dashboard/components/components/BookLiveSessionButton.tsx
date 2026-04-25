@@ -2,6 +2,8 @@
 
 import { useState } from "react";
 import { requestLiveSession } from "../../../lib/firebase/firestore";
+import type { Auth } from "firebase/auth";
+import { getFirebaseAuth } from "../../../lib/firebase/auth";
 
 function getCookie(name: string) {
   const key = `${encodeURIComponent(name)}=`;
@@ -15,12 +17,24 @@ export function BookLiveSessionButton() {
   const [submitting, setSubmitting] = useState(false);
   const [done, setDone] = useState(false);
 
+  function mustAuth(): Auth {
+    const auth = getFirebaseAuth();
+    if (!auth) {
+      throw new Error("Firebase is not configured.");
+    }
+    return auth;
+  }
+
   async function onClick() {
-    const email = (getCookie("rh_email") ?? "").trim();
-    if (!email) return;
+    const auth = mustAuth();
+    await auth.authStateReady();
+    const u = auth.currentUser;
+    const email = (u?.email ?? "").trim();
+    const uid = (u?.uid ?? "").trim();
+    if (!email || !uid) return;
     setSubmitting(true);
     try {
-      await requestLiveSession(email);
+      await requestLiveSession({ uid, email });
       setDone(true);
       setTimeout(() => setDone(false), 3500);
     } finally {

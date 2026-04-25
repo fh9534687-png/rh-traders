@@ -26,6 +26,7 @@ export type PaymentStatus = "pending" | "approved" | "rejected";
 export type SignalsRequestStatus = "pending" | "approved" | "rejected";
 
 export type UserData = {
+  uid: string;
   email: string;
   authUid?: string;
   role: Role;
@@ -104,6 +105,7 @@ export type SignalCallRequest = {
 export type SignalsRequest = {
   id: string;
   email: string;
+  authUid?: string;
   phone: string;
   plan: "signals";
   status: SignalsRequestStatus;
@@ -117,6 +119,7 @@ export type SelectiveAccessStatus = "pending" | "accepted" | "rejected";
 export type SelectiveAccessRequest = {
   id: string;
   email: string;
+  authUid?: string;
   name: string;
   dashboard: SelectiveDashboard;
   status: SelectiveAccessStatus;
@@ -144,9 +147,8 @@ function normalizeEmail(email: string) {
   return email.trim().toLowerCase();
 }
 
-function userDocId(email: string) {
-  // Use normalized email as document id so rules can reference request.auth.token.email.
-  return normalizeEmail(email);
+function userDocId(uid: string) {
+  return uid.trim();
 }
 
 function omitUndefined<T extends Record<string, unknown>>(obj: T): T {
@@ -169,39 +171,50 @@ function roleFromEmail(email: string): Role {
   return isAdminEmail(normalizeEmail(email)) ? "admin" : "user";
 }
 
+async function findUserUidByEmail(email: string): Promise<string | null> {
+  const safeEmail = normalizeEmail(email);
+  const fs = mustFs();
+  const q = query(collection(fs, "users"), where("email", "==", safeEmail), limit(1));
+  const snap = await getDocs(q);
+  const d0 = snap.docs[0];
+  return d0 ? d0.id : null;
+}
+
 async function updateUserPaymentSnapshot(
-  email: string,
+  uid: string,
   patch: Partial<Pick<UserData, "paymentStatus" | "paymentSubmittedAt" | "latestPaymentId" | "plan">>,
 ) {
-  const safeEmail = normalizeEmail(email);
+  const safeUid = userDocId(uid);
   await setDoc(
-    doc(mustFs(), "users", userDocId(safeEmail)),
-    omitUndefined({ ...patch, email: safeEmail, updatedAt: Date.now() } as Record<string, unknown>),
+    doc(mustFs(), "users", safeUid),
+    omitUndefined({ ...patch, updatedAt: Date.now() } as Record<string, unknown>),
     { merge: true },
   );
 }
 
 async function updateUserSignalsRequestSnapshot(
-  email: string,
+  uid: string,
   patch: Partial<
     Pick<UserData, "signalsRequestStatus" | "signalsRequestSubmittedAt" | "latestSignalsRequestId">
   >,
 ) {
-  const safeEmail = normalizeEmail(email);
+  const safeUid = userDocId(uid);
   await setDoc(
-    doc(mustFs(), "users", userDocId(safeEmail)),
-    omitUndefined({ ...patch, email: safeEmail, updatedAt: Date.now() } as Record<string, unknown>),
+    doc(mustFs(), "users", safeUid),
+    omitUndefined({ ...patch, updatedAt: Date.now() } as Record<string, unknown>),
     { merge: true },
   );
 }
 
-export async function getUserData(email: string): Promise<UserData | null> {
-  const safeEmail = normalizeEmail(email);
-  const ref = doc(mustFs(), "users", userDocId(safeEmail));
+export async function getUserData(uid: string): Promise<UserData | null> {
+  const safeUid = userDocId(uid);
+  const ref = doc(mustFs(), "users", safeUid);
   const snap = await getDoc(ref);
   if (!snap.exists()) return null;
   const d = snap.data() as Partial<UserData>;
+  const safeEmail = typeof d.email === "string" ? normalizeEmail(d.email) : "";
   return {
+    uid: safeUid,
     email: safeEmail,
     role: (d.role === "admin" ? "admin" : "user") as Role,
     plan: (d.plan === "basic" || d.plan === "premium" || d.plan === "signals" ? d.plan : null) as Plan | null,
@@ -221,25 +234,27 @@ export async function getUserData(email: string): Promise<UserData | null> {
 }
 
 export function subscribeUserData(
-  email: string,
+  uid: string,
   onNext: (user: UserData | null) => void,
   onError?: (err: unknown) => void,
 ) {
-  const safeEmail = normalizeEmail(email);
+  const safeUid = userDocId(uid);
   const fs = getFs();
   if (!fs) {
     onNext(null);
     return () => {};
   }
   return onSnapshot(
-    doc(fs, "users", userDocId(safeEmail)),
+    doc(fs, "users", safeUid),
     (snap) => {
       if (!snap.exists()) {
         onNext(null);
         return;
       }
       const d = snap.data() as Partial<UserData>;
+      const safeEmail = typeof d.email === "string" ? normalizeEmail(d.email) : "";
       onNext({
+        uid: safeUid,
         email: safeEmail,
         role: (d.role === "admin" ? "admin" : "user") as Role,
         plan:
@@ -266,13 +281,15 @@ export function subscribeUserData(
 }
 
 export async function saveUserData(
+  uid: string,
   email: string,
   role: Role,
   plan: Plan | null,
   opts?: { authUid?: string },
 ): Promise<UserData> {
+  const safeUid = userDocId(uid);
   const safeEmail = normalizeEmail(email);
-  const refUser = doc(mustFs(), "users", userDocId(safeEmail));
+  const refUser = doc(mustFs(), "users", safeUid);
   const snap = await getDoc(refUser);
   const existing = snap.exists() ? (snap.data() as Partial<UserData>) : null;
 
@@ -280,6 +297,7 @@ export async function saveUserData(
   const nextRole = effectiveRole(existing?.role, role, safeEmail);
 
   const next: Partial<UserData> = {
+    uid: safeUid,
     email: safeEmail,
     authUid: opts?.authUid ?? existing?.authUid,
     role: nextRole,
@@ -303,7 +321,8 @@ export async function saveUserData(
     omitUndefined({ ...next, updatedAt: Date.now() } as Record<string, unknown>),
     { merge: true },
   );
-  return (await getUserData(safeEmail)) ?? {
+  return (await getUserData(safeUid)) ?? {
+    uid: safeUid,
     email: safeEmail,
     role: nextRole,
     plan: next.plan ?? null,
@@ -316,8 +335,8 @@ export async function getAllUsers() {
   const q = query(collection(mustFs(), "users"), orderBy("enrolledAt", "desc"), limit(2000));
   const snap = await getDocs(q);
   return snap.docs
-    .map((d) => ({ ...(d.data() as UserData), email: (d.data() as UserData).email ?? d.id }))
-    .filter((u) => typeof u.email === "string") as UserData[];
+    .map((d) => ({ ...(d.data() as UserData), uid: d.id }))
+    .filter((u) => typeof u.uid === "string") as UserData[];
 }
 
 export async function savePayment(
@@ -367,12 +386,27 @@ export async function savePayment(
     createdAt: now,
   };
 
-  await updateUserPaymentSnapshot(safeEmail, {
-    paymentStatus: "pending",
-    paymentSubmittedAt: now,
-    latestPaymentId: docRef.id,
-    plan: plan ?? "basic",
-  });
+  if (authUid?.trim()) {
+    await updateUserPaymentSnapshot(authUid.trim(), {
+      paymentStatus: "pending",
+      paymentSubmittedAt: now,
+      latestPaymentId: docRef.id,
+      plan: plan ?? "basic",
+    });
+  }
+
+  // Fallback (older payments missing authUid) - try to resolve uid from users collection.
+  if (!authUid?.trim()) {
+    const uid = await findUserUidByEmail(safeEmail);
+    if (uid) {
+      await updateUserPaymentSnapshot(uid, {
+        paymentStatus: "pending",
+        paymentSubmittedAt: now,
+        latestPaymentId: docRef.id,
+        plan: plan ?? "basic",
+      });
+    }
+  }
 
   return data;
 }
@@ -394,12 +428,15 @@ export async function approvePayment(paymentId: string, reviewedByEmail: string)
   await updateDoc(pRef, { status: "approved", reviewedBy, updatedAt: Date.now() });
 
   const userRole = roleFromEmail(p.email);
-  await saveUserData(p.email, userRole, p.plan, { authUid: p.authUid });
-  await setDoc(
-    doc(fs, "users", userDocId(p.email)),
-    { isPaid: true, plan: p.plan, paymentStatus: "approved", updatedAt: Date.now() },
-    { merge: true },
-  );
+  const uid = p.authUid?.trim() || (await findUserUidByEmail(p.email));
+  if (uid) {
+    await saveUserData(uid, p.email, userRole, p.plan, { authUid: uid });
+    await setDoc(
+      doc(fs, "users", userDocId(uid)),
+      { isPaid: true, plan: p.plan, paymentStatus: "approved", updatedAt: Date.now() },
+      { merge: true },
+    );
+  }
 }
 
 export async function rejectPayment(paymentId: string, reviewedByEmail: string) {
@@ -414,8 +451,11 @@ export async function rejectPayment(paymentId: string, reviewedByEmail: string) 
   await updateDoc(pRef, { status: "rejected", reviewedBy, updatedAt: Date.now() });
 
   const user = await getUserData(email);
-  if (user?.latestPaymentId === paymentId) {
-    await updateUserPaymentSnapshot(email, { paymentStatus: "rejected" });
+  if (p.authUid?.trim()) {
+    const u = await getUserData(p.authUid.trim());
+    if (u?.latestPaymentId === paymentId) {
+      await updateUserPaymentSnapshot(p.authUid.trim(), { paymentStatus: "rejected" });
+    }
   }
 
   await deleteDoc(pRef);
@@ -431,13 +471,16 @@ export async function deletePaymentRequest(paymentId: string) {
 
   await deleteDoc(pRef);
 
-  const user = await getUserData(email);
-  if (user?.latestPaymentId === paymentId && user.paymentStatus !== "approved") {
-    await updateUserPaymentSnapshot(email, {
-      latestPaymentId: null,
-      paymentStatus: "none",
-      paymentSubmittedAt: null,
-    });
+  const uid = p.authUid?.trim() || (await findUserUidByEmail(email));
+  if (uid) {
+    const user = await getUserData(uid);
+    if (user?.latestPaymentId === paymentId && user.paymentStatus !== "approved") {
+      await updateUserPaymentSnapshot(uid, {
+        latestPaymentId: null,
+        paymentStatus: "none",
+        paymentSubmittedAt: null,
+      });
+    }
   }
 }
 
@@ -527,7 +570,8 @@ export async function approveSignalsRequest(requestId: string, reviewedByEmail: 
       ? { status: "approved", reviewedBy, meetingLink: ml, updatedAt: Date.now() }
       : { status: "approved", reviewedBy, updatedAt: Date.now() },
   );
-  await updateUserSignalsRequestSnapshot(row.email, { signalsRequestStatus: "approved" });
+  const uid = row.authUid?.trim() || (await findUserUidByEmail(row.email));
+  if (uid) await updateUserSignalsRequestSnapshot(uid, { signalsRequestStatus: "approved" });
 }
 
 export async function rejectSignalsRequest(requestId: string, reviewedByEmail: string) {
@@ -539,9 +583,12 @@ export async function rejectSignalsRequest(requestId: string, reviewedByEmail: s
   const reviewedBy = normalizeEmail(reviewedByEmail);
   await updateDoc(rRef, { status: "rejected", reviewedBy, updatedAt: Date.now() });
 
-  const user = await getUserData(row.email);
-  if (user?.latestSignalsRequestId === requestId) {
-    await updateUserSignalsRequestSnapshot(row.email, { signalsRequestStatus: "rejected" });
+  const uid = row.authUid?.trim() || (await findUserUidByEmail(row.email));
+  if (uid) {
+    const user = await getUserData(uid);
+    if (user?.latestSignalsRequestId === requestId) {
+      await updateUserSignalsRequestSnapshot(uid, { signalsRequestStatus: "rejected" });
+    }
   }
 
   await deleteDoc(rRef);
@@ -557,31 +604,36 @@ export async function deleteSignalsRequest(requestId: string) {
 
   await deleteDoc(rRef);
 
-  const user = await getUserData(email);
-  if (user?.latestSignalsRequestId === requestId && user.signalsRequestStatus !== "approved") {
-    await updateUserSignalsRequestSnapshot(email, {
-      latestSignalsRequestId: null,
-      signalsRequestStatus: "none",
-      signalsRequestSubmittedAt: null,
-    });
+  const uid = row.authUid?.trim() || (await findUserUidByEmail(email));
+  if (uid) {
+    const user = await getUserData(uid);
+    if (user?.latestSignalsRequestId === requestId && user.signalsRequestStatus !== "approved") {
+      await updateUserSignalsRequestSnapshot(uid, {
+        latestSignalsRequestId: null,
+        signalsRequestStatus: "none",
+        signalsRequestSubmittedAt: null,
+      });
+    }
   }
 }
 
-export async function createSignalsRequest(input: { email: string; phone: string }) {
+export async function createSignalsRequest(input: { uid: string; email: string; phone: string }) {
   const fs = mustFs();
   const now = Date.now();
+  const uid = userDocId(input.uid);
   const safeEmail = normalizeEmail(input.email);
   const phone = input.phone.trim();
   if (!safeEmail) throw new Error("Email is required.");
   if (!phone) throw new Error("Phone number is required.");
   const docRef = await addDoc(collection(fs, "signalsRequests"), {
+    authUid: uid,
     email: safeEmail,
     phone,
     plan: "signals",
     status: "pending",
     createdAt: now,
   });
-  await updateUserSignalsRequestSnapshot(safeEmail, {
+  await updateUserSignalsRequestSnapshot(uid, {
     signalsRequestStatus: "pending",
     signalsRequestSubmittedAt: now,
     latestSignalsRequestId: docRef.id,
@@ -589,6 +641,7 @@ export async function createSignalsRequest(input: { email: string; phone: string
   return {
     id: docRef.id,
     email: safeEmail,
+    authUid: uid,
     phone,
     plan: "signals" as const,
     status: "pending" as const,
@@ -602,12 +655,14 @@ export async function getLiveSessions() {
   return snap.docs.map((d) => ({ id: d.id, ...(d.data() as Omit<LiveSessionRequest, "id">) })) as LiveSessionRequest[];
 }
 
-export async function requestLiveSession(email: string) {
+export async function requestLiveSession(input: { uid: string; email: string }) {
   const fs = mustFs();
-  const safeEmail = normalizeEmail(email);
+  const uid = userDocId(input.uid);
+  const safeEmail = normalizeEmail(input.email);
   if (!safeEmail) throw new Error("Email is required.");
   const now = Date.now();
   const docRef = await addDoc(collection(fs, "liveSessions"), {
+    authUid: uid,
     email: safeEmail,
     status: "pending",
     createdAt: now,
@@ -724,8 +779,11 @@ export async function createSelectiveAccessRequest(input: {
   if (!safeEmail) throw new Error("Email is required.");
   if (!name) throw new Error("Name is required.");
 
+  const uid = (await findUserUidByEmail(safeEmail)) ?? undefined;
+
   const now = Date.now();
   const docRef = await addDoc(collection(fs, "selectiveAccessRequests"), {
+    authUid: uid,
     email: safeEmail,
     name,
     dashboard: input.dashboard,
@@ -737,6 +795,7 @@ export async function createSelectiveAccessRequest(input: {
   const row: SelectiveAccessRequest = {
     id: docRef.id,
     email: safeEmail,
+    authUid: uid,
     name,
     dashboard: input.dashboard,
     status: "pending",
@@ -755,11 +814,13 @@ export async function acceptSelectiveAccessRequest(requestId: string, acceptedBy
 
   await updateDoc(rRef, { status: "accepted", updatedAt: Date.now() });
 
-  const safeEmail = normalizeEmail(row.email);
+  const uid = row.authUid?.trim() || (await findUserUidByEmail(row.email));
+  if (!uid) return { id: requestId, ...(row as Omit<SelectiveAccessRequest, "id">) } as SelectiveAccessRequest;
   await setDoc(
-    doc(fs, "selectiveAccessGrants", safeEmail),
+    doc(fs, "selectiveAccessGrants", uid),
     {
-      email: safeEmail,
+      uid,
+      email: normalizeEmail(row.email),
       name: row.name,
       dashboard: row.dashboard,
       grantedAt: Date.now(),
@@ -768,8 +829,8 @@ export async function acceptSelectiveAccessRequest(requestId: string, acceptedBy
     { merge: true },
   );
   await setDoc(
-    doc(fs, "selectedUsers", safeEmail),
-    { email: safeEmail, addedAt: Date.now(), dashboard: row.dashboard },
+    doc(fs, "selectedUsers", uid),
+    { uid, email: normalizeEmail(row.email), addedAt: Date.now(), dashboard: row.dashboard },
     { merge: true },
   );
 

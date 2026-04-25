@@ -11,6 +11,7 @@ const COOKIE_ROLE = "rh_role";
 const COOKIE_FIRST = "rh_first";
 const COOKIE_LAST = "rh_last";
 const COOKIE_ENROLLED = "rh_enrolled";
+const COOKIE_UID = "rh_uid";
 
 /**
  * Admin is NOT read from Firebase Auth custom claims in this app.
@@ -78,6 +79,12 @@ export function setRhSession(email: string, opts?: { role?: "admin" | "user" }) 
   if (!getCookie(COOKIE_ENROLLED)) {
     setCookie(COOKIE_ENROLLED, String(Date.now()), 3650);
   }
+}
+
+export function setRhUid(uid: string) {
+  if (typeof window === "undefined") return;
+  const v = uid.trim();
+  if (v) setCookie(COOKIE_UID, v);
 }
 
 export function setRhProfileName(firstName: string, lastName: string) {

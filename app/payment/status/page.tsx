@@ -41,6 +41,7 @@ export default function PaymentStatusPage() {
   const redirected = useRef(false);
   const [authReady, setAuthReady] = useState(false);
   const [email, setEmail] = useState<string | null>(null);
+  const [uid, setUid] = useState<string | null>(null);
   const [mismatch, setMismatch] = useState(false);
   /** `undefined` = loading, `null` = no RTDB row, else profile. */
   const [userSnap, setUserSnap] = useState<UserData | null | undefined>(undefined);
@@ -57,6 +58,7 @@ export default function PaymentStatusPage() {
         router.replace("/auth?next=/payment/status");
         return;
       }
+      setUid(u.uid);
       const e = u.email.trim().toLowerCase();
       setEmail(e);
       const c = getCookie("rh_email");
@@ -67,14 +69,14 @@ export default function PaymentStatusPage() {
   }, [router]);
 
   useEffect(() => {
-    if (!authReady || !email) return;
+    if (!authReady || !uid) return;
     const unsub = subscribeUserData(
-      email,
+      uid,
       (u) => setUserSnap(u),
       () => setUserSnap(null),
     );
     return () => unsub();
-  }, [authReady, email]);
+  }, [authReady, uid]);
 
   const status = useMemo(() => {
     if (userSnap === undefined) return "loading" as const;

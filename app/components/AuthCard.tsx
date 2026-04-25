@@ -10,17 +10,11 @@ import {
   type Auth,
   updateProfile,
 } from "firebase/auth";
-import { isAdminEmail, setRhProfileName, setRhSession } from "../lib/rhSession";
+import { isAdminEmail, setRhProfileName, setRhSession, setRhUid } from "../lib/rhSession";
 import { getFirebaseAuth } from "../lib/firebase/auth";
 import { markRhPaid, setRhPaymentStatus, setRhPlan, type RhPaymentStatus } from "../lib/rhEntitlements";
 import { setRhSignalsRequestStatus } from "../lib/rhSignals";
-import {
-  getLatestSignalsRequestForEmail,
-  getUserData,
-  saveUserData,
-  type Plan,
-  type Role,
-} from "../lib/firebase/firestore";
+import { getLatestSignalsRequestForEmail, getUserData, saveUserData, type Plan, type Role } from "../lib/firebase/firestore";
 
 type Mode = "login" | "signup";
 
@@ -249,10 +243,11 @@ export function AuthCard() {
         const uid = cred.user.uid;
         const role: Role = isAdminEmail(userEmail) ? "admin" : "user";
         setRhSession(userEmail, { role });
+        setRhUid(uid);
         if (fullName) setRhProfileName(firstName, lastName);
         // Ensure a user record exists in DB.
         try {
-          await saveUserData(userEmail, role, null, { authUid: uid });
+          await saveUserData(uid, userEmail, role, null, { authUid: uid });
         } catch (err) {
           // Auth succeeded: do not show Firestore permissions errors to the user.
           if (!isFirestorePermissionsError(err)) {
@@ -283,7 +278,7 @@ export function AuthCard() {
 
       let user = null as Awaited<ReturnType<typeof getUserData>>;
       try {
-        user = await getUserData(userEmail);
+        user = await getUserData(uid);
       } catch (err) {
         // Avoid showing "permission denied" in UI during auth/RTDB timing/rules issues.
         // We'll still allow login and rely on allow-list + subsequent refresh to sync user profile.
@@ -301,11 +296,12 @@ export function AuthCard() {
       const role: Role =
         user?.role === "admin" || isAdminEmail(userEmail) ? "admin" : "user";
       setRhSession(userEmail, { role });
+      setRhUid(uid);
       // One write + merged snapshot (avoids a second read after login).
       // Auth succeeded: Firestore permission errors should not block or show to the user.
       let refreshed: Awaited<ReturnType<typeof saveUserData>> | null = null;
       try {
-        refreshed = await saveUserData(userEmail, role, null, { authUid: uid });
+        refreshed = await saveUserData(uid, userEmail, role, null, { authUid: uid });
       } catch (err) {
         if (!isFirestorePermissionsError(err)) {
           console.warn("[RH Traders] saveUserData failed after login:", err);
