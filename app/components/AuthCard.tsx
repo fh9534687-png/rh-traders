@@ -32,6 +32,15 @@ function mustAuth(): Auth {
   return auth;
 }
 
+function isFirestorePermissionsError(err: unknown) {
+  if (!err || typeof err !== "object") return false;
+  const code = "code" in err ? (err as { code?: unknown }).code : undefined;
+  if (typeof code === "string" && code.toLowerCase() === "permission-denied") return true;
+  const msg = "message" in err ? (err as { message?: unknown }).message : undefined;
+  if (typeof msg === "string" && msg.toLowerCase().includes("missing or insufficient permissions")) return true;
+  return false;
+}
+
 function getFirebaseErrorMessage(err: unknown) {
   if (!err || typeof err !== "object") return null;
   const code = "code" in err ? (err as { code?: unknown }).code : undefined;
@@ -242,7 +251,15 @@ export function AuthCard() {
         setRhSession(userEmail, { role });
         if (fullName) setRhProfileName(firstName, lastName);
         // Ensure a user record exists in DB.
-        await saveUserData(userEmail, role, null, { authUid: uid });
+        try {
+          await saveUserData(userEmail, role, null, { authUid: uid });
+        } catch (err) {
+          // Auth succeeded: do not show Firestore permissions errors to the user.
+          if (!isFirestorePermissionsError(err)) {
+            // Non-permission Firestore errors shouldn't block signup/login UX.
+            console.warn("[RH Traders] saveUserData failed after signup:", err);
+          }
+        }
         setRhPaymentStatus("none");
         router.push(role === "admin" ? "/admin" : "/plans");
         return;
@@ -284,8 +301,17 @@ export function AuthCard() {
       const role: Role =
         user?.role === "admin" || isAdminEmail(userEmail) ? "admin" : "user";
       setRhSession(userEmail, { role });
-      // One write + merged snapshot (avoids a second RTDB read after login).
-      const refreshed = await saveUserData(userEmail, role, null, { authUid: uid });
+      // One write + merged snapshot (avoids a second read after login).
+      // Auth succeeded: Firestore permission errors should not block or show to the user.
+      let refreshed: Awaited<ReturnType<typeof saveUserData>> | null = null;
+      try {
+        refreshed = await saveUserData(userEmail, role, null, { authUid: uid });
+      } catch (err) {
+        if (!isFirestorePermissionsError(err)) {
+          console.warn("[RH Traders] saveUserData failed after login:", err);
+        }
+        refreshed = null;
+      }
       if (refreshed?.plan) setRhPlan(refreshed.plan as Plan);
       if (refreshed?.isPaid) markRhPaid();
       const ps = (refreshed?.paymentStatus as RhPaymentStatus | undefined) ?? "none";
@@ -334,10 +360,14 @@ export function AuthCard() {
         router.push("/plans");
       }
     } catch (err) {
-      setError(
-        getFirebaseErrorMessage(err) ??
-          (err instanceof Error ? err.message : "Authentication failed. Please try again."),
-      );
+      // If authentication succeeded but Firestore is misconfigured/blocked, we should not show
+      // permission errors to the user (they'll be redirected via the success path above).
+      if (!isFirestorePermissionsError(err)) {
+        setError(
+          getFirebaseErrorMessage(err) ??
+            (err instanceof Error ? err.message : "Authentication failed. Please try again."),
+        );
+      }
     } finally {
       setSubmitting(false);
     }
