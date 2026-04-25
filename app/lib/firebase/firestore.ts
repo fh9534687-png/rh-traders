@@ -149,6 +149,14 @@ function userDocId(email: string) {
   return normalizeEmail(email);
 }
 
+function omitUndefined<T extends Record<string, unknown>>(obj: T): T {
+  const out = { ...obj };
+  for (const k of Object.keys(out)) {
+    if (out[k] === undefined) delete out[k];
+  }
+  return out as T;
+}
+
 function effectiveRole(existingRole: unknown, desired: Role, email: string): Role {
   const existing = existingRole === "admin" || existingRole === "user" ? (existingRole as Role) : "user";
   if (existing === "admin") return "admin";
@@ -168,7 +176,7 @@ async function updateUserPaymentSnapshot(
   const safeEmail = normalizeEmail(email);
   await setDoc(
     doc(mustFs(), "users", userDocId(safeEmail)),
-    { ...patch, email: safeEmail, updatedAt: Date.now() },
+    omitUndefined({ ...patch, email: safeEmail, updatedAt: Date.now() } as Record<string, unknown>),
     { merge: true },
   );
 }
@@ -182,7 +190,7 @@ async function updateUserSignalsRequestSnapshot(
   const safeEmail = normalizeEmail(email);
   await setDoc(
     doc(mustFs(), "users", userDocId(safeEmail)),
-    { ...patch, email: safeEmail, updatedAt: Date.now() },
+    omitUndefined({ ...patch, email: safeEmail, updatedAt: Date.now() } as Record<string, unknown>),
     { merge: true },
   );
 }
@@ -285,12 +293,16 @@ export async function saveUserData(
       typeof existing?.signalsRequestSubmittedAt === "number" ? existing.signalsRequestSubmittedAt : null,
     latestSignalsRequestId:
       typeof existing?.latestSignalsRequestId === "string" ? existing.latestSignalsRequestId : null,
-    firstName: existing?.firstName,
-    lastName: existing?.lastName,
+    firstName: typeof existing?.firstName === "string" ? existing.firstName : undefined,
+    lastName: typeof existing?.lastName === "string" ? existing.lastName : undefined,
     enrolledAt,
   };
 
-  await setDoc(refUser, { ...next, updatedAt: Date.now() }, { merge: true });
+  await setDoc(
+    refUser,
+    omitUndefined({ ...next, updatedAt: Date.now() } as Record<string, unknown>),
+    { merge: true },
+  );
   return (await getUserData(safeEmail)) ?? {
     email: safeEmail,
     role: nextRole,
