@@ -264,7 +264,7 @@ export function UserMenu() {
   if (!authReady) {
     return (
       <div
-        className="hidden h-9 w-[92px] shrink-0 rounded bg-slate-800/20 md:block"
+        className="h-9 w-9 shrink-0 rounded-full bg-slate-800/20 md:h-9 md:w-[92px] md:rounded"
         aria-hidden
       />
     );
@@ -274,20 +274,23 @@ export function UserMenu() {
     return (
       <Link
         href="/auth"
-        className="hidden rounded px-6 py-2 text-sm font-extrabold uppercase tracking-wide text-white shadow-[0_0_20px_rgba(37,99,235,0.35)] transition md:inline-flex bg-[color:var(--rh-accent)] hover:bg-[color:var(--rh-accent-bright)] hover:shadow-[0_0_26px_rgba(59,130,246,0.45)]"
+        className="inline-flex items-center justify-center rounded-full border border-sky-400/25 bg-[color:var(--rh-accent)] px-3 py-2 text-sm font-extrabold uppercase tracking-wide text-white shadow-[0_0_20px_rgba(37,99,235,0.28)] transition hover:bg-[color:var(--rh-accent-bright)] hover:shadow-[0_0_26px_rgba(59,130,246,0.40)] md:px-6 md:rounded"
       >
-        Login
+        <span className="md:hidden" aria-hidden>
+          ↪
+        </span>
+        <span className="hidden md:inline">Login</span>
       </Link>
     );
   }
 
   return (
-    <div ref={ref} className="relative hidden md:block">
+    <div ref={ref} className="relative">
       <button
         type="button"
         onClick={() => setOpen((v) => !v)}
         className={[
-          "inline-flex items-center gap-2 rounded-full px-3 py-1.5 text-left text-sm font-extrabold text-white transition",
+          "inline-flex items-center gap-2 rounded-full px-2.5 py-1.5 text-left text-sm font-extrabold text-white transition md:px-3",
           "border border-sky-400/35 bg-slate-950/35",
           "shadow-[0_0_0_1px_rgba(56,189,248,0.18),0_0_22px_rgba(56,189,248,0.20)]",
           "hover:border-sky-300/55 hover:bg-slate-900/35 hover:shadow-[0_0_0_1px_rgba(56,189,248,0.22),0_0_28px_rgba(56,189,248,0.26)]",
@@ -299,10 +302,10 @@ export function UserMenu() {
         <span className="flex h-8 w-8 items-center justify-center rounded-full border border-sky-400/25 bg-slate-900/45 text-[11px] font-black text-sky-200">
           {(name || email).slice(0, 1).toUpperCase()}
         </span>
-        <span className="block max-w-[140px] truncate text-sm font-extrabold">
+        <span className="hidden max-w-[140px] truncate text-sm font-extrabold md:block">
           {name || "Account"}
         </span>
-        <span className="text-slate-300" aria-hidden>
+        <span className="hidden text-slate-300 md:inline" aria-hidden>
           ▾
         </span>
       </button>
