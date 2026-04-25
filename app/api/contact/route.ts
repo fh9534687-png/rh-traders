@@ -1,6 +1,8 @@
 import { NextResponse } from "next/server";
 import nodemailer from "nodemailer";
 
+export const runtime = "nodejs";
+
 function mustEnv(name: string) {
   const v = process.env[name];
   if (!v) throw new Error(`Missing env var: ${name}`);
@@ -33,11 +35,15 @@ export async function POST(req: Request) {
       return new NextResponse("Message should be at least 10 characters.", { status: 400 });
     }
 
-    const toEmail = process.env.RH_ADMIN_EMAIL ?? "hello@rhtraders.com";
+    const toEmail = "rh6219289@gmail.com";
 
     // SMTP settings are required for sending email.
     const host = mustEnv("SMTP_HOST");
-    const port = Number(mustEnv("SMTP_PORT"));
+    const portRaw = mustEnv("SMTP_PORT");
+    const port = Number(portRaw);
+    if (!Number.isFinite(port) || port <= 0) {
+      throw new Error("Invalid env var: SMTP_PORT");
+    }
     const user = mustEnv("SMTP_USER");
     const pass = mustEnv("SMTP_PASS");
 
@@ -62,6 +68,15 @@ export async function POST(req: Request) {
         "",
         message,
       ].join("\n"),
+      html: [
+        `<p><strong>Name:</strong> ${escapeHtml(name)}</p>`,
+        `<p><strong>Email:</strong> ${escapeHtml(email)}</p>`,
+        `<p><strong>Subject:</strong> ${escapeHtml(subject)}</p>`,
+        "<hr/>",
+        `<pre style="white-space:pre-wrap;font-family:ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace;">${escapeHtml(
+          message,
+        )}</pre>`,
+      ].join("\n"),
     });
 
     return NextResponse.json({ ok: true });
@@ -72,5 +87,14 @@ export async function POST(req: Request) {
         : "Failed to send message.";
     return new NextResponse(msg, { status: 500 });
   }
+}
+
+function escapeHtml(s: string) {
+  return s
+    .replaceAll("&", "&amp;")
+    .replaceAll("<", "&lt;")
+    .replaceAll(">", "&gt;")
+    .replaceAll('"', "&quot;")
+    .replaceAll("'", "&#39;");
 }
 
