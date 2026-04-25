@@ -2,7 +2,6 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { motion, useScroll, useTransform } from "framer-motion";
 import { Reveal } from "./motion/Reveal";
 
 const miniCards = [
@@ -41,10 +40,6 @@ const cryptoTradingFocus = [
 ] as const;
 
 export function HomeHero() {
-  const { scrollY } = useScroll();
-  const heroParallaxY = useTransform(scrollY, [0, 520], [0, 22]);
-  const glowParallaxY = useTransform(scrollY, [0, 520], [0, -18]);
-
   return (
     <section
       className="relative overflow-hidden bg-[#020617] text-slate-100"
@@ -58,10 +53,9 @@ export function HomeHero() {
         }}
         aria-hidden
       />
-      <motion.div
+      <div
         className="pointer-events-none absolute inset-0 opacity-[0.55]"
         style={{
-          y: glowParallaxY,
           background:
             "radial-gradient(900px 520px at 80% 20%, rgba(56,189,248,0.08), transparent 60%), radial-gradient(720px 420px at 20% 75%, rgba(37,99,235,0.12), transparent 60%)",
         }}
@@ -80,12 +74,8 @@ export function HomeHero() {
       <div className="relative rh-wrap px-5 pt-3 pb-8 sm:pt-4 sm:pb-10 lg:pt-5 lg:pb-12">
         <div className="grid items-center gap-10 lg:grid-cols-2 lg:gap-10">
           <div className="relative order-2 min-h-[300px] lg:order-1 lg:min-h-[380px]">
-            <motion.div
+            <div
               className="relative mx-auto max-w-lg overflow-hidden rounded-[24px] border border-sky-400/45 bg-slate-900/40 p-1 shadow-[0_0_0_1px_rgba(56,189,248,0.2),0_0_60px_-10px_rgba(37,99,235,0.45),0_25px_50px_-12px_rgba(0,0,0,0.6)]"
-              style={{ y: heroParallaxY }}
-              initial={{ opacity: 0, y: 22, scale: 0.98 }}
-              animate={{ opacity: 1, y: 0, scale: 1 }}
-              transition={{ duration: 0.95, ease: [0.22, 1, 0.36, 1] }}
             >
               <div className="relative aspect-[5/4] overflow-hidden rounded-[20px] bg-[#0b1220]">
                 <Image
@@ -98,21 +88,13 @@ export function HomeHero() {
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-[#020617]/90 via-transparent to-transparent opacity-90" />
               </div>
-            </motion.div>
+            </div>
 
             <div className="absolute left-0 right-0 top-3 z-10 flex justify-center gap-2 sm:-top-2 sm:gap-3 md:justify-start md:pl-4">
               {miniCards.map((c, i) => (
-                <motion.div
+                <div
                   key={c.label}
                   className={`flex w-[30%] max-w-[104px] flex-col items-center rounded-lg px-2 py-2.5 text-center backdrop-blur-md sm:px-3 sm:py-3 ${c.shellClass}`}
-                  initial={{ opacity: 0, y: 14, scale: 0.98 }}
-                  animate={{ opacity: 1, y: 0, scale: 1 }}
-                  transition={{
-                    duration: 0.75,
-                    delay: 0.18 + i * 0.08,
-                    ease: [0.22, 1, 0.36, 1],
-                  }}
-                  whileHover={{ y: -4, scale: 1.02 }}
                 >
                   <span
                     className={`text-lg sm:text-xl ${c.iconClass}`}
@@ -126,16 +108,12 @@ export function HomeHero() {
                   <span className="mt-0.5 hidden text-[9px] text-slate-500 sm:block">
                     {c.sub}
                   </span>
-                </motion.div>
+                </div>
               ))}
             </div>
 
-            <motion.div
+            <div
               className="relative z-10 mx-auto mt-6 max-w-md rounded-xl border border-sky-400/40 bg-slate-900/85 p-5 shadow-[0_0_32px_rgba(37,99,235,0.15)] backdrop-blur-sm sm:mt-8 md:ml-4"
-              initial={{ opacity: 0, y: 18, scale: 0.99 }}
-              animate={{ opacity: 1, y: 0, scale: 1 }}
-              transition={{ duration: 0.9, delay: 0.32, ease: [0.22, 1, 0.36, 1] }}
-              whileHover={{ y: -5 }}
             >
               <p className="text-3xl font-black leading-none tracking-tight text-[color:var(--rh-sky)] sm:text-4xl">
                 Flexible Crypto Trading Learning — Anytime, Anywhere
@@ -145,7 +123,7 @@ export function HomeHero() {
                 and flexible. Access lessons, signals, and strategies anytime—
                 without pressure, at your own pace.
               </p>
-            </motion.div>
+            </div>
           </div>
 
           <div className="order-1 lg:order-2">

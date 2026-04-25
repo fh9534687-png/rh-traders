@@ -1,11 +1,13 @@
 "use client";
 
-import { motion, type MotionProps } from "framer-motion";
-
 export function Reveal({
   children,
+  // Kept for API compatibility across the app (motion disabled).
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   delay = 0,
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   y = 18,
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   scale = 0.98,
   className = "",
 }: {
@@ -15,21 +17,7 @@ export function Reveal({
   scale?: number;
   className?: string;
 }) {
-  const props: MotionProps = {
-    initial: { opacity: 0, y, scale },
-    whileInView: { opacity: 1, y: 0, scale: 1 },
-    viewport: { once: true, margin: "-80px" },
-    transition: {
-      duration: 0.75,
-      delay,
-      ease: [0.22, 1, 0.36, 1],
-    },
-  };
-
-  return (
-    <motion.div className={className} {...props}>
-      {children}
-    </motion.div>
-  );
+  // Render immediately to avoid "empty space" and scroll-based reveal jank.
+  return <div className={className}>{children}</div>;
 }
 
