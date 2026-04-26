@@ -180,19 +180,21 @@ export function HomeSectionsClient() {
             <Reveal key={p.href}>
               <Link
                 href={p.href}
-                className="group rh-card flex h-full flex-col rounded-3xl p-7 transition will-change-transform hover:-translate-y-1 hover:shadow-[0_0_60px_rgba(56,189,248,0.10)]"
+                className="group flex h-full flex-col rounded-3xl border border-[color:var(--rh-accent)] bg-[#87CEEB] p-7 text-slate-950 shadow-[0_22px_70px_rgba(2,6,23,0.22)] transition will-change-transform hover:-translate-y-1 hover:shadow-[0_26px_82px_rgba(2,6,23,0.26)]"
               >
                 <div className="flex flex-1 items-start justify-between gap-6">
                   <div className="flex flex-1 flex-col">
-                    <h3 className="text-xl font-black tracking-tight text-white">{p.title}</h3>
-                    <p className="mt-3 min-h-[96px] text-base leading-8 text-slate-200">
+                    <h3 className="text-xl font-black tracking-tight text-slate-950">
+                      {p.title}
+                    </h3>
+                    <p className="mt-3 min-h-[96px] text-base leading-8 text-slate-900">
                       {p.desc}
                     </p>
-                    <span className="mt-auto inline-flex items-center gap-2 pt-5 text-sm font-semibold text-white/90 transition group-hover:text-sky-300">
+                    <span className="mt-auto inline-flex items-center gap-2 pt-5 text-sm font-extrabold text-slate-950 transition group-hover:text-[color:var(--rh-accent)]">
                       Learn more <span aria-hidden="true">→</span>
                     </span>
                   </div>
-                  <span className="mt-1 h-12 w-12 shrink-0 rounded-2xl border border-sky-500/30 bg-slate-900/60 transition group-hover:border-sky-400/50 group-hover:shadow-[0_0_26px_rgba(56,189,248,0.20)]" />
+                  <span className="mt-1 h-12 w-12 shrink-0 rounded-2xl border border-[color:var(--rh-accent)]/70 bg-white/35 shadow-[inset_0_0_0_1px_rgba(255,255,255,0.18)] transition group-hover:bg-white/45" />
                 </div>
               </Link>
             </Reveal>
