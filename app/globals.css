@@ -310,7 +310,8 @@ body {
 }
 
 .rh-wrap {
-  max-width: 1080px;
+  /* Wider layout so sections don't feel "too small" on desktop */
+  max-width: 1280px;
   margin-left: auto;
   margin-right: auto;
 }

@@ -5,11 +5,12 @@ import { LivePricesTable } from "./components/LivePricesTable";
 import { EnrollCountdownBanner } from "./components/EnrollCountdownBanner";
 import { HomeTradingBackground } from "./components/HomeTradingBackground";
 import { HomeSectionsClient } from "./components/HomeSectionsClient";
+import { TradingViewInspiredHome } from "./components/home/TradingViewInspiredHome";
 
 export const metadata = {
-  title: "Crypto Trading Course and Signals",
+  title: "Learn Crypto Trading - RH Traders",
   description:
-    "RH Traders is a structured trading platform where you can learn trading online through a guided crypto trading course, practical dashboards, and trading signals built around risk-first execution.",
+    "Master crypto trading with structured courses, real-time signals, and professional tools.",
 };
 
 /** Small accent checkmark for table cells (no emoji). */
@@ -62,6 +63,10 @@ export default function Home() {
     <div className="relative min-h-screen bg-[#020617] text-white">
       <HomeTradingBackground />
       <main id="home" className="flex flex-col">
+        {/* TradingView-inspired premium homepage sections (do not remove existing content below). */}
+        <TradingViewInspiredHome />
+
+        {/* Existing homepage content remains below */}
         <HomeHero />
         <HomeSectionsClient />
 
