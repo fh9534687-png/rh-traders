@@ -177,6 +177,9 @@ export function AuthCard() {
     if (typeof window === "undefined") return;
     const sp = new URLSearchParams(window.location.search);
     if (sp.get("reset") === "done") setResetDoneBanner(true);
+    const desired = sp.get("mode");
+    if (desired === "signup") setMode("signup");
+    if (desired === "login") setMode("login");
     if (sp.get("mode") !== "resetPassword") return;
     const raw = sp.get("oobCode");
     if (!raw) return;

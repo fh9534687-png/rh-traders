@@ -272,15 +272,22 @@ export function UserMenu() {
 
   if (!email) {
     return (
-      <Link
-        href="/auth"
-        className="inline-flex items-center justify-center rounded-full border border-sky-400/25 bg-[color:var(--rh-accent)] px-3 py-2 text-sm font-extrabold uppercase tracking-wide text-white shadow-[0_0_20px_rgba(37,99,235,0.28)] transition hover:bg-[color:var(--rh-accent-bright)] hover:shadow-[0_0_26px_rgba(59,130,246,0.40)] md:px-6 md:rounded"
-      >
-        <span className="md:hidden" aria-hidden>
-          ↪
-        </span>
-        <span className="hidden md:inline">Login</span>
-      </Link>
+      <div className="flex items-center gap-2">
+        <Link
+          href="/auth?mode=login"
+          className="inline-flex items-center justify-center rounded-full border border-white/15 bg-white/5 px-3 py-2 text-xs font-extrabold uppercase tracking-wide text-white transition hover:bg-white/8 md:px-5 md:rounded"
+        >
+          <span className="md:hidden">Login</span>
+          <span className="hidden md:inline">Login</span>
+        </Link>
+        <Link
+          href="/auth?mode=signup"
+          className="inline-flex items-center justify-center rounded-full bg-[color:var(--rh-accent)] px-3 py-2 text-xs font-extrabold uppercase tracking-wide text-white shadow-[0_0_22px_rgba(255,106,0,0.30)] transition hover:bg-[color:var(--rh-accent-bright)] hover:shadow-[0_0_28px_rgba(255,138,61,0.34)] md:px-5 md:rounded"
+        >
+          <span className="md:hidden">Sign up</span>
+          <span className="hidden md:inline">Sign up</span>
+        </Link>
+      </div>
     );
   }
 

@@ -7,7 +7,7 @@ import { UserMenu } from "./UserMenu";
 import { ToolsMenu } from "./ToolsMenu";
 
 function TopBarIcon({ kind }: { kind: "phone" | "email" | "pin" | "contact" }) {
-  const cls = "h-4 w-4 text-[#0b1b3a]";
+  const cls = "h-4 w-4 text-[color:var(--rh-accent)]";
   if (kind === "phone")
     return (
       <svg className={cls} viewBox="0 0 24 24" fill="none" aria-hidden>
@@ -304,33 +304,33 @@ export function Header() {
   }, [mobileOpen]);
 
   return (
-    <header className="sticky top-0 z-50 w-full border-b border-sky-500/15 bg-[#0b1b3a] shadow-[0_8px_26px_rgba(0,0,0,0.35)]">
-      {/* Top info bar (light blue like reference) */}
-      <div className="border-b border-sky-500/10 bg-[#87CEEB]">
+    <header className="sticky top-0 z-50 w-full border-b border-white/10 bg-[#070b14] shadow-[0_10px_35px_rgba(0,0,0,0.45)]">
+      {/* Top info bar (TradeNation-style, compact) */}
+      <div className="border-b border-white/10 bg-[#0b1220]">
         <div className="mx-auto w-full max-w-[1440px] px-4 sm:px-6">
-          <div className="flex items-center justify-between gap-3 py-1.5 text-[11px] font-bold text-slate-900 sm:py-2">
-            <div className="flex min-w-0 flex-wrap items-center gap-x-4 gap-y-1 text-slate-900">
+          <div className="flex items-center justify-between gap-3 py-1.5 text-[11px] font-bold text-slate-200 sm:py-2">
+            <div className="flex min-w-0 flex-wrap items-center gap-x-4 gap-y-1 text-slate-200">
               <a
                 href="tel:+923495357142"
-                className="inline-flex items-center gap-2 transition hover:text-slate-950"
+                className="inline-flex items-center gap-2 transition hover:text-white"
               >
                 <TopBarIcon kind="phone" />
                 <span>+92 349 5357142</span>
               </a>
               <a
                 href="mailto:rh6219289@gmail.com"
-                className="hidden items-center gap-2 transition hover:text-slate-950 sm:inline-flex"
+                className="hidden items-center gap-2 transition hover:text-white sm:inline-flex"
               >
                 <TopBarIcon kind="email" />
                 <span>rh6219289@gmail.com</span>
               </a>
-              <span className="hidden items-center gap-2 text-slate-800 lg:inline-flex">
+              <span className="hidden items-center gap-2 text-slate-300 lg:inline-flex">
                 <TopBarIcon kind="pin" />
                 <span>Gujarkhan, Dultaala</span>
               </span>
               <Link
                 href="/contact"
-                className="hidden items-center gap-2 text-slate-900 transition hover:text-slate-950 md:inline-flex"
+                className="hidden items-center gap-2 text-slate-200 transition hover:text-white md:inline-flex"
               >
                 <TopBarIcon kind="contact" />
                 <span>Contact</span>
@@ -397,11 +397,11 @@ export function Header() {
               <Link
                 key={item.href}
                 href={item.href}
-                className="group relative inline-flex items-center gap-2 rounded-xl px-1.5 py-1 text-[13px] font-extrabold tracking-wide text-slate-100 transition hover:bg-slate-900/35 hover:text-white"
+                className="group relative inline-flex items-center gap-2 rounded-xl px-1.5 py-1 text-[13px] font-extrabold tracking-wide text-slate-200 transition hover:bg-white/5 hover:text-white"
               >
                 <NavIcon name={item.icon} />
                 <span>{item.label}</span>
-                <span className="pointer-events-none absolute -bottom-2 left-0 h-[2px] w-full origin-left scale-x-0 bg-[color:var(--rh-sky)] transition-transform duration-300 group-hover:scale-x-100" />
+                <span className="pointer-events-none absolute -bottom-2 left-0 h-[2px] w-full origin-left scale-x-0 bg-[color:var(--rh-accent)] transition-transform duration-300 group-hover:scale-x-100" />
               </Link>
             ))}
             <ToolsMenu />
@@ -411,7 +411,7 @@ export function Header() {
             <button
               type="button"
               onClick={() => setMobileOpen((v) => !v)}
-              className="inline-flex items-center justify-center rounded-2xl border border-sky-400/20 bg-slate-950/30 px-3 py-2 transition hover:bg-slate-900/40 lg:hidden"
+              className="inline-flex items-center justify-center rounded-2xl border border-white/10 bg-white/5 px-3 py-2 transition hover:bg-white/8 lg:hidden"
               aria-label={mobileOpen ? "Close menu" : "Open menu"}
               aria-expanded={mobileOpen}
             >
@@ -430,7 +430,7 @@ export function Header() {
             className="fixed inset-0 z-40 bg-black/55"
             onClick={() => setMobileOpen(false)}
           />
-          <div className="fixed right-0 top-[calc(4rem+2.25rem)] z-50 h-[calc(100vh-4rem-2.25rem)] w-[min(92vw,380px)] overflow-y-auto border-l border-sky-400/15 bg-[#020617]/95 shadow-[0_0_70px_rgba(2,6,23,0.85)] backdrop-blur-md">
+          <div className="fixed right-0 top-[calc(4rem+2.25rem)] z-50 h-[calc(100vh-4rem-2.25rem)] w-[min(92vw,380px)] overflow-y-auto border-l border-white/10 bg-[#070b14]/95 shadow-[0_0_80px_rgba(0,0,0,0.75)] backdrop-blur-md">
             <div className="p-5">
               <p className="text-xs font-extrabold uppercase tracking-[0.22em] text-slate-400">
                 Menu
@@ -446,8 +446,8 @@ export function Header() {
                       className={[
                         "flex items-center gap-3 rounded-2xl border px-4 py-3 text-sm font-extrabold transition",
                         active
-                          ? "border-sky-400/25 bg-slate-900/60 text-white"
-                          : "border-sky-400/10 bg-slate-950/30 text-slate-200 hover:bg-slate-900/40 hover:text-white",
+                          ? "border-white/15 bg-white/8 text-white"
+                          : "border-white/10 bg-white/5 text-slate-200 hover:bg-white/8 hover:text-white",
                       ].join(" ")}
                     >
                       <NavIcon name={item.icon} />
@@ -457,7 +457,7 @@ export function Header() {
                 })}
               </div>
 
-              <div className="mt-4 rounded-3xl border border-sky-400/15 bg-slate-950/30 p-3">
+              <div className="mt-4 rounded-3xl border border-white/10 bg-white/5 p-3">
                 <div className="px-2 pb-2 text-xs font-extrabold uppercase tracking-[0.22em] text-slate-500">
                   Tools
                 </div>

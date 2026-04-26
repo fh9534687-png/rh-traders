@@ -1,49 +1,48 @@
 @import "tailwindcss";
 
 /*
- * RH Traders — Premium dark navy + electric blue (prop-firm style)
- * Legacy names: --rh-red* / --rh-orange* = blue accents; --rh-border-red = sky border
+ * RH Traders — TradeNation-inspired skin (dark + orange)
+ * Keep existing variable names to avoid refactoring markup.
  */
 :root {
-  /* Softer SaaS background (less heavy) */
-  --background: #070d1a;
+  /* Core */
+  --background: #070b14;
   --foreground: #f8fafc;
-  --rh-sky: #38bdf8;
-  --rh-sky-dim: rgba(56, 189, 248, 0.35);
-  /* Header sky strip color (requested) */
-  --rh-skybar: #87ceeb;
-  --rh-skybar-dim: rgba(135, 206, 235, 0.35);
-  --rh-accent: #2563eb;
-  --rh-accent-bright: #3b82f6;
-  --rh-accent-hover: #60a5fa;
-  --rh-accent-glow: rgba(37, 99, 235, 0.45);
-  --rh-accent-glow-strong: rgba(59, 130, 246, 0.55);
-  /* Thin borders / glow lines (sky) */
-  --rh-border-red: #38bdf8;
-  --rh-border-red-hover: #7dd3fc;
-  /* Primary CTAs — same as accent blue */
-  --rh-orange: #2563eb;
-  --rh-orange-hover: #3b82f6;
-  --rh-orange-glow: rgba(37, 99, 235, 0.5);
-  --rh-orange-glow-strong: rgba(59, 130, 246, 0.6);
-  /* Legacy “red” = electric blue for links, dots, focus */
-  --rh-red: #3b82f6;
-  --rh-red-hover: #60a5fa;
-  --rh-red-light: rgba(59, 130, 246, 0.15);
-  --rh-red-deep: #1d4ed8;
+  /* Orange accent (TradeNation-style) */
+  --rh-accent: #ff6a00;
+  --rh-accent-bright: #ff8a3d;
+  --rh-accent-hover: #ffa66f;
+  --rh-accent-glow: rgba(255, 106, 0, 0.45);
+  --rh-accent-glow-strong: rgba(255, 138, 61, 0.55);
+  /* Legacy names mapped to orange */
+  --rh-sky: #ff6a00;
+  --rh-sky-dim: rgba(255, 106, 0, 0.32);
+  --rh-border-red: #ff6a00;
+  --rh-border-red-hover: #ff9a61;
+  --rh-orange: #ff6a00;
+  --rh-orange-hover: #ff8a3d;
+  --rh-orange-glow: rgba(255, 106, 0, 0.48);
+  --rh-orange-glow-strong: rgba(255, 138, 61, 0.58);
+  --rh-red: #ff6a00;
+  --rh-red-hover: #ff8a3d;
+  --rh-red-light: rgba(255, 106, 0, 0.14);
+  --rh-red-deep: #f25f00;
   --rh-profit: #22c55e;
   --rh-loss: #f87171;
   --rh-text: #f8fafc;
   --rh-text-muted: #94a3b8;
-  --rh-border: rgba(56, 189, 248, 0.25);
-  --rh-surface: rgba(15, 23, 42, 0.85);
-  --rh-surface-elevated: rgba(30, 41, 59, 0.75);
-  --rh-surface-half: rgba(15, 23, 42, 0.6);
-  --rh-surface-mint: rgba(30, 58, 138, 0.25);
+  --rh-border: rgba(255, 138, 61, 0.22);
+  --rh-surface: rgba(10, 16, 30, 0.86);
+  --rh-surface-elevated: rgba(16, 24, 42, 0.78);
+  --rh-surface-half: rgba(10, 16, 30, 0.62);
+  --rh-surface-mint: rgba(255, 106, 0, 0.08);
   --rh-gold-1: #facc15;
   --rh-gold-2: #ca8a04;
-  --rh-neon-glow: rgba(56, 189, 248, 0.35);
-  --rh-header-bg: rgba(7, 13, 26, 0.78);
+  --rh-neon-glow: rgba(255, 106, 0, 0.28);
+  --rh-header-bg: rgba(7, 11, 20, 0.88);
+  /* Deprecated sky strip vars kept for compatibility */
+  --rh-skybar: #0b1220;
+  --rh-skybar-dim: rgba(11, 18, 32, 0.55);
 }
 
 @theme inline {
@@ -55,9 +54,10 @@
 
 body {
   background:
-    radial-gradient(circle at 18% -8%, rgba(56, 189, 248, 0.16), transparent 55%),
-    radial-gradient(circle at 85% 5%, rgba(59, 130, 246, 0.12), transparent 50%),
-    linear-gradient(180deg, rgba(15, 23, 42, 0.55), rgba(7, 13, 26, 1) 55%),
+    radial-gradient(circle at 15% -10%, rgba(255, 106, 0, 0.18), transparent 55%),
+    radial-gradient(circle at 90% 10%, rgba(255, 138, 61, 0.10), transparent 50%),
+    radial-gradient(circle at 50% 120%, rgba(255, 106, 0, 0.10), transparent 55%),
+    linear-gradient(180deg, rgba(12, 18, 34, 0.62), rgba(7, 11, 20, 1) 58%),
     var(--background);
   color: var(--foreground);
   font-family: var(--font-sans), system-ui, -apple-system, Segoe UI, Roboto,
@@ -85,7 +85,7 @@ body {
 }
 
 ::selection {
-  background: color-mix(in srgb, var(--rh-accent) 40%, #0f172a);
+  background: color-mix(in srgb, var(--rh-accent) 42%, #0b1220);
   color: #f8fafc;
 }
 
