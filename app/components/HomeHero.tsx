@@ -128,7 +128,7 @@ export function HomeHero() {
 
           <div className="order-1 lg:order-2">
             <Reveal>
-              <h2
+              <h1
                 id="hero-heading"
                 className="text-balance font-[Georgia,Times_New_Roman,Times,serif] text-xl font-bold leading-snug tracking-tight text-white sm:text-2xl md:text-2xl lg:text-3xl xl:text-[2.05rem]"
               >
@@ -137,7 +137,7 @@ export function HomeHero() {
                   crypto trading course
                 </span>{" "}
                 with dashboards and signals built for consistent execution.
-              </h2>
+              </h1>
               <p className="mt-4 max-w-xl text-pretty text-base leading-relaxed text-slate-200 sm:text-lg">
                 If you want to learn trading online with a clear framework, RH Traders
                 combines structured lessons, practical tools, and trading signals so you
