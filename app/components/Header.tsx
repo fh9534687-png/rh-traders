@@ -111,7 +111,10 @@ function NavIcon({
     | "coins"
     | "faq"
     | "contact"
-    | "blog";
+    | "blog"
+    | "courses"
+    | "signals"
+    | "crypto";
 }) {
   const cls = "h-4 w-4 text-slate-200 transition group-hover:text-white";
   if (name === "home")
@@ -229,6 +232,70 @@ function NavIcon({
         />
       </svg>
     );
+  if (name === "courses")
+    return (
+      <svg className={cls} viewBox="0 0 24 24" fill="none" aria-hidden>
+        <path
+          d="M4 7.5 12 4l8 3.5L12 11 4 7.5Z"
+          stroke="currentColor"
+          strokeWidth="2"
+          strokeLinejoin="round"
+        />
+        <path
+          d="M4 12l8 3.5 8-3.5"
+          stroke="currentColor"
+          strokeWidth="2"
+          strokeLinejoin="round"
+        />
+        <path
+          d="M4 16.5 12 20l8-3.5"
+          stroke="currentColor"
+          strokeWidth="2"
+          strokeLinejoin="round"
+        />
+      </svg>
+    );
+  if (name === "signals")
+    return (
+      <svg className={cls} viewBox="0 0 24 24" fill="none" aria-hidden>
+        <path
+          d="M4 14l4-4 3 3 5-6 4 4"
+          stroke="currentColor"
+          strokeWidth="2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        />
+        <path
+          d="M4 20h16"
+          stroke="currentColor"
+          strokeWidth="2"
+          strokeLinecap="round"
+        />
+      </svg>
+    );
+  if (name === "crypto")
+    return (
+      <svg className={cls} viewBox="0 0 24 24" fill="none" aria-hidden>
+        <path
+          d="M12 21c4.4 0 8-2 8-4.5S16.4 12 12 12s-8 2-8 4.5S7.6 21 12 21Z"
+          stroke="currentColor"
+          strokeWidth="2"
+          strokeLinejoin="round"
+        />
+        <path
+          d="M20 16.5V7.5C20 5 16.4 3 12 3S4 5 4 7.5v9"
+          stroke="currentColor"
+          strokeWidth="2"
+          strokeLinejoin="round"
+        />
+        <path
+          d="M4 7.5C4 10 7.6 12 12 12s8-2 8-4.5"
+          stroke="currentColor"
+          strokeWidth="2"
+          strokeLinejoin="round"
+        />
+      </svg>
+    );
   return (
     <svg className={cls} viewBox="0 0 24 24" fill="none" aria-hidden>
       <path
@@ -255,14 +322,112 @@ function NavIcon({
 
 const navItems = [
   { label: "Home", href: "/", icon: "home" },
-  { label: "Market", href: "/market", icon: "market" },
-  { label: "Charts", href: "/charts", icon: "charts" },
-  { label: "Coins", href: "/coins", icon: "coins" },
+  { label: "Courses", href: "/plans", icon: "courses" },
+  { label: "Signals", href: "/signals/how-signals-work", icon: "signals" },
   { label: "FAQ", href: "/faq", icon: "faq" },
   // Tools dropdown is inserted separately (with its own icon).
   { label: "Contact", href: "/contact", icon: "contact" },
   { label: "Blog", href: "/blog", icon: "blog" },
 ] as const;
+
+const marketItems = [
+  { label: "Market Overview", href: "/market" },
+  { label: "Top Gainers", href: "/market/top-gainers" },
+  { label: "Top Losers", href: "/market/top-losers" },
+  { label: "Crypto Prices", href: "/market/crypto-prices" },
+] as const;
+
+const cryptoItems = [
+  { label: "What are Cryptocurrencies?", href: "/cryptocurrencies/what-are-cryptocurrencies" },
+  { label: "Benefits of Crypto Trading", href: "/cryptocurrencies/benefits-of-crypto-trading" },
+] as const;
+
+function DropdownChevron({ open }: { open: boolean }) {
+  return (
+    <svg
+      className={[
+        "h-4 w-4 text-slate-300 transition",
+        open ? "rotate-180" : "rotate-0",
+      ].join(" ")}
+      viewBox="0 0 24 24"
+      fill="none"
+      aria-hidden
+    >
+      <path
+        d="M6 9l6 6 6-6"
+        stroke="currentColor"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
+  );
+}
+
+function NavDropdown({
+  label,
+  icon,
+  items,
+  activeHref,
+}: {
+  label: string;
+  icon: Parameters<typeof NavIcon>[0]["name"];
+  items: ReadonlyArray<{ label: string; href: string }>;
+  activeHref: string;
+}) {
+  const [open, setOpen] = useState(false);
+  const active = items.some((i) => i.href === activeHref) || activeHref === items[0]?.href;
+
+  return (
+    <div
+      className="relative"
+      onMouseEnter={() => setOpen(true)}
+      onMouseLeave={() => setOpen(false)}
+    >
+      <button
+        type="button"
+        onClick={() => setOpen((v) => !v)}
+        className={[
+          "group relative inline-flex items-center gap-2 rounded-xl px-2 py-1.5 text-[13px] font-extrabold tracking-wide transition",
+          active ? "text-white" : "text-slate-200 hover:text-white",
+          "hover:bg-white/5",
+        ].join(" ")}
+        aria-haspopup="menu"
+        aria-expanded={open}
+      >
+        <NavIcon name={icon} />
+        <span>{label}</span>
+        <DropdownChevron open={open} />
+        <span className="pointer-events-none absolute -bottom-2 left-0 h-[2px] w-full origin-left scale-x-0 bg-[color:var(--rh-accent)] transition-transform duration-300 group-hover:scale-x-100" />
+      </button>
+
+      {open ? (
+        <div className="absolute left-0 top-[calc(100%+12px)] z-50 w-[280px] overflow-hidden rounded-2xl border border-white/10 bg-[#070b14]/95 shadow-[0_24px_70px_rgba(0,0,0,0.6)] backdrop-blur-md">
+          <div className="p-2">
+            {items.map((it) => {
+              const isActive = activeHref === it.href;
+              return (
+                <Link
+                  key={it.href}
+                  href={it.href}
+                  className={[
+                    "flex items-center justify-between gap-3 rounded-xl px-4 py-3 text-sm font-extrabold transition",
+                    isActive
+                      ? "bg-white/10 text-white"
+                      : "text-slate-200 hover:bg-white/8 hover:text-white",
+                  ].join(" ")}
+                >
+                  <span className="min-w-0 truncate">{it.label}</span>
+                  <span className="text-[color:var(--rh-skyblue)]">→</span>
+                </Link>
+              );
+            })}
+          </div>
+        </div>
+      ) : null}
+    </div>
+  );
+}
 
 function HamburgerIcon({ open }: { open: boolean }) {
   const cls = "h-5 w-5 text-slate-100";
@@ -289,6 +454,8 @@ function HamburgerIcon({ open }: { open: boolean }) {
 
 export function Header() {
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [mobileMarketOpen, setMobileMarketOpen] = useState(false);
+  const [mobileCryptoOpen, setMobileCryptoOpen] = useState(false);
 
   const activeHref = useMemo(() => {
     if (typeof window === "undefined") return "";
@@ -394,11 +561,37 @@ export function Header() {
             className="hidden min-w-0 flex-1 items-center justify-center gap-3 lg:flex lg:gap-4"
             aria-label="Primary"
           >
-            {navItems.map((item) => (
+            {navItems.slice(0, 1).map((item) => (
               <Link
                 key={item.href}
                 href={item.href}
-                className="group relative inline-flex items-center gap-2 rounded-xl px-1.5 py-1 text-[13px] font-extrabold tracking-wide text-slate-200 transition hover:bg-white/5 hover:text-white"
+                className="group relative inline-flex items-center gap-2 rounded-xl px-2 py-1.5 text-[13px] font-extrabold tracking-wide text-slate-200 transition hover:bg-white/5 hover:text-white"
+              >
+                <NavIcon name={item.icon} />
+                <span>{item.label}</span>
+                <span className="pointer-events-none absolute -bottom-2 left-0 h-[2px] w-full origin-left scale-x-0 bg-[color:var(--rh-accent)] transition-transform duration-300 group-hover:scale-x-100" />
+              </Link>
+            ))}
+
+            <NavDropdown
+              label="Market"
+              icon="market"
+              items={marketItems}
+              activeHref={activeHref}
+            />
+
+            <NavDropdown
+              label="Cryptocurrencies"
+              icon="crypto"
+              items={cryptoItems}
+              activeHref={activeHref}
+            />
+
+            {navItems.slice(1).map((item) => (
+              <Link
+                key={item.href}
+                href={item.href}
+                className="group relative inline-flex items-center gap-2 rounded-xl px-2 py-1.5 text-[13px] font-extrabold tracking-wide text-slate-200 transition hover:bg-white/5 hover:text-white"
               >
                 <NavIcon name={item.icon} />
                 <span>{item.label}</span>
@@ -437,6 +630,7 @@ export function Header() {
                 Menu
               </p>
               <div className="mt-4 grid gap-2">
+                {/* Core links */}
                 {navItems.map((item) => {
                   const active = activeHref === item.href;
                   return (
@@ -456,6 +650,62 @@ export function Header() {
                     </Link>
                   );
                 })}
+
+                {/* Market dropdown (mobile) */}
+                <button
+                  type="button"
+                  onClick={() => setMobileMarketOpen((v) => !v)}
+                  className="flex items-center justify-between gap-3 rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-left text-sm font-extrabold text-slate-200 transition hover:bg-white/8 hover:text-white"
+                  aria-expanded={mobileMarketOpen}
+                >
+                  <span className="inline-flex items-center gap-3">
+                    <NavIcon name="market" />
+                    Market
+                  </span>
+                  <DropdownChevron open={mobileMarketOpen} />
+                </button>
+                {mobileMarketOpen ? (
+                  <div className="grid gap-2 pl-3">
+                    {marketItems.map((it) => (
+                      <Link
+                        key={it.href}
+                        href={it.href}
+                        onClick={() => setMobileOpen(false)}
+                        className="rounded-2xl border border-white/10 bg-white/4 px-4 py-3 text-sm font-bold text-slate-200 transition hover:bg-white/8 hover:text-white"
+                      >
+                        {it.label}
+                      </Link>
+                    ))}
+                  </div>
+                ) : null}
+
+                {/* Cryptocurrencies dropdown (mobile) */}
+                <button
+                  type="button"
+                  onClick={() => setMobileCryptoOpen((v) => !v)}
+                  className="flex items-center justify-between gap-3 rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-left text-sm font-extrabold text-slate-200 transition hover:bg-white/8 hover:text-white"
+                  aria-expanded={mobileCryptoOpen}
+                >
+                  <span className="inline-flex items-center gap-3">
+                    <NavIcon name="crypto" />
+                    Cryptocurrencies
+                  </span>
+                  <DropdownChevron open={mobileCryptoOpen} />
+                </button>
+                {mobileCryptoOpen ? (
+                  <div className="grid gap-2 pl-3">
+                    {cryptoItems.map((it) => (
+                      <Link
+                        key={it.href}
+                        href={it.href}
+                        onClick={() => setMobileOpen(false)}
+                        className="rounded-2xl border border-white/10 bg-white/4 px-4 py-3 text-sm font-bold text-slate-200 transition hover:bg-white/8 hover:text-white"
+                      >
+                        {it.label}
+                      </Link>
+                    ))}
+                  </div>
+                ) : null}
               </div>
 
               <div className="mt-4 rounded-3xl border border-white/10 bg-white/5 p-3">
