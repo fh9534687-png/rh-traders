@@ -7,7 +7,8 @@ import { UserMenu } from "./UserMenu";
 import { ToolsMenu } from "./ToolsMenu";
 
 function TopBarIcon({ kind }: { kind: "phone" | "email" | "pin" | "contact" }) {
-  const cls = "h-4 w-4 text-[color:var(--rh-accent)]";
+  // Top bar sits on a light sky background; keep icons dark for contrast.
+  const cls = "h-4 w-4 text-[#0b1b3a]";
   if (kind === "phone")
     return (
       <svg className={cls} viewBox="0 0 24 24" fill="none" aria-hidden>
@@ -306,31 +307,31 @@ export function Header() {
   return (
     <header className="sticky top-0 z-50 w-full border-b border-white/10 bg-[#070b14] shadow-[0_10px_35px_rgba(0,0,0,0.45)]">
       {/* Top info bar (TradeNation-style, compact) */}
-      <div className="border-b border-white/10 bg-[#0b1220]">
+      <div className="border-b border-black/10 bg-[#87CEEB]">
         <div className="mx-auto w-full max-w-[1440px] px-4 sm:px-6">
-          <div className="flex items-center justify-between gap-3 py-1.5 text-[11px] font-bold text-slate-200 sm:py-2">
-            <div className="flex min-w-0 flex-wrap items-center gap-x-4 gap-y-1 text-slate-200">
+          <div className="flex items-center justify-between gap-3 py-1.5 text-[11px] font-bold text-slate-900 sm:py-2">
+            <div className="flex min-w-0 flex-wrap items-center gap-x-4 gap-y-1 text-slate-900">
               <a
                 href="tel:+923495357142"
-                className="inline-flex items-center gap-2 transition hover:text-white"
+                className="inline-flex items-center gap-2 transition hover:text-slate-950"
               >
                 <TopBarIcon kind="phone" />
                 <span>+92 349 5357142</span>
               </a>
               <a
                 href="mailto:rh6219289@gmail.com"
-                className="hidden items-center gap-2 transition hover:text-white sm:inline-flex"
+                className="hidden items-center gap-2 transition hover:text-slate-950 sm:inline-flex"
               >
                 <TopBarIcon kind="email" />
                 <span>rh6219289@gmail.com</span>
               </a>
-              <span className="hidden items-center gap-2 text-slate-300 lg:inline-flex">
+              <span className="hidden items-center gap-2 text-slate-800 lg:inline-flex">
                 <TopBarIcon kind="pin" />
                 <span>Gujarkhan, Dultaala</span>
               </span>
               <Link
                 href="/contact"
-                className="hidden items-center gap-2 text-slate-200 transition hover:text-white md:inline-flex"
+                className="hidden items-center gap-2 text-slate-900 transition hover:text-slate-950 md:inline-flex"
               >
                 <TopBarIcon kind="contact" />
                 <span>Contact</span>
