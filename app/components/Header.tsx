@@ -323,7 +323,6 @@ function NavIcon({
 const navItems = [
   { label: "Home", href: "/", icon: "home" },
   { label: "Courses", href: "/plans", icon: "courses" },
-  { label: "Signals", href: "/signals/how-signals-work", icon: "signals" },
   { label: "FAQ", href: "/faq", icon: "faq" },
   // Tools dropdown is inserted separately (with its own icon).
   { label: "Contact", href: "/contact", icon: "contact" },
@@ -335,6 +334,9 @@ const marketItems = [
   { label: "Top Gainers", href: "/market/top-gainers" },
   { label: "Top Losers", href: "/market/top-losers" },
   { label: "Crypto Prices", href: "/market/crypto-prices" },
+  { label: "Signals: How it works", href: "/signals/how-signals-work" },
+  { label: "Signals: Market types", href: "/signals/markets" },
+  { label: "Signals: Beginner guide", href: "/signals/beginners" },
 ] as const;
 
 const cryptoItems = [
