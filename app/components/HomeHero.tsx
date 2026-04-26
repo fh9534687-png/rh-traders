@@ -11,7 +11,7 @@ const miniCards = [
     icon: "▶",
     shellClass:
       "border border-sky-400/40 bg-slate-900/80 shadow-[0_0_20px_rgba(37,99,235,0.2)]",
-    iconClass: "text-[color:var(--rh-sky)]",
+    iconClass: "text-[color:var(--rh-skyblue)]",
   },
   {
     label: "Signals",
@@ -27,7 +27,7 @@ const miniCards = [
     icon: "↻",
     shellClass:
       "border border-sky-400/40 bg-slate-950/90 shadow-[0_0_24px_rgba(37,99,235,0.18)]",
-    iconClass: "text-[color:var(--rh-sky)]",
+    iconClass: "text-[color:var(--rh-skyblue)]",
   },
 ] as const;
 
@@ -115,7 +115,7 @@ export function HomeHero() {
             <div
               className="relative z-10 mx-auto mt-6 max-w-md rounded-xl border border-sky-400/40 bg-slate-900/85 p-5 shadow-[0_0_32px_rgba(37,99,235,0.15)] backdrop-blur-sm sm:mt-8 md:ml-4"
             >
-              <p className="text-3xl font-black leading-none tracking-tight text-[color:var(--rh-sky)] sm:text-4xl">
+              <p className="text-3xl font-black leading-none tracking-tight text-[color:var(--rh-skyblue)] sm:text-4xl">
                 Flexible Crypto Trading Learning — Anytime, Anywhere
               </p>
               <p className="mt-2 text-sm leading-relaxed text-slate-200 sm:text-base">
@@ -133,7 +133,7 @@ export function HomeHero() {
                 className="text-balance font-[Georgia,Times_New_Roman,Times,serif] text-xl font-bold leading-snug tracking-tight text-white sm:text-2xl md:text-2xl lg:text-3xl xl:text-[2.05rem]"
               >
                 RH Traders is a{" "}
-                <span className="text-[color:var(--rh-accent-bright)]">
+                <span className="text-[color:var(--rh-skyblue)]">
                   crypto trading course
                 </span>{" "}
                 with dashboards and signals built for consistent execution.
@@ -153,7 +153,7 @@ export function HomeHero() {
                 {cryptoTradingFocus.map((line) => (
                   <li key={line} className="flex gap-3">
                     <span
-                      className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-[color:var(--rh-accent)] text-[10px] font-bold text-white shadow-[0_0_12px_rgba(59,130,246,0.5)] sm:h-6 sm:w-6 sm:text-xs"
+                      className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-[color:var(--rh-skyblue)] text-[10px] font-bold text-[#0b1220] shadow-[0_0_12px_rgba(135,206,235,0.35)] sm:h-6 sm:w-6 sm:text-xs"
                       aria-hidden
                     >
                       ✓
@@ -176,13 +176,13 @@ export function HomeHero() {
               </Link>
               <Link
                 href="/plans"
-                className="inline-flex items-center justify-center rounded border border-[color:var(--rh-accent)] bg-transparent px-8 py-3.5 text-base font-extrabold text-white shadow-[0_0_20px_rgba(37,99,235,0.2)] transition hover:border-[color:var(--rh-sky)] hover:bg-blue-500/10"
+                className="inline-flex items-center justify-center rounded border border-[color:var(--rh-skyblue)] bg-transparent px-8 py-3.5 text-base font-extrabold text-white shadow-[0_0_20px_rgba(135,206,235,0.18)] transition hover:border-[color:var(--rh-accent)] hover:bg-white/5"
               >
                 See Pricing
               </Link>
               <Link
                 href="/blog"
-                className="inline-flex items-center justify-center rounded px-4 py-3.5 text-base font-bold text-slate-500 underline-offset-4 transition hover:text-[color:var(--rh-sky)]"
+                className="inline-flex items-center justify-center rounded px-4 py-3.5 text-base font-bold text-slate-500 underline-offset-4 transition hover:text-[color:var(--rh-skyblue)]"
               >
                 Browse Insights →
               </Link>

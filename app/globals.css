@@ -43,6 +43,9 @@
   /* Deprecated sky strip vars kept for compatibility */
   --rh-skybar: #0b1220;
   --rh-skybar-dim: rgba(11, 18, 32, 0.55);
+  /* Secondary accent (requested): small sky-blue highlights */
+  --rh-skyblue: #87ceeb;
+  --rh-skyblue-dim: rgba(135, 206, 235, 0.35);
 }
 
 @theme inline {
