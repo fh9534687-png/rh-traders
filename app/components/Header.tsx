@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { Logo } from "./Logo";
 import { UserMenu } from "./UserMenu";
 import { ToolsMenu } from "./ToolsMenu";
@@ -378,13 +378,30 @@ function NavDropdown({
   activeHref: string;
 }) {
   const [open, setOpen] = useState(false);
+  const wrapRef = useRef<HTMLDivElement | null>(null);
   const active = items.some((i) => i.href === activeHref) || activeHref === items[0]?.href;
+
+  useEffect(() => {
+    if (!open) return;
+    const onDown = (ev: MouseEvent) => {
+      if (!wrapRef.current) return;
+      if (!wrapRef.current.contains(ev.target as Node)) setOpen(false);
+    };
+    const onKey = (ev: KeyboardEvent) => {
+      if (ev.key === "Escape") setOpen(false);
+    };
+    window.addEventListener("mousedown", onDown);
+    window.addEventListener("keydown", onKey);
+    return () => {
+      window.removeEventListener("mousedown", onDown);
+      window.removeEventListener("keydown", onKey);
+    };
+  }, [open]);
 
   return (
     <div
+      ref={wrapRef}
       className="relative"
-      onMouseEnter={() => setOpen(true)}
-      onMouseLeave={() => setOpen(false)}
     >
       <button
         type="button"
@@ -412,6 +429,7 @@ function NavDropdown({
                 <Link
                   key={it.href}
                   href={it.href}
+                  onClick={() => setOpen(false)}
                   className={[
                     "flex items-center justify-between gap-3 rounded-xl px-4 py-3 text-sm font-extrabold transition",
                     isActive
