@@ -42,39 +42,91 @@ const cryptoTradingFocus = [
 export function HomeHero() {
   return (
     <section
-      className="relative overflow-hidden bg-[#070b14] text-slate-100"
+      className="relative overflow-hidden bg-[#020617] text-slate-100"
       aria-labelledby="hero-heading"
     >
-      {/* TradeNation-like clean hero background (subtle stripes + vignette + soft glow). */}
       <div
         className="pointer-events-none absolute inset-0"
         style={{
           background:
-            "radial-gradient(900px 520px at 20% 10%, rgba(255,106,0,0.18), transparent 60%), radial-gradient(850px 520px at 80% 20%, rgba(135,206,235,0.14), transparent 60%), linear-gradient(180deg, rgba(7,11,20,0.0) 0%, rgba(7,11,20,0.65) 55%, rgba(7,11,20,1) 100%)",
+            "radial-gradient(ellipse 90% 55% at 15% 20%, rgba(37, 99, 235, 0.18), transparent 55%), radial-gradient(ellipse 70% 45% at 85% 10%, rgba(56, 189, 248, 0.08), transparent 50%), linear-gradient(180deg, #020617 0%, #0f172a 55%, #020617 100%)",
         }}
         aria-hidden
       />
       <div
-        className="pointer-events-none absolute inset-0 opacity-[0.18]"
+        className="pointer-events-none absolute inset-0 opacity-[0.55]"
+        style={{
+          background:
+            "radial-gradient(900px 520px at 80% 20%, rgba(56,189,248,0.08), transparent 60%), radial-gradient(720px 420px at 20% 75%, rgba(37,99,235,0.12), transparent 60%)",
+        }}
+        aria-hidden
+      />
+      <div
+        className="pointer-events-none absolute inset-0 opacity-[0.12]"
         style={{
           backgroundImage:
-            "repeating-linear-gradient(90deg, rgba(255,255,255,0.10) 0px, rgba(255,255,255,0.10) 1px, transparent 1px, transparent 14px)",
-        }}
-        aria-hidden
-      />
-      <div
-        className="pointer-events-none absolute inset-0"
-        style={{
-          background:
-            "radial-gradient(circle at 50% 0%, rgba(0,0,0,0.05), rgba(0,0,0,0.55) 55%, rgba(0,0,0,0.75) 100%)",
+            "linear-gradient(rgba(148, 163, 184, 0.08) 1px, transparent 1px), linear-gradient(90deg, rgba(148, 163, 184, 0.06) 1px, transparent 1px)",
+          backgroundSize: "48px 48px",
         }}
         aria-hidden
       />
 
-      <div className="relative rh-wrap px-5 pt-10 pb-10 sm:pt-12 sm:pb-12 lg:pt-16 lg:pb-16">
-        <div className="grid items-center gap-10 lg:grid-cols-2 lg:gap-14">
-          {/* Text column (keep existing content/buttons) */}
-          <div className="order-1">
+      <div className="relative rh-wrap px-5 pt-3 pb-8 sm:pt-4 sm:pb-10 lg:pt-5 lg:pb-12">
+        <div className="grid items-center gap-10 lg:grid-cols-2 lg:gap-10">
+          <div className="relative order-2 min-h-[300px] lg:order-1 lg:min-h-[380px]">
+            <div
+              className="relative mx-auto max-w-lg overflow-hidden rounded-[24px] border border-sky-400/45 bg-slate-900/40 p-1 shadow-[0_0_0_1px_rgba(56,189,248,0.2),0_0_60px_-10px_rgba(37,99,235,0.45),0_25px_50px_-12px_rgba(0,0,0,0.6)]"
+            >
+              <div className="relative aspect-[5/4] overflow-hidden rounded-[20px] bg-[#0b1220]">
+                <Image
+                  src="/hero/hero-home-visual-v2.png"
+                  alt="Algorithmic trading concept with AI profile and financial charts"
+                  fill
+                  className="object-cover object-center"
+                  sizes="(max-width: 1024px) 92vw, 512px"
+                  priority
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-[#020617]/90 via-transparent to-transparent opacity-90" />
+              </div>
+            </div>
+
+            <div className="absolute left-0 right-0 top-3 z-10 flex justify-center gap-2 sm:-top-2 sm:gap-3 md:justify-start md:pl-4">
+              {miniCards.map((c, i) => (
+                <div
+                  key={c.label}
+                  className={`flex w-[30%] max-w-[104px] flex-col items-center rounded-lg px-2 py-2.5 text-center backdrop-blur-md sm:px-3 sm:py-3 ${c.shellClass}`}
+                >
+                  <span
+                    className={`text-lg sm:text-xl ${c.iconClass}`}
+                    aria-hidden
+                  >
+                    {c.icon}
+                  </span>
+                  <span className="mt-1 text-[10px] font-extrabold uppercase tracking-widest text-slate-200 sm:text-xs">
+                    {c.label}
+                  </span>
+                  <span className="mt-0.5 hidden text-[9px] text-slate-500 sm:block">
+                    {c.sub}
+                  </span>
+                </div>
+              ))}
+            </div>
+
+            <div
+              className="relative z-10 mx-auto mt-6 max-w-md rounded-xl border border-sky-400/40 bg-slate-900/85 p-5 shadow-[0_0_32px_rgba(37,99,235,0.15)] backdrop-blur-sm sm:mt-8 md:ml-4"
+            >
+              <p className="text-3xl font-black leading-none tracking-tight text-[color:var(--rh-skyblue)] sm:text-4xl">
+                Flexible Crypto Trading Learning — Anytime, Anywhere
+              </p>
+              <p className="mt-2 text-sm leading-relaxed text-slate-200 sm:text-base">
+                Crypto markets run 24/7, but your learning should be structured
+                and flexible. Access lessons, signals, and strategies anytime—
+                without pressure, at your own pace.
+              </p>
+            </div>
+          </div>
+
+          <div className="order-1 lg:order-2">
             <Reveal>
               <h1
                 id="hero-heading"
@@ -136,44 +188,6 @@ export function HomeHero() {
               </Link>
               </div>
             </Reveal>
-          </div>
-
-          {/* Visual column (clean 3D laptop like reference) */}
-          <div className="order-2">
-            <div className="relative mx-auto max-w-[640px]">
-              <div className="relative overflow-hidden rounded-[28px] border border-white/10 bg-black/15 shadow-[0_30px_90px_rgba(0,0,0,0.55)]">
-                <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_20%,rgba(255,106,0,0.18),transparent_55%),radial-gradient(circle_at_75%_35%,rgba(135,206,235,0.14),transparent_55%)]" />
-                <div className="relative aspect-[4/3] p-2 sm:p-3">
-                  <div className="relative h-full w-full overflow-hidden rounded-2xl border border-white/10 bg-[#050a14]">
-                    <Image
-                      src="/hero/hero-laptop-3d.svg"
-                      alt="3D laptop preview with a crypto chart"
-                      fill
-                      className="object-cover object-center"
-                      sizes="(max-width: 1024px) 92vw, 640px"
-                      priority
-                    />
-                    <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-[#070b14]/55 via-transparent to-transparent" />
-                  </div>
-                </div>
-              </div>
-
-              <div className="mt-6 grid grid-cols-3 gap-3">
-                {miniCards.map((c) => (
-                  <div
-                    key={c.label}
-                    className="rounded-2xl border border-white/10 bg-white/5 px-3 py-3 text-center backdrop-blur-md"
-                  >
-                    <div className={["text-lg font-black", c.iconClass].join(" ")} aria-hidden>
-                      {c.icon}
-                    </div>
-                    <div className="mt-1 text-[11px] font-extrabold uppercase tracking-widest text-slate-200">
-                      {c.label}
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
           </div>
         </div>
       </div>
