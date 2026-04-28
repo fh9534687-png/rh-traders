@@ -237,8 +237,8 @@ export function PremiumTradingShowcaseSection() {
             {/* Laptop + mobile mock */}
             <motion.div
               className="relative mx-auto max-w-[660px]"
-              initial={{ opacity: 0, y: 18, scale: 0.99 }}
-              animate={inView ? { opacity: 1, y: 0, scale: 1 } : undefined}
+              initial={{ opacity: 1, y: 0, scale: 1 }}
+              animate={inView ? { y: 0, scale: 1 } : undefined}
               transition={{ duration: 1.0, delay: 0.08, ease: [0.22, 1, 0.36, 1] }}
             >
               <div className="relative overflow-hidden rounded-[2.25rem] border border-sky-400/25 bg-slate-950/35 p-2 shadow-[0_0_0_1px_rgba(56,189,248,0.14),0_0_90px_rgba(59,130,246,0.16),0_50px_90px_-40px_rgba(0,0,0,0.8)] backdrop-blur-md">

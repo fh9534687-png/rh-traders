@@ -182,8 +182,8 @@ export function FuturisticFintechPreviewSection() {
         <div className="grid items-center gap-10 lg:grid-cols-[1.15fr_0.85fr] lg:gap-12">
           {/* LEFT: layered floating mobile screens (no clipping) */}
           <motion.div
-            initial={{ opacity: 0, y: 18, scale: 0.98 }}
-            animate={inView ? { opacity: 1, y: 0, scale: 1 } : undefined}
+            initial={{ opacity: 1, y: 0, scale: 1 }}
+            animate={inView ? { y: 0, scale: 1 } : undefined}
             transition={{ duration: 1.0, ease: [0.22, 1, 0.36, 1] }}
             className="relative min-h-[520px] overflow-visible [perspective:1400px]"
           >
@@ -196,11 +196,10 @@ export function FuturisticFintechPreviewSection() {
                   key={c.id}
                   className={["absolute", c.className].join(" ")}
                   style={{ zIndex: c.z, transformStyle: "preserve-3d" }}
-                  initial={{ opacity: 0, y: 22, rotateZ: c.rotate - 6, scale: 0.98 }}
+                  initial={{ opacity: 1, y: 0, rotateZ: c.rotate, scale: 1 }}
                   animate={
                     inView
                       ? {
-                          opacity: 1,
                           y: [0, -10, 0],
                           rotateZ: c.rotate,
                           rotateY: c.rotate > 0 ? 10 : -10,
