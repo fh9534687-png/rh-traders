@@ -345,7 +345,7 @@ export function FuturisticFintechPreviewSection() {
             <div className="pointer-events-none absolute -bottom-8 left-0 right-0 hidden h-10 lg:block" aria-hidden />
           </motion.div>
 
-          {/* RIGHT: headline + bullets + CTA */}
+          {/* RIGHT: headline + list + CTA */}
           <motion.div
             initial={{ opacity: 0, y: 18 }}
             animate={inView ? { opacity: 1, y: 0 } : undefined}
@@ -356,46 +356,76 @@ export function FuturisticFintechPreviewSection() {
             </p>
 
             <h2 className="mt-5 text-balance text-4xl font-black tracking-tight text-white sm:text-5xl">
-              Learn Trading Online.{" "}
-              <span className="text-transparent bg-clip-text bg-[linear-gradient(90deg,rgba(34,211,238,1),rgba(59,130,246,1),rgba(16,185,129,1))]">
-                Trade with Structure.
-              </span>
+              What RH Provides
             </h2>
-            <p className="mt-4 max-w-xl text-pretty text-base leading-8 text-slate-300">
-              RH Traders is a learning platform built around a practical crypto trading course and a clean dashboard
-              experience. Your lectures are organized by section, your plan controls access (Basic or Premium), and the
-              Signals dashboard is available for members who want execution-ready ideas with clear entries and risk levels.
-            </p>
 
-            <div className="mt-7 space-y-3">
+            <div className="mt-7 space-y-5">
               {[
-                "Follow a step-by-step crypto trading course with a dedicated lectures library.",
-                "Review trading signals with entry, stop loss, and targets, then verify the setup on your chart.",
-                "Use trading tools for risk, sizing, and process—built into the RH Traders trading platform.",
-                "Move quickly between Market, Charts, Coins, and guides without losing context.",
-              ].map((t) => (
-                <div key={t} className="flex items-start gap-3">
+                {
+                  title: "Market",
+                  desc: "Live market insights, top gainers, and price movements to understand real-time trends.",
+                  cta: "Explore Market",
+                  href: "/market",
+                },
+                {
+                  title: "Cryptocurrencies",
+                  desc: "Learn about different cryptocurrencies, their types, and how they behave in the market.",
+                  cta: "Explore Coins",
+                  href: "/cryptocurrencies",
+                },
+                {
+                  title: "Charts",
+                  desc: "Understand charts, trends, and price action using simple technical analysis concepts.",
+                  cta: "Learn Charts",
+                  href: "/charts",
+                },
+                {
+                  title: "Signals",
+                  desc: "View structured trading signals with clear entry, targets, and risk levels.",
+                  cta: "View Signals",
+                  href: "/signals",
+                },
+                {
+                  title: "Courses",
+                  desc: "Follow a step-by-step crypto trading course designed for consistent learning.",
+                  cta: "Start Learning",
+                  href: "/courses",
+                },
+                {
+                  title: "Tools",
+                  desc: "Use trading tools for risk management, position sizing, and better decision-making.",
+                  cta: "Open Tools",
+                  href: "/tools",
+                },
+              ].map((c) => (
+                <div key={c.title} className="flex items-start gap-3">
                   <Check />
-                  <p className="text-sm leading-7 text-slate-200">{t}</p>
+                  <div className="min-w-0">
+                    <p className="text-sm font-extrabold text-white">{c.title}</p>
+                    <p className="mt-1 text-sm leading-7 text-slate-300">{c.desc}</p>
+                    <Link
+                      href={c.href}
+                      className="mt-2 inline-flex items-center gap-2 text-sm font-extrabold text-[color:var(--rh-skyblue)] transition hover:text-[color:var(--rh-accent)]"
+                    >
+                      {c.cta} <span aria-hidden>→</span>
+                    </Link>
+                  </div>
                 </div>
               ))}
             </div>
 
-            <div className="mt-9 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
-              <motion.div whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.99 }}>
+            <div className="mt-9 rounded-3xl border border-white/10 bg-slate-950/25 p-6">
+              <p className="text-sm font-extrabold text-white">
+                Login to view plans and start your crypto trading journey
+              </p>
+              <motion.div whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.99 }} className="mt-4">
                 <Link
-                  href="/plans"
+                  href="/login"
                   className="inline-flex items-center justify-center rounded-full border border-emerald-300/20 bg-[linear-gradient(135deg,rgba(16,185,129,0.22),rgba(59,130,246,0.18),rgba(34,211,238,0.10))] px-8 py-3.5 text-sm font-extrabold text-white shadow-[0_0_90px_rgba(16,185,129,0.18)] transition hover:shadow-[0_0_120px_rgba(34,211,238,0.18)]"
                 >
-                  View Plans →
+                  Login
                 </Link>
               </motion.div>
-              <Link
-                href="/market"
-                className="inline-flex items-center justify-center rounded-full border border-white/10 bg-slate-950/25 px-8 py-3.5 text-sm font-extrabold text-slate-100 transition hover:bg-slate-900/35"
-              >
-                Open Market
-              </Link>
             </div>
           </motion.div>
         </div>
