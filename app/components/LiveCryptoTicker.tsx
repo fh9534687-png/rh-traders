@@ -83,12 +83,12 @@ export function LiveCryptoTicker() {
   return (
     <section aria-label="Live crypto ticker" className="mt-2">
       <div className="rounded-[2rem] border border-white/10 bg-slate-950/25 shadow-[0_0_90px_rgba(59,130,246,0.12)] backdrop-blur-xl">
-        <div className="flex items-center justify-between gap-4 px-5 py-4">
+        <div className="flex items-center justify-between gap-4 px-6 py-5 sm:px-7 sm:py-6">
           <div className="min-w-0">
             <p className="text-[11px] font-extrabold uppercase tracking-[0.22em] text-slate-500">
               Live prices
             </p>
-            <p className="mt-1 text-sm font-extrabold text-white">
+            <p className="mt-1 text-[15px] font-extrabold leading-6 text-white">
               BTC, ETH, and top coins — updated every 30 seconds
             </p>
           </div>
@@ -100,7 +100,7 @@ export function LiveCryptoTicker() {
           </div>
         </div>
 
-        <div className="relative overflow-hidden border-t border-white/10 px-2 py-3">
+        <div className="relative overflow-hidden border-t border-white/10 px-2 py-4 sm:py-5">
           <div
             className="pointer-events-none absolute inset-y-0 left-0 w-16 bg-gradient-to-r from-[#020617] to-transparent"
             aria-hidden
@@ -119,15 +119,15 @@ export function LiveCryptoTicker() {
                 return (
                   <div
                     key={`${c.id}-${idx}`}
-                    className="group flex items-center gap-3 rounded-2xl border border-white/10 bg-[#070c15]/70 px-4 py-3 shadow-[0_10px_30px_rgba(2,6,23,0.35)] backdrop-blur-md transition hover:border-sky-300/25 hover:shadow-[0_0_70px_rgba(56,189,248,0.10)]"
+                    className="group flex items-center gap-3.5 rounded-2xl border border-white/10 bg-[#070c15]/70 px-5 py-3.5 shadow-[0_10px_30px_rgba(2,6,23,0.35)] backdrop-blur-md transition hover:border-sky-300/25 hover:shadow-[0_0_70px_rgba(56,189,248,0.10)]"
                   >
-                    <div className="relative h-9 w-9 overflow-hidden rounded-2xl border border-white/10 bg-slate-950/40">
+                    <div className="relative h-10 w-10 overflow-hidden rounded-2xl border border-white/10 bg-slate-950/40">
                       {c.image ? (
                         <Image
                           src={c.image}
                           alt={`${c.name} logo`}
                           fill
-                          sizes="36px"
+                          sizes="40px"
                           className="object-cover"
                         />
                       ) : null}
@@ -142,7 +142,7 @@ export function LiveCryptoTicker() {
                     </div>
                     <span
                       className={[
-                        "ml-2 inline-flex shrink-0 items-center rounded-full border px-2.5 py-1 text-xs font-extrabold",
+                        "ml-2 inline-flex shrink-0 items-center rounded-full border px-3 py-1.5 text-xs font-extrabold",
                         up
                           ? "border-emerald-300/25 bg-emerald-500/10 text-emerald-200"
                           : "border-rose-300/25 bg-rose-500/10 text-rose-200",
