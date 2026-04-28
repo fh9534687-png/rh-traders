@@ -5,6 +5,7 @@ import { LivePricesTable } from "./components/LivePricesTable";
 import { EnrollCountdownBanner } from "./components/EnrollCountdownBanner";
 import { HomeTradingBackground } from "./components/HomeTradingBackground";
 import { HomeSectionsClient } from "./components/HomeSectionsClient";
+import { LiveCryptoTicker } from "./components/LiveCryptoTicker";
 
 export const metadata = {
   title: "Crypto Trading Course and Signals",
@@ -67,18 +68,7 @@ export default function Home() {
 
         <section className="rh-wrap w-full px-5 py-14">
           <div>
-            <h2 className="font-[Georgia,Times_New_Roman,Times,serif] text-xl font-bold tracking-tight text-white sm:text-2xl">
-              A practical overview of crypto trading
-            </h2>
-            <p className="mt-4 max-w-3xl text-[15px] leading-relaxed text-slate-400 sm:text-base">
-              Cryptocurrency trading is the buying and selling of digital assets
-              on exchanges to profit from price changes. Markets operate
-              continuously; prices reflect supply, demand, liquidity, and news.
-              Sustainable results depend on understanding charts, managing risk,
-              and following a defined process rather than short-term speculation.
-              RH Traders is designed to make that process clear, measurable, and
-              repeatable for learners.
-            </p>
+            <LiveCryptoTicker />
 
             <h3 className="mt-10 font-[Georgia,Times_New_Roman,Times,serif] text-lg font-bold text-white sm:text-xl">
               Plans comparison

@@ -105,6 +105,35 @@ body {
   }
 }
 
+.rh-marquee {
+  position: relative;
+  width: 100%;
+}
+
+@keyframes rh-marquee-scroll {
+  from {
+    transform: translate3d(0, 0, 0);
+  }
+  to {
+    transform: translate3d(-50%, 0, 0);
+  }
+}
+
+.rh-marquee__track {
+  display: flex;
+  width: max-content;
+  gap: 0.75rem;
+  padding-inline: 0.5rem;
+  will-change: transform;
+  animation: rh-marquee-scroll 34s linear infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .rh-marquee__track {
+    animation: none;
+  }
+}
+
 .rh-vid-fade-in {
   opacity: 0;
   transform: translateY(10px);
