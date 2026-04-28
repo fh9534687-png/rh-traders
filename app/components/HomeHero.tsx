@@ -139,18 +139,26 @@ export function HomeHero() {
                 with dashboards and signals built for consistent execution.
               </h1>
               <p className="mt-4 max-w-xl text-pretty text-base leading-relaxed text-slate-200 sm:text-lg">
-                If you want to learn trading online with a clear framework, RH Traders
-                combines structured lessons, practical tools, and trading signals so you
-                can plan trades, manage risk, and review performance like a professional.
+                Due to Potential for High Returns people choose trading and due to limited knowledge they faces loses.
+                Being Knowledgeable is the first step to achieve the highest achievements and the biggest solution is to
+                join a result giving platform where at cheap cost first u will learn the hiddens secrets for crypto
+                trading and that was the introduction to RH traders. Join now and stop loses in your trades.
               </p>
             </Reveal>
 
             <Reveal delay={0.08}>
               <h2 className="mt-6 max-w-xl font-[Georgia,Times_New_Roman,Times,serif] text-lg font-bold leading-snug tracking-tight text-white sm:text-xl">
-                What you will learn: crypto trading
+                You will learn the best ways to trade crypto
               </h2>
               <ul className="mt-4 max-w-xl space-y-3">
-                {cryptoTradingFocus.map((line) => (
+                {[
+                  "Risk managements in tough situations",
+                  "Hidden knowledge which is valuable in crypto trading",
+                  "Read candlestick charts, choose timeframes, and interpret structure, trend, support and resistance, and volume together.",
+                  "Building proper trade plan  before risking capital",
+                  "We offers the best start for long-term consistency. Support is available 24/7 to resolve your issues.",
+                  "You will be given lifetime access to lectures any new update in market will be shared quickly in your paid dashboard",
+                ].map((line) => (
                   <li key={line} className="flex gap-3">
                     <span
                       className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-[color:var(--rh-skyblue)] text-[10px] font-bold text-[#0b1220] shadow-[0_0_12px_rgba(135,206,235,0.35)] sm:h-6 sm:w-6 sm:text-xs"
