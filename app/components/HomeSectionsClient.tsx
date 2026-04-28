@@ -95,46 +95,27 @@ export function HomeSectionsClient() {
                 </div>
 
                 <h2 className="mt-4 text-3xl font-extrabold tracking-tight text-white sm:text-4xl">
-                  Learn Crypto Trading with a Clear and Practical Approach
+                  Welcome to RH Traders
                 </h2>
                 <p className="mt-5 max-w-2xl text-[15px] leading-7 text-slate-300 sm:text-base">
-                  Crypto trading is not just about buying and selling coins — it is about understanding how the market
-                  moves and making decisions based on strategy instead of emotions.
-                  <br />
-                  <br />
-                  To learn crypto trading effectively, you need to understand key concepts such as market structure,
-                  price action, and risk management. Many beginners enter the market without proper knowledge, which
-                  often leads to losses.
-                  <br />
-                  <br />
-                  A structured learning approach helps you understand how to read charts, identify trends, and manage
-                  trades with confidence. Instead of following random signals or hype, you build a clear system that
-                  supports long-term growth.
-                  <br />
-                  <br />
-                  Whether you are exploring cryptocurrency trading for beginners or improving your trading strategies,
-                  having a strong foundation is the first step toward consistency.
+                  RH Traders is a trading platform focused on education and execution. You get a structured
+                  crypto trading course, a learning dashboard that keeps your progress organized, and optional
+                  trading signals that are designed to be reviewed on your own chart before you act.
                 </p>
 
                 <div className="mt-7 grid gap-5 sm:grid-cols-2">
                   <div className="rh-card rounded-3xl p-5 transition hover:-translate-y-0.5 hover:shadow-[0_0_50px_rgba(56,189,248,0.08)]">
-                    <p className="text-sm font-extrabold text-white">
-                      Build Strong Trading Fundamentals
-                    </p>
+                    <p className="text-sm font-extrabold text-white">Our Mission</p>
                     <p className="mt-2 text-sm leading-7 text-slate-400">
-                      Understanding the basics of crypto trading allows you to make informed decisions. Learning how
-                      markets behave, how trends form, and how risk is controlled helps you trade with confidence
-                      instead of guesswork.
+                      Deliver clear trading education with practical rules so learners can plan trades,
+                      manage risk, and build repeatable habits that translate to real market conditions.
                     </p>
                   </div>
                   <div className="rh-card rounded-3xl p-5 transition hover:-translate-y-0.5 hover:shadow-[0_0_50px_rgba(56,189,248,0.08)]">
-                    <p className="text-sm font-extrabold text-white">
-                      Step-by-Step Learning System
-                    </p>
+                    <p className="text-sm font-extrabold text-white">Structured learning</p>
                     <p className="mt-2 text-sm leading-7 text-slate-400">
-                      A structured path helps you move from beginner to advanced level without confusion. Each concept
-                      connects with the next, allowing you to build a complete understanding of cryptocurrency
-                      trading.
+                      Lessons are organized by topic and skill level, so you always know what to learn next
+                      and how each concept connects to execution on a live chart.
                     </p>
                   </div>
                 </div>
