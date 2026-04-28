@@ -389,28 +389,54 @@ export function PremiumTradingShowcaseSection() {
             <h2 className="mt-5 text-balance text-3xl font-black tracking-tight text-white sm:text-4xl">
               <span className="relative">
                 <span className="absolute -inset-1 -z-10 rounded-2xl bg-[radial-gradient(280px_120px_at_30%_40%,rgba(59,130,246,0.35),transparent_65%)] blur-xl" />
-                Master the Future of Crypto Trading
+                Understanding How Crypto Trading Works
               </span>
             </h2>
             <p className="mt-4 max-w-xl text-pretty text-base leading-8 text-slate-300">
-              RH Traders is a professional crypto trading platform designed to help you learn trading online with
-              real market insights, structured courses, and high-quality trading signals. Whether you are a beginner
-              or an advanced trader, our platform provides a complete learning environment with practical strategies,
-              risk management techniques, and real-time market analysis to help you grow with confidence.
+              Crypto trading is the process of buying and selling digital assets based on price movements in the
+              market. Unlike traditional markets, the crypto market operates continuously, allowing traders to react
+              to changes at any time.
+              <br />
+              <br />
+              Every trade follows a simple flow — a trader selects an asset, analyzes the market conditions, and
+              places an order based on a strategy. Price movements are influenced by supply and demand, market
+              sentiment, global news, and trading activity.
+              <br />
+              <br />
+              To trade effectively, it is important to understand how orders work, how prices move, and how risk is
+              managed during different market conditions.
             </p>
 
             <div className="mt-7 grid gap-3">
               {[
-                "Learn crypto trading with step-by-step structured courses.",
-                "Access real-time trading signals and market insights.",
-                "Use advanced tools, charts, and portfolio tracking.",
-                "Experience a distraction-free, professional trading dashboard.",
+                "Market Structure – Understanding whether the market is trending or ranging",
+                "Order Types – Learning how buy and sell orders are executed",
+                "Price Movement – How supply and demand affect price changes",
+                "Risk Control – Managing losses using stop-loss and position sizing",
               ].map((t) => (
                 <div key={t} className="flex items-start gap-3">
                   <CheckIcon />
                   <p className="text-sm leading-7 text-slate-200">{t}</p>
                 </div>
               ))}
+            </div>
+
+            <div className="mt-7 rounded-3xl border border-white/10 bg-slate-950/25 p-6">
+              <p className="text-sm font-extrabold text-white">
+                How Crypto Trading Works in Real Markets
+              </p>
+              <p className="mt-3 text-sm leading-7 text-slate-300">
+                Crypto trading is built on a system where buyers and sellers interact through exchanges. When demand
+                increases, prices rise, and when selling pressure increases, prices fall.
+              </p>
+              <p className="mt-4 text-sm leading-7 text-slate-300">
+                Each trade involves decision-making based on analysis rather than guesswork. Traders observe charts,
+                identify patterns, and plan entries and exits before placing a trade.
+              </p>
+              <p className="mt-4 text-sm leading-7 text-slate-300">
+                Understanding this process helps reduce emotional trading and improves long-term consistency in the
+                market.
+              </p>
             </div>
 
             <div className="mt-9 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
