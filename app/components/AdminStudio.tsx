@@ -266,12 +266,26 @@ export function AdminStudio() {
     if (!selName.trim()) return;
     setBusyId("sel:add");
     try {
-      await createSelectiveAccessRequest({
+      const created = await createSelectiveAccessRequest({
         email: selEmail.trim().toLowerCase(),
         name: selName.trim(),
         dashboard: selDashboard,
         createdBy: getCurrentEmail(),
       });
+      // Notify the user by email (SMTP runs server-side).
+      try {
+        await fetch("/api/admin/selective-access-email", {
+          method: "POST",
+          headers: { "content-type": "application/json" },
+          body: JSON.stringify({
+            toEmail: created.email,
+            name: created.name,
+            dashboard: created.dashboard,
+            requestedBy: getCurrentEmail(),
+            origin: window.location.origin,
+          }),
+        });
+      } catch {}
       await refreshData();
       setSelEmail("");
       setSelName("");

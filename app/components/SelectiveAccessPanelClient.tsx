@@ -1,6 +1,8 @@
 "use client";
 
 import { useEffect, useMemo, useState } from "react";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
 import {
   acceptSelectiveAccessRequest,
   getLatestSelectiveAccessRequestForEmail,
@@ -28,10 +30,19 @@ function setCookie(name: string, value: string) {
 }
 
 export function SelectiveAccessPanelClient() {
+  const router = useRouter();
   const [loading, setLoading] = useState(true);
   const [row, setRow] = useState<SelectiveAccessRequest | null>(null);
   const [busy, setBusy] = useState<"accept" | "reject" | null>(null);
   const [error, setError] = useState<string | null>(null);
+  const [authedEmail, setAuthedEmail] = useState<string | null>(null);
+
+  const dashboardHref = useMemo(() => {
+    if (!row) return "/dashboard";
+    if (row.dashboard === "basic") return "/dashboard/basic";
+    if (row.dashboard === "premium") return "/dashboard/premium";
+    return "/dashboard/signals";
+  }, [row]);
 
   const label = useMemo(() => {
     if (!row) return "";
@@ -50,11 +61,13 @@ export function SelectiveAccessPanelClient() {
         const u = auth.currentUser;
         if (!u?.email) {
           if (alive) {
+            setAuthedEmail(null);
             setRow(null);
             setLoading(false);
           }
           return;
         }
+        setAuthedEmail(u.email.trim().toLowerCase());
         const latest = await getLatestSelectiveAccessRequestForEmail(u.email);
         if (!alive) return;
         setRow(latest);
@@ -83,6 +96,7 @@ export function SelectiveAccessPanelClient() {
       // This cookie is what the middleware uses to allow the specific dashboard immediately.
       setCookie("rh_selective_access", row.dashboard);
       setRow((r) => (r ? { ...r, status: "accepted" } : r));
+      router.push(dashboardHref);
     } catch (e) {
       setError(e instanceof Error ? e.message : "Failed to accept request.");
     } finally {
@@ -119,6 +133,28 @@ export function SelectiveAccessPanelClient() {
     );
   }
 
+  if (!authedEmail) {
+    return (
+      <section className={cardClass}>
+        <p className="text-xs font-extrabold uppercase tracking-[0.22em] text-slate-500">
+          Selective access
+        </p>
+        <h2 className="mt-2 text-xl font-extrabold text-white">Login to view your invite</h2>
+        <p className="mt-2 text-sm leading-7 text-slate-300">
+          If an admin sent you access, login and then return to your profile to accept it.
+        </p>
+        <div className="mt-5">
+          <Link
+            href="/auth?mode=login&next=/profile"
+            className="inline-flex items-center justify-center rounded-full border border-sky-400/25 bg-sky-500/10 px-6 py-2.5 text-xs font-extrabold text-white transition hover:bg-sky-500/15"
+          >
+            Login
+          </Link>
+        </div>
+      </section>
+    );
+  }
+
   if (!row) {
     return null;
   }
@@ -136,6 +172,14 @@ export function SelectiveAccessPanelClient() {
       {row.status === "accepted" ? (
         <div className="mt-5 rounded-2xl border border-emerald-400/25 bg-emerald-500/10 px-5 py-4 text-sm text-emerald-100">
           Accepted. You can open the dashboard now.
+          <div className="mt-3">
+            <Link
+              href={dashboardHref}
+              className="inline-flex items-center justify-center rounded-full border border-emerald-400/25 bg-emerald-500/10 px-6 py-2.5 text-xs font-extrabold text-white transition hover:bg-emerald-500/15"
+            >
+              Open dashboard →
+            </Link>
+          </div>
         </div>
       ) : (
         <div className="mt-5 flex flex-wrap gap-2">
