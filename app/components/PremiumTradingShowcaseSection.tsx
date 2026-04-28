@@ -343,7 +343,7 @@ export function PremiumTradingShowcaseSection() {
 
               {/* Mobile mock */}
               <motion.div
-                className="absolute bottom-6 right-6 hidden w-[220px] overflow-hidden rounded-[2rem] border border-white/10 bg-slate-950/40 shadow-[0_0_70px_rgba(56,189,248,0.16)] backdrop-blur-md sm:block"
+                className="absolute top-6 right-6 hidden w-[220px] overflow-hidden rounded-[2rem] border border-white/10 bg-slate-950/40 shadow-[0_0_70px_rgba(56,189,248,0.16)] backdrop-blur-md sm:block"
                 animate={{ y: [0, 10, 0] }}
                 transition={{ duration: 6.2, repeat: Infinity, ease: "easeInOut" }}
               >
@@ -372,6 +372,32 @@ export function PremiumTradingShowcaseSection() {
                   </div>
                 </div>
               </motion.div>
+            </motion.div>
+
+            {/* Left-column: real markets explainer (placed under the phone mock to balance heights) */}
+            <motion.div
+              initial={{ opacity: 0, y: 14 }}
+              animate={inView ? { opacity: 1, y: 0 } : undefined}
+              transition={{ duration: 0.85, delay: 0.16, ease: [0.22, 1, 0.36, 1] }}
+              className="mt-10 max-w-[660px]"
+            >
+              <div className="rounded-3xl border border-white/10 bg-slate-950/25 p-6">
+                <p className="text-sm font-extrabold text-white">
+                  How Crypto Trading Works in Real Markets
+                </p>
+                <p className="mt-3 text-sm leading-7 text-slate-300">
+                  Crypto trading is built on a system where buyers and sellers interact through exchanges. When demand
+                  increases, prices rise, and when selling pressure increases, prices fall.
+                </p>
+                <p className="mt-4 text-sm leading-7 text-slate-300">
+                  Each trade involves decision-making based on analysis rather than guesswork. Traders observe charts,
+                  identify patterns, and plan entries and exits before placing a trade.
+                </p>
+                <p className="mt-4 text-sm leading-7 text-slate-300">
+                  Understanding this process helps reduce emotional trading and improves long-term consistency in the
+                  market.
+                </p>
+              </div>
             </motion.div>
           </motion.div>
 
@@ -419,24 +445,6 @@ export function PremiumTradingShowcaseSection() {
                   <p className="text-sm leading-7 text-slate-200">{t}</p>
                 </div>
               ))}
-            </div>
-
-            <div className="mt-7 rounded-3xl border border-white/10 bg-slate-950/25 p-6">
-              <p className="text-sm font-extrabold text-white">
-                How Crypto Trading Works in Real Markets
-              </p>
-              <p className="mt-3 text-sm leading-7 text-slate-300">
-                Crypto trading is built on a system where buyers and sellers interact through exchanges. When demand
-                increases, prices rise, and when selling pressure increases, prices fall.
-              </p>
-              <p className="mt-4 text-sm leading-7 text-slate-300">
-                Each trade involves decision-making based on analysis rather than guesswork. Traders observe charts,
-                identify patterns, and plan entries and exits before placing a trade.
-              </p>
-              <p className="mt-4 text-sm leading-7 text-slate-300">
-                Understanding this process helps reduce emotional trading and improves long-term consistency in the
-                market.
-              </p>
             </div>
 
             <div className="mt-9 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
