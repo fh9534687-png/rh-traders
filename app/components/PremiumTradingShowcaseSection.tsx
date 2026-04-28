@@ -179,7 +179,7 @@ export function PremiumTradingShowcaseSection() {
             </motion.div>
 
             <motion.div
-              className="pointer-events-none absolute -right-2 top-16 hidden w-[210px] rounded-3xl border border-cyan-300/20 bg-slate-950/35 p-4 shadow-[0_0_70px_rgba(34,211,238,0.14)] backdrop-blur-md md:block"
+              className="pointer-events-none absolute -right-2 top-24 hidden w-[210px] rounded-3xl border border-cyan-300/20 bg-slate-950/35 p-4 shadow-[0_0_70px_rgba(34,211,238,0.14)] backdrop-blur-md md:block"
               animate={{ y: [0, 12, 0] }}
               transition={{ duration: 6.4, repeat: Infinity, ease: "easeInOut" }}
               aria-hidden
@@ -343,7 +343,7 @@ export function PremiumTradingShowcaseSection() {
 
               {/* Mobile mock */}
               <motion.div
-                className="absolute -bottom-10 right-6 hidden w-[220px] overflow-hidden rounded-[2rem] border border-white/10 bg-slate-950/40 shadow-[0_0_70px_rgba(56,189,248,0.16)] backdrop-blur-md sm:block"
+                className="absolute bottom-6 right-6 hidden w-[220px] overflow-hidden rounded-[2rem] border border-white/10 bg-slate-950/40 shadow-[0_0_70px_rgba(56,189,248,0.16)] backdrop-blur-md sm:block"
                 animate={{ y: [0, 10, 0] }}
                 transition={{ duration: 6.2, repeat: Infinity, ease: "easeInOut" }}
               >
