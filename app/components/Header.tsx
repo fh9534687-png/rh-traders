@@ -325,7 +325,6 @@ const navItems = [
   { label: "Courses", href: "/plans", icon: "courses" },
   { label: "FAQ", href: "/faq", icon: "faq" },
   // Tools dropdown is inserted separately (with its own icon).
-  { label: "Contact", href: "/contact", icon: "contact" },
   { label: "Blog", href: "/blog", icon: "blog" },
 ] as const;
 
@@ -517,13 +516,6 @@ export function Header() {
                 <TopBarIcon kind="pin" />
                 <span>Gujarkhan, Dultaala</span>
               </span>
-              <Link
-                href="/contact"
-                className="hidden items-center gap-2 text-slate-900 transition hover:text-slate-950 md:inline-flex"
-              >
-                <TopBarIcon kind="contact" />
-                <span>Contact</span>
-              </Link>
             </div>
 
             <div className="flex items-center gap-2">
