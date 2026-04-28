@@ -145,7 +145,7 @@ export function FuturisticFintechPreviewSection() {
   return (
     <section
       ref={rootRef}
-      className="relative w-full overflow-visible bg-[#020617] py-16 sm:py-20"
+      className="relative w-full overflow-visible bg-[#020617] py-12 sm:py-16"
       aria-label="Futuristic fintech preview"
     >
       {/* Background: deep navy + neon green/blue beams */}
@@ -343,6 +343,23 @@ export function FuturisticFintechPreviewSection() {
 
             {/* Safe area hint for small screens */}
             <div className="pointer-events-none absolute -bottom-8 left-0 right-0 hidden h-10 lg:block" aria-hidden />
+
+            {/* CTA moved to left side to balance layout */}
+            <div className="absolute left-0 right-0 -bottom-16 sm:-bottom-20">
+              <div className="mx-auto w-full max-w-[520px] rounded-3xl border border-white/10 bg-slate-950/25 p-6 shadow-[0_0_90px_rgba(59,130,246,0.12)] backdrop-blur-xl">
+                <p className="text-sm font-extrabold text-white">
+                  Login to view plans and start your crypto trading journey
+                </p>
+                <motion.div whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.99 }} className="mt-4">
+                  <Link
+                    href="/login"
+                    className="inline-flex items-center justify-center rounded-full border border-emerald-300/20 bg-[linear-gradient(135deg,rgba(16,185,129,0.22),rgba(59,130,246,0.18),rgba(34,211,238,0.10))] px-8 py-3.5 text-sm font-extrabold text-white shadow-[0_0_90px_rgba(16,185,129,0.18)] transition hover:shadow-[0_0_120px_rgba(34,211,238,0.18)]"
+                  >
+                    Login
+                  </Link>
+                </motion.div>
+              </div>
+            </div>
           </motion.div>
 
           {/* RIGHT: headline + list + CTA */}
@@ -414,19 +431,6 @@ export function FuturisticFintechPreviewSection() {
               ))}
             </div>
 
-            <div className="mt-9 rounded-3xl border border-white/10 bg-slate-950/25 p-6">
-              <p className="text-sm font-extrabold text-white">
-                Login to view plans and start your crypto trading journey
-              </p>
-              <motion.div whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.99 }} className="mt-4">
-                <Link
-                  href="/login"
-                  className="inline-flex items-center justify-center rounded-full border border-emerald-300/20 bg-[linear-gradient(135deg,rgba(16,185,129,0.22),rgba(59,130,246,0.18),rgba(34,211,238,0.10))] px-8 py-3.5 text-sm font-extrabold text-white shadow-[0_0_90px_rgba(16,185,129,0.18)] transition hover:shadow-[0_0_120px_rgba(34,211,238,0.18)]"
-                >
-                  Login
-                </Link>
-              </motion.div>
-            </div>
           </motion.div>
         </div>
       </div>

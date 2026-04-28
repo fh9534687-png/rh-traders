@@ -56,7 +56,7 @@ export function HomeSectionsClient() {
     <>
       <PremiumTradingShowcaseSection />
 
-      <section className="rh-wrap w-full px-5 py-14">
+      <section className="rh-wrap w-full px-5 py-10 sm:py-12">
         <Reveal>
           <div className="rh-card overflow-hidden rounded-[2.5rem] p-6 shadow-[0_30px_90px_rgba(2,6,23,0.45)] sm:p-10">
             <div className="grid items-stretch gap-12 lg:grid-cols-2">
@@ -140,7 +140,7 @@ export function HomeSectionsClient() {
         </Reveal>
       </section>
 
-      <section className="rh-wrap w-full px-5 py-14">
+      <section className="rh-wrap w-full px-5 py-10 sm:py-12">
         <Reveal>
           <div>
             <h2 className="text-xl font-black tracking-tight text-white sm:text-2xl">
@@ -202,9 +202,7 @@ export function HomeSectionsClient() {
         </div>
       </section>
 
-      <section className="rh-wrap w-full px-5 py-14">
-        <FuturisticFintechPreviewSection />
-      </section>
+      <FuturisticFintechPreviewSection />
 
       {/* The rest of the homepage stays server-rendered in app/page.tsx (tables, FAQ, etc.). */}
       {/* This client wrapper only covers the sections we enhanced with scroll reveal + showcase. */}

@@ -66,11 +66,11 @@ export default function Home() {
         <HomeHero />
         <HomeSectionsClient />
 
-        <section className="rh-wrap w-full px-5 py-14">
+        <section className="rh-wrap w-full px-5 py-10 sm:py-12">
           <div>
             <LiveCryptoTicker />
 
-            <h3 className="mt-10 font-[Georgia,Times_New_Roman,Times,serif] text-lg font-bold text-white sm:text-xl">
+            <h3 className="mt-8 font-[Georgia,Times_New_Roman,Times,serif] text-lg font-bold text-white sm:text-xl">
               Plans comparison
             </h3>
             <div className="rh-dark-data mt-4 overflow-hidden">
