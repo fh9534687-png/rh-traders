@@ -132,11 +132,7 @@ export function HomeHero() {
                 id="hero-heading"
                 className="text-balance font-[Georgia,Times_New_Roman,Times,serif] text-xl font-bold leading-snug tracking-tight text-white sm:text-2xl md:text-2xl lg:text-3xl xl:text-[2.05rem]"
               >
-                RH Traders is a{" "}
-                <span className="text-[color:var(--rh-skyblue)]">
-                  crypto trading course
-                </span>{" "}
-                with dashboards and signals built for consistent execution.
+                Crypto trading course with RH traders
               </h1>
               <p className="mt-4 max-w-xl text-pretty text-base leading-relaxed text-slate-200 sm:text-lg">
                 Due to Potential for High Returns people choose trading and due to limited knowledge they faces loses.
