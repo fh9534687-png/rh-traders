@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { MarketMoversTable } from "../components/MarketMoversTable";
 
 export const metadata: Metadata = {
   title: "Top Gainers in Crypto Market | RH Traders",
@@ -95,6 +96,13 @@ export default function TopGainersPage() {
             how to analyze them properly before making trading decisions.
           </p>
         </section>
+
+        <MarketMoversTable
+          mode="gainers"
+          title="Top gainers (sorted by 24h %)"
+          timeframe="24h"
+          limit={20}
+        />
 
         <div className="mt-10 grid gap-6">
           <Section title="What Are Top Gainers?">

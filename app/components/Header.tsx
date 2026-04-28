@@ -334,6 +334,7 @@ const marketItems = [
   { label: "Top Gainers", href: "/market/top-gainers" },
   { label: "Top Losers", href: "/market/top-losers" },
   { label: "Crypto Prices", href: "/market/crypto-prices" },
+  { label: "Market History", href: "/market/history" },
   { label: "Signals: How it works", href: "/signals/how-signals-work" },
   { label: "Signals: Market types", href: "/signals/markets" },
   { label: "Signals: Beginner guide", href: "/signals/beginners" },
