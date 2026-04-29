@@ -196,39 +196,39 @@ function OrderBookDiagram() {
 
 const exchanges = [
   {
-    name: "Binance",
-    desc: "Large global venue with deep books on major pairs and a broad product set. Check what is available in your region.",
+    name: "🔸 Binance",
+    desc: "High liquidity, low spreads, and advanced trading tools. Ideal for both beginners and advanced traders.",
   },
   {
-    name: "Coinbase",
-    desc: "Beginner-friendly on-ramp in many countries, strong focus on compliance and simple buying flows.",
+    name: "🔸 Coinbase",
+    desc: "Beginner-friendly crypto exchange with simple interface and strong compliance.",
   },
   {
-    name: "Bybit",
-    desc: "Popular for derivatives and perpetuals; leverage requires experience and strict risk controls.",
+    name: "🔸 Bybit",
+    desc: "Focused on derivatives and futures trading. Suitable for experienced traders.",
   },
   {
-    name: "KuCoin",
-    desc: "Wide altcoin selection; liquidity varies by pair—verify spreads before sizing up.",
+    name: "🔸 KuCoin",
+    desc: "Wide range of altcoins with varying liquidity. Best for exploring new crypto projects.",
   },
 ] as const;
 
 const tradeTypes = [
   {
-    title: "Spot",
-    desc: "Buy or sell the asset directly. Ownership and fees are straightforward; no built-in leverage from the venue.",
+    title: "🔹 Spot Trading",
+    desc: "Buy and hold cryptocurrencies directly without leverage.\nBest for beginners and long-term investors.",
   },
   {
-    title: "Futures",
-    desc: "Contracts that track price with margin. Enables hedging and leverage—liquidation risk is real.",
+    title: "🔹 Futures Trading",
+    desc: "Trade with leverage and margin. Higher risk, higher potential reward.\nRequires strict risk management strategy.",
   },
   {
-    title: "Scalping",
-    desc: "Very short holds targeting small moves. Demands tight execution, low fees, and constant attention.",
+    title: "🔹 Scalping",
+    desc: "Short-term trading strategy focused on small, quick profits.\nRequires speed, discipline, and low trading fees.",
   },
   {
-    title: "Swing",
-    desc: "Multi-day to multi-week positions riding swings between chart levels. Fewer trades, more narrative context.",
+    title: "🔹 Swing Trading",
+    desc: "Hold trades for days or weeks based on market trends and technical analysis.\nBalanced approach between short-term and long-term trading.",
   },
 ] as const;
 
@@ -293,45 +293,42 @@ export function MarketEducation() {
           </SectionIcon>
           <div className="min-w-0 flex-1">
             <h2 className="text-2xl font-black tracking-tight text-white sm:text-3xl">
-              How crypto trading works
+              How Crypto Trading Works (Step-by-Step Process)
             </h2>
             <p className="mt-2 max-w-3xl text-slate-400">
-              From picking a market to seeing your balances change—here is the
-              path every trade follows on a typical exchange.
+              From selecting a cryptocurrency pair to final trade execution, every trade follows a structured path on a
+              crypto exchange.
             </p>
             <TradingFlowDiagram />
             <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
               {[
                 {
                   n: "1",
-                  t: "Choose a coin & pair",
-                  d: "Pick the asset (e.g. BTC) and what you trade against (e.g. USDT). The pair defines the order book you interact with.",
+                  t: "Step 1: Choose a Coin & Trading Pair",
+                  d: "Select a cryptocurrency like Bitcoin (BTC) or Ethereum (ETH) and pair it with a stable asset like USDT.\nThis defines your trading market and determines the order book you interact with.",
                 },
                 {
                   n: "2",
-                  t: "Place an order",
-                  d: "Market orders take liquidity now; limit orders rest on the book until someone trades at your price or better.",
+                  t: "Step 2: Place an Order (Market or Limit)",
+                  d: "Market Orders → Execute instantly at current market price\nLimit Orders → Execute only when price reaches your defined level\n\nUsing the right order type improves your trade accuracy and entry precision.",
                 },
                 {
                   n: "3",
-                  t: "Matching engine",
-                  d: "Buy and sell orders are paired by price-time rules. You rarely know your counterparty—only that the engine cleared the trade.",
+                  t: "Step 3: Order Book & Matching Engine",
+                  d: "Crypto exchanges use a matching engine system that connects buyers and sellers using price-time priority.\n\nBids → Buyers\nAsks → Sellers\n\nThe order book shows real-time market depth, liquidity, and trading activity.",
                 },
                 {
                   n: "4",
-                  t: "Execution & settlement",
-                  d: "Fills update your balances and produce a record of price, size, fee, and time—useful for taxes and review.",
+                  t: "Step 4: Trade Execution & Balance Update",
+                  d: "Once matched, your trade is executed and your account balance updates instantly.\n\nEach trade includes:\n\nEntry price\nTrade size\nFees\nTimestamp\n\nThis data is essential for performance tracking, analytics, and tax reporting.",
                 },
               ].map((step) => (
                 <div key={step.n} className="rh-card rounded-2xl p-5">
                   <span className="text-xs font-extrabold text-[color:var(--rh-border-red)]">Step {step.n}</span>
                   <h3 className="mt-2 text-lg font-bold text-white">{step.t}</h3>
-                  <p className="mt-2 text-sm leading-relaxed text-slate-400">{step.d}</p>
+                  <p className="mt-2 whitespace-pre-line text-sm leading-relaxed text-slate-400">{step.d}</p>
                 </div>
               ))}
-            </div>
-            <div className="mt-10">
-              <ProseBlock paragraphs={L.howItWorksDeep} />
             </div>
           </div>
         </div>
@@ -347,34 +344,43 @@ export function MarketEducation() {
           </SectionIcon>
           <div className="min-w-0 flex-1">
             <h2 className="text-2xl font-black tracking-tight text-white sm:text-3xl">
-              Market structure &amp; liquidity (practical view)
+              Understanding Market Structure &amp; Liquidity (Pro-Level Insight)
             </h2>
             <p className="mt-2 max-w-3xl text-slate-400">
-              Two concepts drive most “clean” trades: structure (where trend is intact) and liquidity
-              (where orders are likely resting). The goal is not prediction—it’s better positioning.
+              Two core concepts dominate successful crypto trading:
             </p>
             <div className="mt-8 grid gap-6 lg:grid-cols-2">
               <div className="rh-card rounded-3xl p-6">
-                <h3 className="text-lg font-extrabold text-white">Structure</h3>
-                <p className="mt-2 text-sm leading-7 text-slate-400">
-                  Identify the swing highs/lows that define trend. When price breaks a key level and
-                  fails to reclaim it, probability often shifts. Use structure to set invalidation and
-                  avoid trading “in the middle.”
+                <h3 className="text-lg font-extrabold text-white">🔹 Market Structure</h3>
+                <p className="mt-2 whitespace-pre-line text-sm leading-7 text-slate-400">
+                  Market structure defines whether the market is trending or reversing.
+                  {"\n\n"}
+                  Higher highs & higher lows → Uptrend
+                  {"\n"}
+                  Lower highs & lower lows → Downtrend
+                  {"\n"}
+                  Break of structure → Potential trend shift
+                  {"\n\n"}
+                  Understanding structure helps you:
+                  {"\n"}✔ Identify entry points
+                  {"\n"}✔ Avoid random trades
+                  {"\n"}✔ Set clear stop-loss levels
                 </p>
                 <MarketStructureDiagram />
               </div>
               <div className="rh-card rounded-3xl p-6">
-                <h3 className="text-lg font-extrabold text-white">Liquidity &amp; order flow</h3>
-                <p className="mt-2 text-sm leading-7 text-slate-400">
-                  Liquidity is not a buzzword—it’s the available size at nearby prices. Order books
-                  show where bids/asks sit; price often reacts around areas where many orders are
-                  concentrated (or where stops cluster).
+                <h3 className="text-lg font-extrabold text-white">🔹 Liquidity &amp; Order Flow</h3>
+                <p className="mt-2 whitespace-pre-line text-sm leading-7 text-slate-400">
+                  Liquidity determines how easily you can buy or sell without affecting price.
+                  {"\n\n"}
+                  High liquidity → Smooth execution
+                  {"\n"}
+                  Low liquidity → High slippage
+                  {"\n\n"}
+                  Order flow shows buying and selling pressure, helping traders understand real market movement instead of guessing.
                 </p>
                 <OrderBookDiagram />
               </div>
-            </div>
-            <div className="mt-10">
-              <ProseBlock paragraphs={L.structureAndLiquidityDeep} />
             </div>
           </div>
         </div>
@@ -390,12 +396,8 @@ export function MarketEducation() {
           </SectionIcon>
           <div className="min-w-0 flex-1">
             <h2 className="text-2xl font-black tracking-tight text-white sm:text-3xl">
-              Popular exchanges
+              Popular Crypto Exchanges (Where Trading Happens)
             </h2>
-            <p className="mt-2 max-w-3xl text-slate-400">
-              These venues are widely used; always confirm products and terms for
-              your country before depositing funds.
-            </p>
             <div className="mt-8 grid gap-4 sm:grid-cols-2">
               {exchanges.map((ex) => (
                 <div key={ex.name} className="rh-card rounded-2xl p-6">
@@ -403,9 +405,6 @@ export function MarketEducation() {
                   <p className="mt-3 text-sm leading-relaxed text-slate-400">{ex.desc}</p>
                 </div>
               ))}
-            </div>
-            <div className="mt-10">
-              <ProseBlock paragraphs={L.exchangesDeep} />
             </div>
           </div>
         </div>
@@ -421,22 +420,15 @@ export function MarketEducation() {
           </SectionIcon>
           <div className="min-w-0 flex-1">
             <h2 className="text-2xl font-black tracking-tight text-white sm:text-3xl">
-              Types of trading
+              Types of Crypto Trading (Choose Your Style)
             </h2>
-            <p className="mt-2 max-w-3xl text-slate-400">
-              Same charts, different horizons and instruments—match the style to
-              your schedule and risk tolerance.
-            </p>
             <div className="mt-8 grid gap-4 sm:grid-cols-2">
               {tradeTypes.map((t) => (
                 <div key={t.title} className="rh-card rounded-2xl p-6">
                   <h3 className="text-lg font-bold text-[color:var(--rh-border-red)]">{t.title}</h3>
-                  <p className="mt-3 text-sm leading-relaxed text-slate-400">{t.desc}</p>
+                  <p className="mt-3 whitespace-pre-line text-sm leading-relaxed text-slate-400">{t.desc}</p>
                 </div>
               ))}
-            </div>
-            <div className="mt-10">
-              <ProseBlock paragraphs={L.typesOfTradingDeep} />
             </div>
           </div>
         </div>

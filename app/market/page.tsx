@@ -21,15 +21,20 @@ export default function MarketPage() {
             Education hub
           </p>
           <h1 className="mt-4 text-balance font-[Georgia,Times_New_Roman,Times,serif] text-3xl font-bold tracking-tight text-white sm:text-4xl lg:text-5xl">
-            Crypto market education for better execution
+            Learn Crypto Trading Online with Real Market Insights &amp; Execution Strategy
           </h1>
           <p className="mx-auto mt-3 max-w-3xl text-pretty text-base text-slate-200/90 sm:text-lg">
-            Learn trading online with a practical breakdown of how crypto markets work, how orders become fills, and how
-            disciplined risk management fits into a trading platform workflow.
+            Master crypto trading with a practical, real-world breakdown of how cryptocurrency markets work, how orders
+            are executed, and how professional risk management fits into a modern trading platform workflow.
           </p>
           <p className="mx-auto mt-3 max-w-3xl text-pretty text-sm leading-7 text-slate-400 sm:text-base">
-            You’ll learn how orders turn into fills, how order books and spreads affect your entry,
-            how common trading styles differ, and which rules protect you when volatility increases.
+            Understand how crypto market trends, order execution, liquidity, and price movements impact every trade you
+            take. Learn how order books function, how bid-ask spreads affect your entry, and how different trading
+            strategies perform under high volatility conditions.
+          </p>
+          <p className="mx-auto mt-3 max-w-3xl text-pretty text-sm leading-7 text-slate-400 sm:text-base">
+            This guide is designed to help you build strong trading fundamentals, improve execution quality, and make
+            smarter decisions in real-time crypto markets.
           </p>
         </header>
 
