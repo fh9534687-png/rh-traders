@@ -506,17 +506,10 @@ export function MarketEducation() {
       {/* Long-form reference */}
       <section className="rh-card rounded-3xl p-6 sm:p-10">
         <h2 className="font-[Georgia,Times_New_Roman,Times,serif] text-2xl font-bold text-white sm:text-3xl">
-          Extended guide: markets, execution &amp; discipline
+          Understanding Crypto Markets: Structure, Behavior, and Real Execution
         </h2>
-        <p className="mt-3 text-sm text-slate-400">
-          A deeper read for serious beginners—same tone as the rest of RH Traders:
-          process over hype.
-        </p>
         <div className="mt-8 space-y-10">
-          <ProseBlock paragraphs={L.marketIntro} />
-          <ProseBlock paragraphs={L.extendedArticle} />
-          <ProseBlock paragraphs={L.additionalDeepDive} />
-          <ProseBlock paragraphs={L.furtherTopics} />
+          <ProseBlock paragraphs={L.realExecutionGuide} />
         </div>
       </section>
 
