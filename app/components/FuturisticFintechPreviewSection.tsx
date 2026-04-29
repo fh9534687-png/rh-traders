@@ -185,166 +185,219 @@ export function FuturisticFintechPreviewSection() {
             initial={{ opacity: 1, y: 0, scale: 1 }}
             animate={inView ? { y: 0, scale: 1 } : undefined}
             transition={{ duration: 1.0, ease: [0.22, 1, 0.36, 1] }}
-            className="relative min-h-[520px] overflow-visible [perspective:1400px]"
+            className="relative min-h-[420px] overflow-hidden [perspective:1400px] sm:min-h-[520px] sm:overflow-visible"
           >
             <div className="pointer-events-none absolute -inset-10 rounded-[3rem] bg-[radial-gradient(680px_340px_at_45%_30%,rgba(59,130,246,0.22),transparent_62%)] blur-3xl" />
 
-            {cards.map((c) => {
-              const accent = c.kind === "profit" ? "green" : "blue";
-              return (
-                <motion.div
-                  key={c.id}
-                  className={["absolute", c.className].join(" ")}
-                  style={{ zIndex: c.z, transformStyle: "preserve-3d" }}
-                  initial={{ opacity: 1, y: 0, rotateZ: c.rotate, scale: 1 }}
-                  animate={
-                    inView
-                      ? {
-                          y: [0, -10, 0],
-                          rotateZ: c.rotate,
-                          rotateY: c.rotate > 0 ? 10 : -10,
-                          rotateX: 6,
-                          scale: 1,
-                        }
-                      : undefined
-                  }
-                  transition={{
-                    duration: 6.5,
-                    repeat: Infinity,
-                    ease: [0.22, 1, 0.36, 1],
-                    delay: c.floatDelay,
-                  }}
-                  whileHover={{
-                    scale: 1.04,
-                    rotateZ: c.rotate * 0.7,
-                    rotateY: c.rotate > 0 ? 14 : -14,
-                    boxShadow: "0 0 120px rgba(59,130,246,0.22)",
-                  }}
-                >
-                  <CardShell accent={accent}>
-                    {c.kind === "balance" ? (
-                      <div>
-                        <p className="text-[10px] font-extrabold uppercase tracking-[0.22em] text-slate-500">
-                          {c.title} <span className="text-slate-600">·</span> {c.subtitle}
-                        </p>
-                        <p className="mt-3 text-2xl font-black tracking-tight text-white">
-                          $12,540<span className="text-slate-400">.24</span>
-                        </p>
-                        <div className="mt-4 grid grid-cols-2 gap-3">
-                          {[
-                            { k: "Spot", v: "$8,140" },
-                            { k: "Futures", v: "$4,400" },
-                          ].map((x) => (
-                            <div
-                              key={x.k}
-                              className="rounded-2xl border border-white/10 bg-slate-950/25 px-3 py-2.5"
-                            >
-                              <p className="text-[10px] font-extrabold uppercase tracking-[0.22em] text-slate-500">
-                                {x.k}
-                              </p>
-                              <p className="mt-1 text-sm font-extrabold text-slate-200">{x.v}</p>
-                            </div>
-                          ))}
+            {/* Mobile: simplified stack to avoid overlaps */}
+            <div className="sm:hidden">
+              <div className="grid gap-4">
+                <CardShell accent="blue">
+                  <div>
+                    <p className="text-[10px] font-extrabold uppercase tracking-[0.22em] text-slate-500">
+                      Balance <span className="text-slate-600">·</span> Vault / Wallet
+                    </p>
+                    <p className="mt-3 text-2xl font-black tracking-tight text-white">
+                      $12,540<span className="text-slate-400">.24</span>
+                    </p>
+                    <div className="mt-4 grid grid-cols-2 gap-3">
+                      {[
+                        { k: "Spot", v: "$8,140" },
+                        { k: "Futures", v: "$4,400" },
+                      ].map((x) => (
+                        <div
+                          key={x.k}
+                          className="rounded-2xl border border-white/10 bg-slate-950/25 px-3 py-2.5"
+                        >
+                          <p className="text-[10px] font-extrabold uppercase tracking-[0.22em] text-slate-500">
+                            {x.k}
+                          </p>
+                          <p className="mt-1 text-sm font-extrabold text-slate-200">{x.v}</p>
                         </div>
-                      </div>
-                    ) : null}
+                      ))}
+                    </div>
+                  </div>
+                </CardShell>
 
-                    {c.kind === "chart" ? (
-                      <div>
-                        <div className="flex items-center justify-between gap-3">
-                          <div>
-                            <p className="text-[10px] font-extrabold uppercase tracking-[0.22em] text-slate-500">
-                              {c.title}
-                            </p>
-                            <p className="mt-1 text-sm font-extrabold text-white">{c.subtitle}</p>
-                          </div>
-                          <span className="rounded-full border border-sky-400/20 bg-slate-950/25 px-3 py-1 text-[11px] font-extrabold text-slate-200">
-                            1H
-                          </span>
-                        </div>
-                        <div className="mt-3 overflow-hidden rounded-2xl border border-white/10 bg-slate-950/25 px-3 py-2">
-                          <MiniChart color="blue" />
-                        </div>
-                        <div className="mt-3 grid grid-cols-3 gap-2">
-                          {[
-                            { k: "Entry", v: "64,200" },
-                            { k: "TP", v: "67,000" },
-                            { k: "SL", v: "62,980" },
-                          ].map((x) => (
-                            <div
-                              key={x.k}
-                              className="rounded-2xl border border-white/10 bg-slate-950/25 px-3 py-2"
-                            >
-                              <p className="text-[10px] font-extrabold uppercase tracking-[0.22em] text-slate-500">
-                                {x.k}
-                              </p>
-                              <p className="mt-1 text-xs font-extrabold text-slate-200">{x.v}</p>
-                            </div>
-                          ))}
-                        </div>
-                      </div>
-                    ) : null}
+                <CardShell accent="green">
+                  <div>
+                    <p className="text-[10px] font-extrabold uppercase tracking-[0.22em] text-slate-500">
+                      P/L <span className="text-slate-600">·</span> Today
+                    </p>
+                    <div className="mt-3 flex items-end justify-between gap-3">
+                      <p className="text-3xl font-black tracking-tight text-white">+3.8%</p>
+                      <p className="text-xs font-semibold text-slate-400">24h</p>
+                    </div>
+                    <div className="mt-3 overflow-hidden rounded-2xl border border-white/10 bg-slate-950/25 px-3 py-2">
+                      <MiniChart color="green" />
+                    </div>
+                    <p className="mt-3 text-xs text-slate-400">
+                      Auto risk controls • Clean execution rules
+                    </p>
+                  </div>
+                </CardShell>
+              </div>
+            </div>
 
-                    {c.kind === "profit" ? (
-                      <div>
-                        <p className="text-[10px] font-extrabold uppercase tracking-[0.22em] text-slate-500">
-                          {c.title} <span className="text-slate-600">·</span> {c.subtitle}
-                        </p>
-                        <div className="mt-3 flex items-end justify-between gap-3">
-                          <p className="text-3xl font-black tracking-tight text-white">+3.8%</p>
-                          <p className="text-xs font-semibold text-slate-400">24h</p>
-                        </div>
-                        <div className="mt-3 overflow-hidden rounded-2xl border border-white/10 bg-slate-950/25 px-3 py-2">
-                          <MiniChart color="green" />
-                        </div>
-                        <p className="mt-3 text-xs text-slate-400">
-                          Auto risk controls • Clean execution rules
-                        </p>
-                      </div>
-                    ) : null}
-
-                    {c.kind === "profile" ? (
-                      <div>
-                        <p className="text-[10px] font-extrabold uppercase tracking-[0.22em] text-slate-500">
-                          {c.title} <span className="text-slate-600">·</span> {c.subtitle}
-                        </p>
-                        <div className="mt-3 flex items-center gap-3">
-                          <div className="h-11 w-11 rounded-2xl border border-white/10 bg-slate-950/35" />
-                          <div className="min-w-0">
-                            <p className="truncate text-sm font-extrabold text-white">Elite Workspace</p>
-                            <p className="truncate text-xs text-slate-400">
-                              Verified access • Private feed
-                            </p>
+            {/* Desktop/tablet: full floating layout */}
+            <div className="hidden sm:block">
+              {cards.map((c) => {
+                const accent = c.kind === "profit" ? "green" : "blue";
+                return (
+                  <motion.div
+                    key={c.id}
+                    className={["absolute", c.className].join(" ")}
+                    style={{ zIndex: c.z, transformStyle: "preserve-3d" }}
+                    initial={{ opacity: 1, y: 0, rotateZ: c.rotate, scale: 1 }}
+                    animate={
+                      inView
+                        ? {
+                            y: [0, -10, 0],
+                            rotateZ: c.rotate,
+                            rotateY: c.rotate > 0 ? 10 : -10,
+                            rotateX: 6,
+                            scale: 1,
+                          }
+                        : undefined
+                    }
+                    transition={{
+                      duration: 6.5,
+                      repeat: Infinity,
+                      ease: [0.22, 1, 0.36, 1],
+                      delay: c.floatDelay,
+                    }}
+                    whileHover={{
+                      scale: 1.04,
+                      rotateZ: c.rotate * 0.7,
+                      rotateY: c.rotate > 0 ? 14 : -14,
+                      boxShadow: "0 0 120px rgba(59,130,246,0.22)",
+                    }}
+                  >
+                    <CardShell accent={accent}>
+                      {c.kind === "balance" ? (
+                        <div>
+                          <p className="text-[10px] font-extrabold uppercase tracking-[0.22em] text-slate-500">
+                            {c.title} <span className="text-slate-600">·</span> {c.subtitle}
+                          </p>
+                          <p className="mt-3 text-2xl font-black tracking-tight text-white">
+                            $12,540<span className="text-slate-400">.24</span>
+                          </p>
+                          <div className="mt-4 grid grid-cols-2 gap-3">
+                            {[
+                              { k: "Spot", v: "$8,140" },
+                              { k: "Futures", v: "$4,400" },
+                            ].map((x) => (
+                              <div
+                                key={x.k}
+                                className="rounded-2xl border border-white/10 bg-slate-950/25 px-3 py-2.5"
+                              >
+                                <p className="text-[10px] font-extrabold uppercase tracking-[0.22em] text-slate-500">
+                                  {x.k}
+                                </p>
+                                <p className="mt-1 text-sm font-extrabold text-slate-200">{x.v}</p>
+                              </div>
+                            ))}
                           </div>
                         </div>
-                        <div className="mt-4 grid grid-cols-2 gap-3">
-                          {[
-                            { k: "Win rate", v: "61%" },
-                            { k: "Risk", v: "1%" },
-                          ].map((x) => (
-                            <div
-                              key={x.k}
-                              className="rounded-2xl border border-white/10 bg-slate-950/25 px-3 py-2.5"
-                            >
+                      ) : null}
+
+                      {c.kind === "chart" ? (
+                        <div>
+                          <div className="flex items-center justify-between gap-3">
+                            <div>
                               <p className="text-[10px] font-extrabold uppercase tracking-[0.22em] text-slate-500">
-                                {x.k}
+                                {c.title}
                               </p>
-                              <p className="mt-1 text-sm font-extrabold text-slate-200">{x.v}</p>
+                              <p className="mt-1 text-sm font-extrabold text-white">{c.subtitle}</p>
                             </div>
-                          ))}
+                            <span className="rounded-full border border-sky-400/20 bg-slate-950/25 px-3 py-1 text-[11px] font-extrabold text-slate-200">
+                              1H
+                            </span>
+                          </div>
+                          <div className="mt-3 overflow-hidden rounded-2xl border border-white/10 bg-slate-950/25 px-3 py-2">
+                            <MiniChart color="blue" />
+                          </div>
+                          <div className="mt-3 grid grid-cols-3 gap-2">
+                            {[
+                              { k: "Entry", v: "64,200" },
+                              { k: "TP", v: "67,000" },
+                              { k: "SL", v: "62,980" },
+                            ].map((x) => (
+                              <div
+                                key={x.k}
+                                className="rounded-2xl border border-white/10 bg-slate-950/25 px-3 py-2"
+                              >
+                                <p className="text-[10px] font-extrabold uppercase tracking-[0.22em] text-slate-500">
+                                  {x.k}
+                                </p>
+                                <p className="mt-1 text-xs font-extrabold text-slate-200">{x.v}</p>
+                              </div>
+                            ))}
+                          </div>
                         </div>
-                      </div>
-                    ) : null}
-                  </CardShell>
-                </motion.div>
-              );
-            })}
+                      ) : null}
+
+                      {c.kind === "profit" ? (
+                        <div>
+                          <p className="text-[10px] font-extrabold uppercase tracking-[0.22em] text-slate-500">
+                            {c.title} <span className="text-slate-600">·</span> {c.subtitle}
+                          </p>
+                          <div className="mt-3 flex items-end justify-between gap-3">
+                            <p className="text-3xl font-black tracking-tight text-white">+3.8%</p>
+                            <p className="text-xs font-semibold text-slate-400">24h</p>
+                          </div>
+                          <div className="mt-3 overflow-hidden rounded-2xl border border-white/10 bg-slate-950/25 px-3 py-2">
+                            <MiniChart color="green" />
+                          </div>
+                          <p className="mt-3 text-xs text-slate-400">
+                            Auto risk controls • Clean execution rules
+                          </p>
+                        </div>
+                      ) : null}
+
+                      {c.kind === "profile" ? (
+                        <div>
+                          <p className="text-[10px] font-extrabold uppercase tracking-[0.22em] text-slate-500">
+                            {c.title} <span className="text-slate-600">·</span> {c.subtitle}
+                          </p>
+                          <div className="mt-3 flex items-center gap-3">
+                            <div className="h-11 w-11 rounded-2xl border border-white/10 bg-slate-950/35" />
+                            <div className="min-w-0">
+                              <p className="truncate text-sm font-extrabold text-white">Elite Workspace</p>
+                              <p className="truncate text-xs text-slate-400">
+                                Verified access • Private feed
+                              </p>
+                            </div>
+                          </div>
+                          <div className="mt-4 grid grid-cols-2 gap-3">
+                            {[
+                              { k: "Win rate", v: "61%" },
+                              { k: "Risk", v: "1%" },
+                            ].map((x) => (
+                              <div
+                                key={x.k}
+                                className="rounded-2xl border border-white/10 bg-slate-950/25 px-3 py-2.5"
+                              >
+                                <p className="text-[10px] font-extrabold uppercase tracking-[0.22em] text-slate-500">
+                                  {x.k}
+                                </p>
+                                <p className="mt-1 text-sm font-extrabold text-slate-200">{x.v}</p>
+                              </div>
+                            ))}
+                          </div>
+                        </div>
+                      ) : null}
+                    </CardShell>
+                  </motion.div>
+                );
+              })}
+            </div>
 
             {/* Safe area hint for small screens */}
             <div className="pointer-events-none absolute -bottom-8 left-0 right-0 hidden h-10 lg:block" aria-hidden />
 
             {/* CTA moved to left side to balance layout */}
-            <div className="absolute left-0 right-0 -bottom-16 sm:-bottom-20">
+            <div className="mt-6 sm:absolute sm:left-0 sm:right-0 sm:-bottom-16 sm:mt-0 lg:-bottom-20">
               <div className="mx-auto w-full max-w-[520px] rounded-3xl border border-white/10 bg-slate-950/25 p-6 shadow-[0_0_90px_rgba(59,130,246,0.12)] backdrop-blur-xl">
                 <p className="text-sm font-extrabold text-white">
                   Login to view plans and start your crypto trading journey
