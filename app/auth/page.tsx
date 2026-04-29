@@ -18,8 +18,8 @@ export default async function AuthPage() {
   }
 
   return (
-    <main className="relative flex flex-1 items-center justify-center px-5 py-14">
-      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_50%_0%,rgba(255,140,0,0.08),transparent_55%)]" />
+    <main className="rh-accent-blue relative flex flex-1 items-center justify-center px-5 py-14">
+      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_50%_0%,rgba(37,99,235,0.12),transparent_55%)]" />
       <div className="relative w-full">
         <div className="rh-wrap flex justify-center">
           <AuthCard />

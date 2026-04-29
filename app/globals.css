@@ -591,3 +591,12 @@ body {
     0 0 24px rgba(56, 189, 248, 0.2),
     0 0 20px rgba(37, 99, 235, 0.15);
 }
+
+/* Page-level override: switch accent back to blue (login/plans). */
+.rh-accent-blue {
+  --rh-accent: #2563eb; /* blue-600 */
+  --rh-accent-bright: #38bdf8; /* sky-400 */
+  --rh-accent-hover: #60a5fa; /* blue-400 */
+  --rh-accent-glow: rgba(37, 99, 235, 0.45);
+  --rh-accent-glow-strong: rgba(56, 189, 248, 0.55);
+}

@@ -84,7 +84,7 @@ export default function PlansPage() {
   }
 
   return (
-    <main className="relative flex-1 px-5 py-14">
+    <main className="rh-accent-blue relative flex-1 px-5 py-14">
       <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_50%_0%,rgba(37,99,235,0.12),transparent_58%)]" />
 
       <div className="rh-wrap relative">
