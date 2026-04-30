@@ -134,26 +134,26 @@ export function HomeHero() {
               >
                 Crypto trading course with RH traders
               </h1>
-              <p className="mt-4 max-w-xl text-pretty text-base leading-relaxed text-slate-200 sm:text-lg">
-                Due to Potential for High Returns people choose trading and due to limited knowledge they faces loses.
-                Being Knowledgeable is the first step to achieve the highest achievements and the biggest solution is to
-                join a result giving platform where at cheap cost first u will learn the hiddens secrets for crypto
-                trading and that was the introduction to RH traders. Join now and stop loses in your trades.
+              <p className="mt-4 max-w-xl text-pretty text-sm leading-7 text-slate-200 sm:text-base">
+                Cryptocurrency trading has become increasingly popular due to its potential for high returns. However,
+                many beginners face losses because of limited knowledge and lack of proper guidance. Gaining the right
+                knowledge is the first step toward achieving consistent success in the market. The most effective
+                solution is to learn from a reliable platform where you can understand the hidden strategies of crypto
+                trading at an affordable cost. This is where RH Traders comes in — helping you build strong fundamentals
+                and avoid common trading mistakes. Join now and take control of your trading journey with confidence.
               </p>
             </Reveal>
 
             <Reveal delay={0.08}>
-              <h2 className="mt-6 max-w-xl font-[Georgia,Times_New_Roman,Times,serif] text-lg font-bold leading-snug tracking-tight text-white sm:text-xl">
-                You will learn the best ways to trade crypto
-              </h2>
               <ul className="mt-4 max-w-xl space-y-3">
                 {[
-                  "Risk managements in tough situations",
-                  "Hidden knowledge which is valuable in crypto trading",
-                  "Read candlestick charts, choose timeframes, and interpret structure, trend, support and resistance, and volume together.",
-                  "Building proper trade plan  before risking capital",
-                  "We offers the best start for long-term consistency. Support is available 24/7 to resolve your issues.",
-                  "You will be given lifetime access to lectures any new update in market will be shared quickly in your paid dashboard",
+                  "Manage risk effectively, even in volatile market conditions",
+                  "Learn practical and valuable trading strategies used by professionals",
+                  "Understand candlestick charts, timeframes, trends, support & resistance, and volume analysis",
+                  "Build a solid trading plan before investing real capital",
+                  "Develop consistency for long-term success in crypto trading",
+                  "Get 24/7 support to solve your queries anytime",
+                  "Access lifetime learning resources with regular market updates",
                 ].map((line) => (
                   <li key={line} className="flex gap-3">
                     <span
