@@ -115,7 +115,7 @@ export function HomeHero() {
             <div
               className="relative z-10 mx-auto mt-6 max-w-md rounded-xl border border-sky-400/40 bg-slate-900/85 p-5 shadow-[0_0_32px_rgba(37,99,235,0.15)] backdrop-blur-sm sm:mt-8 md:ml-4"
             >
-              <p className="text-3xl font-black leading-none tracking-tight text-[color:var(--rh-skyblue)] sm:text-4xl">
+              <p className="text-xl font-black leading-snug tracking-tight text-[color:var(--rh-skyblue)] sm:text-3xl md:text-4xl">
                 Flexible Crypto Trading Learning — Anytime, Anywhere
               </p>
               <p className="mt-2 text-sm leading-relaxed text-slate-200 sm:text-base">

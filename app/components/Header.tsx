@@ -1,7 +1,8 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useMemo, useRef, useState } from "react";
+import { usePathname } from "next/navigation";
+import { useEffect, useRef, useState } from "react";
 import { Logo } from "./Logo";
 import { UserMenu } from "./UserMenu";
 import { ToolsMenu } from "./ToolsMenu";
@@ -477,10 +478,8 @@ export function Header() {
   const [mobileMarketOpen, setMobileMarketOpen] = useState(false);
   const [mobileCryptoOpen, setMobileCryptoOpen] = useState(false);
 
-  const activeHref = useMemo(() => {
-    if (typeof window === "undefined") return "";
-    return window.location.pathname;
-  }, []);
+  const pathname = usePathname();
+  const activeHref = pathname ?? "";
 
   useEffect(() => {
     if (!mobileOpen) return;
@@ -491,8 +490,17 @@ export function Header() {
     return () => window.removeEventListener("keydown", onKey);
   }, [mobileOpen]);
 
+  useEffect(() => {
+    if (!mobileOpen) return;
+    document.body.classList.add("rh-mobile-menu-open");
+    return () => document.body.classList.remove("rh-mobile-menu-open");
+  }, [mobileOpen]);
+
   return (
-    <header className="sticky top-0 z-50 w-full border-b border-white/10 bg-[#070b14] shadow-[0_10px_35px_rgba(0,0,0,0.45)]">
+    <header
+      className="sticky top-0 z-50 w-full border-b border-white/10 bg-[#070b14] shadow-[0_10px_35px_rgba(0,0,0,0.45)]"
+      style={{ paddingTop: "env(safe-area-inset-top, 0px)" }}
+    >
       {/* Top info bar (TradeNation-style, compact) */}
       <div className="border-b border-black/10 bg-[#87CEEB]">
         <div className="mx-auto w-full max-w-[1440px] px-4 sm:px-6">
@@ -637,7 +645,14 @@ export function Header() {
             className="fixed inset-0 z-40 bg-black/55"
             onClick={() => setMobileOpen(false)}
           />
-          <div className="fixed right-0 top-[calc(4rem+2.25rem)] z-50 h-[calc(100vh-4rem-2.25rem)] w-[min(92vw,380px)] overflow-y-auto border-l border-white/10 bg-[#070b14]/95 shadow-[0_0_80px_rgba(0,0,0,0.75)] backdrop-blur-md">
+          <div
+            className="fixed right-0 z-50 w-[min(92vw,380px)] overflow-y-auto overscroll-contain border-l border-white/10 bg-[#070b14]/95 shadow-[0_0_80px_rgba(0,0,0,0.75)] backdrop-blur-md"
+            style={{
+              top: "var(--rh-header-offset)",
+              height: "calc(100dvh - var(--rh-header-offset))",
+              paddingBottom: "env(safe-area-inset-bottom, 0px)",
+            }}
+          >
             <div className="p-5">
               <p className="text-xs font-extrabold uppercase tracking-[0.22em] text-slate-400">
                 Menu

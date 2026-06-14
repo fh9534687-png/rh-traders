@@ -424,7 +424,7 @@ export function FuturisticFintechPreviewSection() {
               FINTECH WORKSTATION
             </p>
 
-            <h2 className="mt-5 text-balance text-4xl font-black tracking-tight text-white sm:text-5xl">
+            <h2 className="mt-5 text-balance text-2xl font-black tracking-tight text-white sm:text-4xl md:text-5xl">
               What RH Provides
             </h2>
 

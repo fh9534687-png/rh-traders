@@ -343,6 +343,7 @@ body {
 
 .rh-wrap {
   max-width: 1080px;
+  width: 100%;
   margin-left: auto;
   margin-right: auto;
 }
@@ -599,4 +600,64 @@ body {
   --rh-accent-hover: #60a5fa; /* blue-400 */
   --rh-accent-glow: rgba(37, 99, 235, 0.45);
   --rh-accent-glow-strong: rgba(56, 189, 248, 0.55);
+}
+
+/* ── Mobile / touch polish (structure unchanged) ── */
+:root {
+  --rh-header-offset: 6.75rem;
+}
+
+@media (max-width: 1023px) {
+  :root {
+    --rh-header-offset: 6.25rem;
+  }
+}
+
+@media (max-width: 639px) {
+  html {
+    scroll-padding-top: var(--rh-header-offset);
+  }
+
+  .rh-wrap {
+    max-width: 100%;
+  }
+
+  .rh-dark-data {
+    border-width: 2px;
+    border-radius: 0.875rem;
+  }
+
+  .rh-table-scroll {
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior-x: contain;
+    scrollbar-width: thin;
+  }
+
+  .rh-table-premium {
+    font-size: 0.875rem;
+  }
+
+  .rh-table {
+    border-spacing: 0 8px;
+  }
+
+  .rh-content h3 {
+    font-size: 1.25rem;
+  }
+
+  .rh-card {
+    border-width: 1px;
+  }
+}
+
+@media (pointer: coarse) {
+  .rh-btn-primary,
+  .rh-btn-secondary {
+    min-height: 44px;
+  }
+}
+
+body.rh-mobile-menu-open {
+  overflow: hidden;
+  touch-action: none;
 }

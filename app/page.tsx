@@ -74,7 +74,7 @@ export default function Home() {
               Plans comparison
             </h3>
             <div className="rh-dark-data mt-4 overflow-hidden">
-              <div className="overflow-x-auto">
+              <div className="overflow-x-auto rh-table-scroll">
                 <table
                   className="rh-table rh-table-premium min-w-[520px] w-full text-left text-base"
                   aria-label="Plans comparison"
@@ -196,7 +196,7 @@ export default function Home() {
               Course content
             </h3>
             <div className="rh-dark-data mt-4 overflow-hidden">
-              <div className="overflow-x-auto">
+              <div className="overflow-x-auto rh-table-scroll">
                 <table
                   className="rh-table rh-table-premium min-w-[480px] w-full text-left text-base"
                   aria-label="Course content by module"
@@ -346,7 +346,7 @@ export default function Home() {
             </div>
 
             <div className="rh-dark-data mt-6 overflow-hidden">
-              <div className="overflow-x-auto">
+              <div className="overflow-x-auto rh-table-scroll">
                 <table className="rh-table rh-table-premium min-w-full text-left text-base">
                   <thead>
                     <tr className="text-white">

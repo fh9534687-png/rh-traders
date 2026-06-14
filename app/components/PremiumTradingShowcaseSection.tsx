@@ -91,7 +91,7 @@ export function PremiumTradingShowcaseSection() {
   return (
     <section
       ref={rootRef}
-      className="relative w-full overflow-hidden bg-[#020617] py-14 sm:py-20"
+      className="relative w-full overflow-hidden bg-[#020617] py-10 sm:py-14 md:py-20"
       aria-label="Premium trading platform showcase"
     >
       {/* Base gradients */}
@@ -146,7 +146,7 @@ export function PremiumTradingShowcaseSection() {
             initial={{ opacity: 0, y: 18, scale: 0.98 }}
             animate={inView ? { opacity: 1, y: 0, scale: 1 } : undefined}
             transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
-            className="relative order-2 min-h-[420px] lg:order-1"
+            className="relative order-2 min-h-0 lg:order-1 lg:min-h-[420px]"
           >
             {/* Floating mini-cards around the laptop */}
             <motion.div
@@ -244,20 +244,20 @@ export function PremiumTradingShowcaseSection() {
               <div className="relative overflow-hidden rounded-[2.25rem] border border-sky-400/25 bg-slate-950/35 p-2 shadow-[0_0_0_1px_rgba(56,189,248,0.14),0_0_90px_rgba(59,130,246,0.16),0_50px_90px_-40px_rgba(0,0,0,0.8)] backdrop-blur-md">
                 <div className="relative overflow-hidden rounded-[1.85rem] border border-white/10 bg-[#0b1220]">
                   {/* Top bar */}
-                  <div className="flex items-center justify-between gap-3 border-b border-white/10 bg-slate-950/30 px-5 py-3">
-                    <div className="flex items-center gap-2">
-                      <span className="h-2.5 w-2.5 rounded-full bg-red-500/40" aria-hidden />
-                      <span className="h-2.5 w-2.5 rounded-full bg-amber-500/40" aria-hidden />
-                      <span className="h-2.5 w-2.5 rounded-full bg-emerald-500/40" aria-hidden />
+                  <div className="flex items-center justify-between gap-2 border-b border-white/10 bg-slate-950/30 px-3 py-2.5 sm:gap-3 sm:px-5 sm:py-3">
+                    <div className="flex shrink-0 items-center gap-1.5 sm:gap-2">
+                      <span className="h-2 w-2 rounded-full bg-red-500/40 sm:h-2.5 sm:w-2.5" aria-hidden />
+                      <span className="h-2 w-2 rounded-full bg-amber-500/40 sm:h-2.5 sm:w-2.5" aria-hidden />
+                      <span className="h-2 w-2 rounded-full bg-emerald-500/40 sm:h-2.5 sm:w-2.5" aria-hidden />
                     </div>
-                    <p className="text-xs font-extrabold tracking-[0.22em] text-slate-400">
+                    <p className="min-w-0 truncate text-[10px] font-extrabold tracking-[0.16em] text-slate-400 sm:text-xs sm:tracking-[0.22em]">
                       RH TRADERS • DASHBOARD
                     </p>
-                    <span className="text-xs font-semibold text-slate-500">SIM</span>
+                    <span className="shrink-0 text-[10px] font-semibold text-slate-500 sm:text-xs">SIM</span>
                   </div>
 
                   {/* In-screen content */}
-                  <div className="relative p-5 sm:p-6">
+                  <div className="relative p-4 sm:p-6">
                     <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(700px_420px_at_30%_10%,rgba(59,130,246,0.10),transparent_60%)]" />
                     <div className="relative">
                       <div className="flex flex-wrap items-end justify-between gap-3">
@@ -412,7 +412,7 @@ export function PremiumTradingShowcaseSection() {
               PREMIUM EXPERIENCE
             </p>
 
-            <h2 className="mt-5 text-balance text-3xl font-black tracking-tight text-white sm:text-4xl">
+            <h2 className="mt-5 text-balance text-2xl font-black tracking-tight text-white sm:text-3xl md:text-4xl">
               <span className="relative">
                 <span className="absolute -inset-1 -z-10 rounded-2xl bg-[radial-gradient(280px_120px_at_30%_40%,rgba(59,130,246,0.35),transparent_65%)] blur-xl" />
                 Understanding How Crypto Trading Works

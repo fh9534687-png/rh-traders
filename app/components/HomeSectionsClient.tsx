@@ -61,7 +61,7 @@ export function HomeSectionsClient() {
           <div className="rh-card overflow-hidden rounded-[2.5rem] p-6 shadow-[0_30px_90px_rgba(2,6,23,0.45)] sm:p-10">
             <div className="grid items-stretch gap-12 lg:grid-cols-2">
               <div className="relative flex flex-col">
-                <div className="relative w-full flex-1">
+                <div className="relative min-h-[240px] w-full flex-1 sm:min-h-[320px]">
                   <div className="absolute inset-0 overflow-hidden rounded-3xl">
                     <Image
                       src="/images/welcome/trainer-3.png"
@@ -187,7 +187,7 @@ export function HomeSectionsClient() {
                     <h3 className="text-xl font-black tracking-tight text-white">
                       {p.title}
                     </h3>
-                    <p className="mt-3 min-h-[96px] text-base leading-8 text-slate-200">
+                    <p className="mt-3 min-h-0 text-base leading-8 text-slate-200 sm:min-h-[96px]">
                       {p.desc}
                     </p>
                     <span className="mt-auto inline-flex items-center gap-2 pt-5 text-sm font-semibold text-white/90 transition group-hover:text-sky-300">
